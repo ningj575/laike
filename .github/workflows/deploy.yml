@@ -30,5 +30,5 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            chown -R www:www /www/wwwroot/golf_game/master
-            chmod -R 755 /www/wwwroot/golf_game/master            
+            chown -R www:www /www/wwwroot/laike
+            chmod -R 755 /www/wwwroot/laike            
