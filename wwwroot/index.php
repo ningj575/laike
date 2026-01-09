@@ -58,7 +58,7 @@ function retSite() {
             }
         }
     } catch (\Exception $ex) {
-        return 'home'; //默认访问前台模板
+        return 'admin'; //默认访问前台模板
     }
-    return 'home';
+    return 'admin';
 }
