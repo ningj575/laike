@@ -2,7 +2,7 @@ name: Deploy PHP to CentOS
 
 on:
   push:
-    branches: [ master ]  # 仅在 master 分支触发
+    branches: [ main ]  # 仅在 main 分支触发
 
 jobs:
   deploy:
