@@ -1,0 +1,34 @@
+name: Deploy PHP to CentOS
+
+on:
+  push:
+    branches: [ master ]  # 仅在 master 分支触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 通过 SSH 传输代码到服务器
+      - name: Deploy via SSH
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./"
+          target: "/www/wwwroot/laike"
+          rm: false  # 删除目标旧文件
+          overwrite: true   
+      - name: Change Permission
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            chown -R www:www /www/wwwroot/golf_game/master
+            chmod -R 755 /www/wwwroot/golf_game/master            
