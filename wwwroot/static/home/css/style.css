@@ -1,0 +1,1463 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+html {
+    font-size: 24px;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    max-width: 750px;
+    margin: auto;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    width: 100%;
+    /*margin: revert-layer;*/
+    max-width: 750px;
+    padding: 0px;
+    margin: 0px;
+}
+
+audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    border: 0 none;
+    vertical-align: bottom
+}
+
+li {
+    list-style: none
+}
+
+svg:not(:root) {
+    overflow: hidden
+}
+
+a {
+    text-decoration: none
+}
+
+a, img, button, input[type='button'], input[type='submit'], input[type='reset'] {
+    outline: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+}
+
+input:-ms-clear {
+    display: none
+}
+
+input[type='search']::-webkit-search-cancel-button {
+    display: none
+}
+
+input, textarea {
+    -webkit-user-modify: read-write-plaintext-only;
+    -webkit-appearance: none;
+    outline: none
+}
+
+button, input, textarea {
+    border: 0 none
+}
+
+body, button, input, textarea, select, option, pre, optgroup {
+    line-height: 1.5;
+    font-family: "Microsoft YaHei", "微软雅黑", Helvetica, Arial;
+    color: #333;
+    font-size: 0.6rem
+}
+
+.f-cb:after, .f-cb li:after {
+    content: '';
+    display: table;
+    clear: both
+}
+
+.f-wsn {
+    word-wrap: normal;
+    white-space: nowrap
+}
+
+.f-wwb {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all
+}
+
+.f-toe {
+    overflow: hidden;
+    word-wrap: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.f-ma {
+    margin-left: auto;
+    margin-right: auto
+}
+
+.f-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.m-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    background-color: transparent
+}
+
+.m-alert .text {
+    width: 11rem;
+    padding: 1.25rem 0.75rem;
+    text-align: center;
+    line-height: 1.4rem;
+    font-size: 0.8rem;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 0.25rem
+}
+
+.m-alert.fx-fadeIn, .m-alert.fx-fadeOut {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: ease;
+    animation-fill-mode: ease
+}
+
+[class*='fx-'] {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both
+}
+
+.fx-bug {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible
+}
+
+.fx-gpu, .m-lottery-tiger .game .item .roller {
+    -webkit-transform: "translateZ(0)";
+    transform: "translateZ(0)";
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px
+}
+
+.fx-infinite {
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite
+}
+
+.fx-fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+.fx-fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1
+    }
+    100% {
+        opacity: 0
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1
+    }
+    100% {
+        opacity: 0
+    }
+}
+
+/*@media screen and (min-width: 320px) {*/
+/*    html {*/
+/*        font-size: 20px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 360px) {*/
+/*    html {*/
+/*        font-size: 22.5px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 375px) {*/
+/*    html {*/
+/*        font-size: 23.4375px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 384px) {*/
+/*    html {*/
+/*        font-size: 24px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 400px) {*/
+/*    html {*/
+/*        font-size: 25px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 412px) {*/
+/*    html {*/
+/*        font-size: 25.75px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 414px) {*/
+/*    html {*/
+/*        font-size: 25.875px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 533px) {*/
+/*    html {*/
+/*        font-size: 33.3125px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 600px) {*/
+/*    html {*/
+/*        font-size: 37.5px*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 768px) {*/
+/*    html {*/
+/*        font-size: 48px*/
+/*    }*/
+/*}*/
+
+.m-ui-dial {
+    position: relative;
+    width: 499px;
+    height: 499px;
+    margin: 0 auto;
+    background: url("../image/dial_bg.png") no-repeat center;
+    background-size: 100%
+}
+
+.m-ui-dial .pointer {
+    margin-top: -139px !important;
+    background: url("../image/dial_pointer.png") no-repeat center;
+    background-size: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 150px;
+    height: 238px;
+    margin: -119px 0 0 -75px;
+    -webkit-transform-origin: 75px 139px;
+    transform-origin: 75px 139px
+}
+
+.m-ui-dial .btn {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 75px
+}
+
+.m-ui-scratch {
+    display: block;
+    width: 300px;
+    height: 172.5px;
+    margin: 20px auto;
+    background: no-repeat center;
+    background-size: 100%
+}
+
+.m-ui-button {
+    display: block;
+    width: 160px;
+    height: 32px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 32px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #f94804;
+    cursor: pointer;
+    border-radius: 5px
+}
+
+.m-ui-tiger {
+    /*top: 11.075rem;*/
+    /*position: relative;*/
+    display: flex;
+    height: 18.65rem;
+    background: url(../image/tiger_bg.png) no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+
+.m-ui-tiger .item-box {
+    position: relative;
+    top: 8.7rem;
+    left: 20%;
+    display: block;
+    width: 18%;
+    height: 4.7rem;
+    background: url("../image/prize_bg.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.m-ui-tiger .item {
+    width: 79%;
+    height: 4.65rem;
+    margin-top: 0.4rem;
+    overflow: hidden;
+    margin-left: 10%;
+}
+
+.m-ui-tiger .item-box:nth-child(2) {
+    left: 22.8%
+}
+
+.m-ui-tiger .item-box:nth-child(3) {
+    left: 25%
+}
+
+.m-ui-tiger .roller {
+    position: relative;
+    width: 100%;
+}
+
+.m-ui-tiger .roller li {
+    width: 100%;
+    height: 4.75rem;
+    overflow: hidden
+}
+
+.m-ui-tiger .roller li:last-child {
+    position: absolute;
+    top: 100%;
+    left: 0
+}
+
+.m-ui-tiger .roller img {
+    display: block;
+    width: 100%;
+    height: 4.75rem;
+}
+
+.m-ui-tiger .roller.fx-roll {
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+    -webkit-animation: fx-roll 0.5s 0s infinite linear;
+    animation: fx-roll 0.5s 0s infinite linear
+}
+
+.m-ui-tiger .roller.fx-bounce {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s
+}
+
+.m-lottery-scratch {
+    position: relative;
+    width: 16rem;
+    min-height: 100%;
+    margin: 0 auto;
+    padding-top: 9rem;
+    background: url("../images/scratch_page_bg.jpg") no-repeat #ff5e01;
+    background-size: 100% auto
+}
+
+.m-lottery-scratch .game {
+    position: relative;
+    display: block;
+    width: 10rem;
+    margin: 0 auto;
+    height: 4.75rem;
+}
+
+.m-lottery-scratch .game canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%
+}
+
+.m-lottery-scratch .game button {
+    display: block;
+    width: 5rem;
+    height: 1.5rem;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.4rem;
+    font-size: 0.7rem;
+    color: #fff;
+    background-color: #ff5e01;
+    border: 0 none;
+    cursor: pointer;
+    border-radius: 0.3rem
+}
+
+.m-lottery-scratch .game button.z-dis {
+    background-color: #bcbcbc
+}
+
+.m-lottery-scratch .game .ceiling {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100%;
+    height: 4rem;
+    padding: 0.5rem 0 1.25rem;
+    background: url("../images/scratch_ceiling.jpg") no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden
+}
+
+.m-lottery-scratch .game .ceiling .tip {
+    display: block;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #ff5e01;
+    overflow: hidden
+}
+
+.m-lottery-scratch .des {
+    margin-top: 2.35rem;
+    padding: 0 1.1rem 0.5rem;
+    line-height: 1.15rem;
+    font-size: 0.6rem;
+    color: #fff
+}
+
+.m-lottery-scratch .des dt {
+    line-height: 1.2rem;
+    font-size: 0.7rem;
+    font-weight: 700
+}
+
+.m-lottery-dial {
+    position: relative;
+    width: 16rem;
+    min-height: 100%;
+    margin: 0 auto;
+    padding-top: 7rem;
+    background: url("../images/dial_page_bg.jpg") no-repeat #f94804;
+    background-size: 100% auto
+}
+
+.m-lottery-dial .game-dial {
+    position: relative;
+    width: 12.5rem;
+    height: 12.5rem;
+    margin: 0 auto
+}
+
+.m-lottery-dial .game-dial .dial {
+    width: 100%;
+    height: 100%;
+    background-size: 100% auto
+}
+
+.m-lottery-dial .game-dial .pointer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3.75rem;
+    height: 5.95rem;
+    margin: -3.4rem 0 0 -1.875rem;
+    background-size: 100% auto;
+    -webkit-transform-origin: 1.875rem 3.4rem;
+    transform-origin: 1.875rem 3.4rem
+}
+
+.m-lottery-dial .game-dial .pointer span {
+    position: absolute;
+    top: 1.6rem;
+    left: 0;
+    display: block;
+    width: 3.75rem;
+    height: 3.75rem;
+    cursor: pointer
+}
+
+.m-lottery-dial .des {
+    margin-top: 4.2rem;
+    padding: 0 1.1rem 0.5rem;
+    line-height: 1.15rem;
+    font-size: 0.6rem;
+    color: #fff
+}
+
+.m-lottery-dial .des dt {
+    line-height: 1.2rem;
+    font-size: 0.7rem;
+    font-weight: 700
+}
+
+.m-lottery-tiger {
+    position: relative;
+    width: 16rem;
+    min-height: 100%;
+    margin: 0 auto;
+    padding-top: 5.5rem;
+    background: url("../images/tiger_page_bg.jpg") no-repeat #ffeec6;
+    background-size: 100% auto
+}
+
+.m-lottery-tiger .game {
+    position: relative
+}
+
+.m-lottery-tiger .game .back {
+    width: 16rem;
+    height: 10.8rem;
+    background-size: 100%;
+    background-repeat: no-repeat
+}
+
+.m-lottery-tiger .game .item {
+    position: absolute;
+    top: 1.925rem;
+    width: 2.75rem;
+    height: 3.375rem;
+    overflow: hidden
+}
+
+.m-lottery-tiger .game .item:nth-child(1) {
+    left: 3.475rem
+}
+
+.m-lottery-tiger .game .item:nth-child(2) {
+    left: 6.625rem
+}
+
+.m-lottery-tiger .game .item:nth-child(3) {
+    left: 9.775rem
+}
+
+.m-lottery-tiger .game .item .roller {
+    position: relative
+}
+
+.m-lottery-tiger .game .item .roller li.z-last {
+    position: absolute;
+    top: 100%;
+    left: 0
+}
+
+.m-lottery-tiger .game .item .roller.fx-bounce {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s
+}
+
+.m-lottery-tiger .game .item .roller.fx-roll {
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+    -webkit-animation: fx-roll 0.3s 0s infinite linear;
+    animation: fx-roll 0.3s 0s infinite linear
+}
+
+.m-lottery-tiger .game .item img {
+    display: block;
+    width: 2.75rem;
+    height: 3.375rem
+}
+
+.m-lottery-tiger .game .btn {
+    position: absolute;
+    left: 50%;
+    top: 7.65rem;
+    width: 10.1rem;
+    height: 1.25rem;
+    margin-left: -5.05rem;
+    background-size: 100%;
+    background-repeat: no-repeat
+}
+
+.m-lottery-tiger .game .btn span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer
+}
+
+.m-lottery-tiger .des {
+    padding: 0 1.1rem 0.5rem;
+    line-height: 1.15rem;
+    font-size: 0.6rem;
+    color: #b26722
+}
+
+.m-lottery-tiger .des dt {
+    line-height: 1.2rem;
+    font-size: 0.7rem;
+    font-weight: 700
+}
+
+@-webkit-keyframes fx-roll {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)
+    }
+    100% {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0)
+    }
+}
+
+@keyframes fx-roll {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)
+    }
+    100% {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0)
+    }
+}
+
+.fx-bounce {
+    -webkit-animation-name: bounce;
+    animation-name: bounce;
+    -webkit-transform-origin: center bottom;
+    transform-origin: center bottom
+}
+
+@-webkit-keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)
+    }
+    40%, 43% {
+        -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        -webkit-transform: translate3d(0, -30px, 0);
+        transform: translate3d(0, -30px, 0)
+    }
+    70% {
+        -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        -webkit-transform: translate3d(0, -15px, 0);
+        transform: translate3d(0, -15px, 0)
+    }
+    90% {
+        -webkit-transform: translate3d(0, -4px, 0);
+        transform: translate3d(0, -4px, 0)
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0)
+    }
+    40%, 43% {
+        -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        -webkit-transform: translate3d(0, -30px, 0);
+        transform: translate3d(0, -30px, 0)
+    }
+    70% {
+        -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+        -webkit-transform: translate3d(0, -15px, 0);
+        transform: translate3d(0, -15px, 0)
+    }
+    90% {
+        -webkit-transform: translate3d(0, -4px, 0);
+        transform: translate3d(0, -4px, 0)
+    }
+}
+
+body {
+    background: url("../image/bg.png") no-repeat #1d002d;
+    background-size: 100% 100%;
+    /*background: url("../image/bg.gif") repeat #222226;*/
+}
+
+.main-box {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    max-width: 750px;
+    margin-bottom: 1rem;
+}
+
+.logo {
+    text-align: center;
+    margin-top: 1.08rem;
+}
+
+.logo img {
+    width: 27%;
+    height: 0.9rem;
+}
+
+.winner-swiper-container {
+    background: #0a0a0a;
+    margin-top: 7.2rem;
+    height: 2rem;
+    width: 83%;
+    margin-left: 7.5%;
+    border-radius: 1rem;
+    line-height: 2rem;
+    font-size: 0.6rem;
+    color: #ffffff;
+    /*padding-left: 0.75rem;*/
+    overflow: hidden;
+    text-align: center;
+}
+@media screen and (min-width: 450px) {
+    .winner-swiper-container {
+        margin-top: 8.2rem;
+    }
+}
+@media screen and (max-width: 385px) {
+    .winner-swiper-container {
+        margin-top: 5.2rem;
+    }
+}
+
+
+.winner-swiper-container swiper-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff; /* 或者其他颜色 */
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.winner-list li {
+    list-style: none;
+    height: 100%;
+    padding-right: 20px;
+}
+
+.prize-button-list {
+    width: 100%;
+    /*position: absolute;*/
+    height: 1.5rem;
+    /*top: 28.2rem;*/
+    display: flex;
+    line-height: 1.5rem;
+    margin-top: -4.7rem;
+}
+
+.rule-toggle {
+    width: 25%;
+    height: 100%;
+    text-align: right;
+}
+
+.rule-toggle img {
+    width: 2.3rem;
+    height: 1.175rem;
+}
+
+.gifts-toggle {
+    margin-left: 0.5rem;
+    width: 20%;
+    height: 100%;
+}
+
+.gifts-toggle img {
+    width: 2.3rem;
+    height: 1.175rem;
+}
+
+.game-times-text {
+    color: #FBD182;
+    width: 25%;
+    text-align: right;
+    line-height: 1.9rem;
+}
+
+.game-times-text a {
+    color: #FBD182;
+    text-decoration: underline;
+    font-size: 0.6rem;
+}
+
+.play-toggle {
+    width: 30%;
+    text-align: left;
+    padding-left: 0.7rem;
+    height: 100%;
+}
+
+.play-toggle img {
+    width: 3.625rem;
+    height: 1.5rem;
+}
+
+.share-botton {
+    /*position: relative;*/
+    /*top: 19.9rem;*/
+    background: url("../image/share_bg.png") no-repeat;
+    background-size: 100% 100%;
+    height: 2.925rem;
+    width: 90%;
+    margin-left: 5%;
+    text-align: center;
+    line-height: 2.925rem;
+    color: #fff;
+    font-size: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.share-botton::before {
+    content: "";
+    display: inline-block;
+    background-image: url("../image/share.png");
+    margin-right: 10px;
+    width: 1rem;
+    height: 1rem;
+    background-size: 100% 100%;
+    vertical-align: -0.2em;
+}
+
+.share-tip-box {
+    color: #ECD2AB;
+    font-size: 0.6rem;
+    padding: 0 8%;
+    background: #1d002d;
+}
+
+.prize-list {
+    height: 8.5rem;
+    background: #1d002d;
+    padding-top: 1rem;
+}
+
+.prize-list-box {
+    background: url("../image/prize-bg.png") no-repeat;
+    height: 7.5rem;
+    background-size: 100% 100%;
+    width: 92%;
+    margin-left: 4%;
+    transform: translate(0%, 0%);
+    /* 弹性布局 居中显示 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prize-marquee-box {
+    height: 6.55rem;
+    overflow: hidden;
+    position: relative;
+    /*top: 0.445rem;*/
+    margin: 0 0.45rem;
+    white-space: nowrap;
+}
+
+.prize-marquee-box ul {
+    display: flex;
+    height: 6.55rem;
+    /*width: fit-content;*/
+    width: 40rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.prize-marquee-box ul li {
+    float: left;
+    list-style: none;
+    width: 4rem;
+    height: 6.55rem;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.prize-marquee-box ul li img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    /* 图片定位正中间 */
+    object-position: center;
+}
+
+@media screen and (min-width: 450px) {
+    .prize-marquee-box {
+        margin: 0 0.75rem;
+    }
+}
+
+@keyframes move {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-100%);
+    }
+    /* 移动到末尾 */
+    100% {
+        transform: translateX(-200%);
+    }
+    /* 再次移动到开头，无缝连接 */
+}
+
+.win-lottery-modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保在最上层 */
+    max-width: 750px;
+
+}
+
+/* 弹窗内容样式 */
+.win-lottery-modal .modal-content {
+    padding: 0.925rem;
+    border-radius: 0.75rem;
+    width: 76%; /* 可以根据需要调整宽度 */
+    position: relative; /* 为关闭按钮定位 */
+    background: linear-gradient(-20deg, rgba(228, 238, 255, 0.9), rgba(241, 232, 236, 0.9));
+    height: 21.5rem;
+}
+
+.win-lottery-modal .modal-content .title {
+    text-align: center;
+    height: 0.95rem;
+    font-family: PingFang SC;
+    font-weight: 800;
+    font-size: 1rem;
+    color: #270052;
+    font-style: italic;
+    line-height: 0.95rem;
+    margin-top: 0.575rem;
+}
+
+.win-lottery-modal .modal-content .title-two {
+    text-align: center;
+    height: 0.725rem;
+    font-family: PingFang SC;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #270052;
+    font-style: italic;
+    line-height: 0.725rem;
+    margin-top: 0.575rem;
+}
+
+.win-lottery-modal .modal-content .prize-box {
+    width: 100%;
+    height: 9.75rem;
+    background: linear-gradient(-20deg, rgba(232, 248, 246, 0.9), rgba(250, 234, 250, 0.9));
+    border-radius: 0.5rem;
+    margin-top: 1.1rem;
+    text-align: center;
+}
+
+.win-lottery-modal .modal-content .prize-box img {
+    margin-top: 1.375rem;
+    width: 8.575rem;
+    height: 5.9rem;
+}
+
+.win-lottery-modal .modal-content .coupon-code {
+    width: 100%;
+    height: 0.625rem;
+    font-family: PingFang SC;
+    font-weight: 500;
+    font-size: 0.6rem;
+    color: #232323;
+    line-height: 0.625rem;
+    margin-top: 0.8rem;
+}
+
+.win-lottery-modal .modal-content .email-box {
+    width: 100%;
+    height: 1.75rem;
+    background: #EFEFEF;
+    border-radius: 0.875rem;
+    border: 1px solid #545454;
+    margin-top: 1.1rem;
+}
+
+.win-lottery-modal .modal-content .email-box input {
+    line-height: 6.5rem;
+    height: 98%;
+    background: bottom;
+    width: 100%;
+    padding: 0 0.6rem;
+}
+
+.win-lottery-modal .modal-content .botton-box {
+    width: 100%;
+    height: 1.65rem;
+    text-align: center;
+    margin-top: 0.975rem;
+}
+
+.win-lottery-modal .modal-content .botton-box button {
+    width: 80%;
+    height: 1.65rem;
+    background: linear-gradient(-20deg, rgba(225, 175, 204, 0.9), rgba(117, 48, 227, 0.9));
+    border-radius: 0.825rem;
+    font-family: PingFang SC;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #FFFFFF;
+    line-height: 1.65rem;
+}
+
+/* 关闭按钮样式 */
+.win-lottery-modal .close-btn {
+    position: absolute;
+    top: 32rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    cursor: pointer;
+    background: url("../image/close.png") no-repeat;
+    background-size: cover;
+}
+
+.no-win-lottery-modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保在最上层 */
+    max-width: 750px;
+
+/* 弹窗内容样式 */
+.modal-content {
+    padding: 0.925rem;
+    border-radius: 0.75rem;
+    width: 76%; /* 可以根据需要调整宽度 */
+    position: relative; /* 为关闭按钮定位 */
+    background: linear-gradient(-20deg, rgba(228, 238, 255, 0.9), rgba(241, 232, 236, 0.9));
+    height: 16rem;
+}
+
+.title {
+    text-align: center;
+    height: 0.925rem;
+    font-family: PingFang SC;
+    font-weight: 800;
+    font-size: 1rem;
+    color: #270052;
+    font-style: italic;
+    line-height: 0.925rem;
+    margin-top: 0.575rem;
+}
+
+.title-two {
+    text-align: center;
+    height: 0.725rem;
+    font-family: PingFang SC;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #402365;
+    font-style: italic;
+    line-height: 0.725rem;
+    margin-top: 0.6rem;
+}
+
+.prize-box {
+    width: 100%;
+    height: 5.425rem;
+    margin-top: 1.825rem;
+    text-align: center;
+}
+
+.prize-box img {
+    width: 7.025rem;
+    height: 5.425rem;
+}
+
+.title-three {
+    width: 100%;
+    height: 0.575rem;
+    font-family: PingFang SC;
+    font-weight: 500;
+    font-size: 0.6rem;
+    color: #232323;
+    line-height: 0.575rem;
+    text-align: center;
+    margin-top: 2.125rem;
+}
+
+.botton-box {
+    width: 100%;
+    height: 1.65rem;
+    text-align: center;
+    margin-top: 0.975rem;
+}
+
+.botton-box button {
+    width: 80%;
+    height: 1.65rem;
+    background: linear-gradient(-20deg, rgba(225, 175, 204, 0.9), rgba(117, 48, 227, 0.9));
+    border-radius: 0.825rem;
+    font-family: PingFang SC;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #FFFFFF;
+    line-height: 1.65rem;
+}
+
+/* 关闭按钮样式 */
+.close-btn {
+    position: absolute;
+    top: 30rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    cursor: pointer;
+    background: url("../image/close.png") no-repeat;
+    background-size: cover;
+}
+
+}
+
+
+.rule-lottery-modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保在最上层 */
+    max-width: 750px;
+
+/* 弹窗内容样式 */
+.modal-content {
+    padding: 0.925rem;
+    border-radius: 0.75rem;
+    width: 76%; /* 可以根据需要调整宽度 */
+    position: relative; /* 为关闭按钮定位 */
+    background: linear-gradient(-20deg, rgba(228, 238, 255, 0.9), rgba(241, 232, 236, 0.9));
+    height: 20rem;
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    height: 1.35rem;
+    width: 7.4rem;
+    margin: auto;
+    font-family: PingFang SC;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    font-style: italic;
+    line-height: 1.35rem;
+    margin-top: 0.125rem;
+    background: url("../image/rule_title_bg.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.rule-content {
+    margin-top: 1.825rem;
+    text-align: left;
+    width: 100%;
+    height: 13.975rem;
+    font-family: PingFang SC;
+    font-weight: 500;
+    font-size: 0.6rem;
+    color: #000000;
+    line-height: 1.075rem;
+    overflow-y: scroll;
+}
+
+
+
+/* 关闭按钮样式 */
+.close-btn {
+    position: absolute;
+    top: 32rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    cursor: pointer;
+    background: url("../image/close.png") no-repeat;
+    background-size: cover;
+}
+
+}
+
+/* 为整个文档或特定元素添加自定义滚动条样式 */
+::-webkit-scrollbar {
+    width: 0.15rem; /* 滚动条的宽度 */
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    background: rgb(232 248 246 / 0%);/* 滚动条轨道的背景颜色 */
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    background: rgb(0 0 0 / 33%); /* 滚动条滑块的颜色 */
+    border-radius: 0.075rem; /* 滑块的圆角 */
+}
+
+/* 滑块在鼠标悬停时的颜色 */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+
+.gift-lottery-modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保在最上层 */
+    max-width: 750px;
+
+    /* 弹窗内容样式 */
+    .modal-content {
+        padding: 0.925rem;
+        border-radius: 0.75rem;
+        width: 76%; /* 可以根据需要调整宽度 */
+        position: relative; /* 为关闭按钮定位 */
+        background: linear-gradient(-20deg, rgba(228,238,255,0.9), rgba(241,232,236,0.9));
+        height: 20rem;
+        text-align: center;
+    }
+
+    .title {
+        text-align: center;
+        height: 1.35rem;
+        width: 7.4rem;
+        margin: auto;
+        font-family: PingFang SC;
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: #FFFFFF;
+        font-style: italic;
+        line-height: 1.35rem;
+        margin-top: 0.125rem;
+        background: url("../image/rule_title_bg.png") no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .gift-list {
+        margin-top: 1.825rem;
+        text-align: center;
+        width: 100%;
+        height: 13.975rem;
+        font-family: PingFang SC;
+        font-weight: 500;
+        font-size: 0.6rem;
+        color: #000000;
+        line-height: 1.075rem;
+        overflow-y: scroll;
+    }
+    .gift-item{
+        height: 2.45rem;
+        padding: 0.825rem 0;
+        display: flex;
+        border-bottom: 1px solid #BFBFBF;
+        align-items: center;
+    }
+    .gift-img{
+        width: 3.275rem;
+        height: 100%;
+        text-align: center;
+    }
+    .gift-img img{
+        height: 100%;
+    }
+    .gift-view{
+        width: 3rem;
+        height: 100%;
+    }
+    .gift-view{
+        width: 3rem;
+        height: 1.1rem;
+        background: #000000;
+        border-radius: 0.55rem;
+        font-family: PingFang SC;
+        font-weight: 500;
+        font-size: 0.45rem;
+        color: #FFFFFF;
+        line-height: 1.1rem;
+        margin-left: auto;
+    }
+    .gift-text{
+        width: 100%;
+        height: 100%;
+        text-align: left;
+        padding-left: 0.6rem;
+    }
+
+    .gift-text .gift-title{
+        height: 2rem;
+        font-family: PingFang SC;
+        font-weight: bold;
+        font-size: 0.6rem;
+        color: #232323;
+        line-height: 0.6rem;
+    }
+    .gift-text .gift-date{
+        height: 0.5rem;
+        font-family: PingFang SC;
+        font-weight: 500;
+        font-size: 0.6rem;
+        color: #909090;
+        line-height: 0.5rem;
+    }
+
+    /* 关闭按钮样式 */
+    .close-btn {
+        position: absolute;
+        top: 32rem;
+        width: 1.3rem;
+        height: 1.3rem;
+        cursor: pointer;
+        background: url("../image/close.png") no-repeat;
+        background-size: cover;
+    }
+
+}
+
+.share-modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明背景 */
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    z-index: 1000; /* 确保在最上层 */
+    max-width: 750px;
+
+    /* 弹窗内容样式 */
+    .modal-content {
+        padding: 0.925rem;
+        border-radius: 0.75rem 0.75rem 0 0;
+        width: 100%; /* 可以根据需要调整宽度 */
+        position: relative; /* 为关闭按钮定位 */
+        background: linear-gradient(-20deg, rgba(228,238,255,0.9), rgba(241,232,236,0.9));
+        height: 4rem;
+        text-align: center;
+    }
+
+    .share-platform-ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .share-platform-ul li {
+        float: left;
+        margin-right: 10px;
+        width: 25%;
+    }
+    .share-platform-ul li img{
+        border: 1px solid #c3c6cb;
+        border-radius: 0.2rem;
+        width: 2rem;
+        height: 2rem;
+    }
+    .share-platform-ul li .text{
+        margin-top: 0.5rem;
+        color: #000;
+    }
+
+
+}

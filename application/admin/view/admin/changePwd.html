@@ -1,0 +1,75 @@
+{include file="public/header" /}
+<body>
+    <style>
+        .layui-form-label{
+            width: 120px;
+        }
+        .layui-form-item .layui-input-inline{
+            width:220px;
+        }
+    </style>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <!--<div class="layui-card-header">修改密码</div>-->
+                    <div class="layui-card-body" pad15>
+
+                        <div class="layui-form" lay-filter="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">{:lang('current_password')}</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="oldpassword" lay-verify="required" lay-verType="tips" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">{:lang('new_password')}</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="password" lay-verify="pass" lay-verType="tips" autocomplete="off" id="LAY_password" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">{:lang('characters')}</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">{:lang('confirm_new_password')}</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="repassword" lay-verify="repass" lay-verType="tips" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <!--                            <div class="layui-form-item">
+                                                            <div class="layui-input-block">
+                                                                <button class="layui-btn" lay-submit lay-filter="setmypass">确认修改</button>
+                                                            </div>
+                                                        </div>-->
+
+                            <div class="layui-form-item layui-hide">
+                                <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form'], function () {
+            var $ = layui.$;
+            var n = layui.form;
+            var e = layui.layer;
+            n.verify({
+                pass: [/^[\S]{6,12}$/, "{:lang('password_msg')}"], repass: function (t) {
+                    if (t !== $("#LAY_password").val())
+                        return"{:lang('two_passwords')}"
+                }})
+        })
+
+
+    </script>
+</body>
+</html>

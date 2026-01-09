@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>结算单模板</title>
+    <style>
+        /* A4尺寸设置 */
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+        
+        body {
+            margin: 0;
+            padding: 15mm;
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        
+        .a4-container {
+            width: 297mm;
+            height: 210mm;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 20mm;
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        /* 头部样式 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .company-info h1 {
+            color: #2c5aa0;
+            margin: 0 0 5px 0;
+            font-size: 28px;
+        }
+        
+        .company-info p {
+            margin: 2px 0;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .document-title {
+            text-align: right;
+        }
+        
+        .document-title h2 {
+            margin: 0;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .document-title .document-no {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        /* 基本信息区域 */
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .info-block {
+            flex: 1;
+            min-width: 45%;
+            margin-bottom: 15px;
+        }
+        
+        .info-block h3 {
+            color: #2c5aa0;
+            font-size: 16px;
+            margin: 0 0 8px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 6px;
+        }
+        
+        .info-label {
+            width: 100px;
+            font-weight: bold;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .info-content {
+            flex: 1;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        /* 商品表格区域 */
+        .table-section {
+            margin: 25px 0;
+        }
+        
+        .table-section h3 {
+            color: #2c5aa0;
+            font-size: 16px;
+            margin: 0 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        th {
+            background-color: #f0f5ff;
+            color: #2c5aa0;
+            font-weight: bold;
+            padding: 12px 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .text-right {
+            text-align: right;
+        }
+        
+        /* 金额汇总区域 */
+        .amount-section {
+            display: flex;
+            justify-content: flex-end;
+            margin: 20px 0 30px 0;
+        }
+        
+        .amount-box {
+            width: 300px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        .total-row {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d32f2f;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+            margin-top: 5px;
+        }
+        
+        /* 银行信息区域 */
+        .bank-section {
+            border: 2px solid #2c5aa0;
+            padding: 15px;
+            background-color: #f0f5ff;
+            margin-top: 25px;
+        }
+        
+        .bank-section h3 {
+            color: #2c5aa0;
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .bank-section h3:before {
+            content: "💳";
+            margin-right: 8px;
+            font-size: 20px;
+        }
+        
+        .bank-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+        
+        .bank-item {
+            display: flex;
+        }
+        
+        .bank-label {
+            width: 100px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .bank-content {
+            flex: 1;
+            color: #222;
+            font-size: 14px;
+        }
+        
+        /* 底部区域 */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .signature-area {
+            min-width: 200px;
+        }
+        
+        /* 打印优化 */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .a4-container {
+                box-shadow: none;
+                padding: 15mm;
+                width: 100%;
+                height: 100%;
+            }
+            
+            .no-print {
+                display: none;
+            }
+        }
+        
+        /* 操作按钮 */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .btn {
+            background-color: #2c5aa0;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-left: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background-color: #1d3f7a;
+        }
+        
+        .btn-print {
+            background-color: #28a745;
+        }
+        
+        .btn-print:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls no-print">
+        <button class="btn" onclick="fillSampleData()">填充示例数据</button>
+        <button class="btn btn-print" onclick="window.print()">打印结算单</button>
+    </div>
+    
+    <div class="a4-container">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="company-info">
+                <h1>厦门星路网络科技有限公司</h1>
+                <p>地址：福建省厦门市湖里区东宅里3号</p>
+                <p>联系人：刘女士</p>
+                <p>电话：15960296796</p>
+                <!--<p>微信：WLMYANLGJ</p>-->
+            </div>
+            <div class="document-title">
+                <h2>费用结算单</h2>
+                <div class="document-no">单据编号：<span id="invoiceNo">INV-2023-00128</span></div>
+            </div>
+        </div>
+        
+        <!-- 基本信息 -->
+        <div class="info-section">
+            <div class="info-block">
+                <h3>客户信息</h3>
+                <div class="info-row">
+                    <div class="info-label">客户名称：</div>
+                    <div class="info-content" id="clientName">[客户公司/个人名称]</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">联系人：</div>
+                    <div class="info-content" id="contactPerson">[联系人姓名]</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">联系电话：</div>
+                    <div class="info-content" id="contactPhone">[联系电话]</div>
+                </div>
+<!--                <div class="info-row">
+                    <div class="info-label">微信：</div>
+                    <div class="info-content" id="clientAddress">[客户地址]</div>
+                </div>-->
+            </div>
+            
+            <div class="info-block">
+                <h3>结算信息</h3>
+                <div class="info-row">
+                    <div class="info-label">结算日期：</div>
+                    <div class="info-content" id="invoiceDate">[年-月-日]</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">付款期限：</div>
+                    <div class="info-content" id="dueDate">[年-月-日]</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">结算方式：</div>
+                    <div class="info-content" id="paymentMethod">银行转账</div>
+                </div>
+<!--                <div class="info-row">
+                    <div class="info-label">业务经理：</div>
+                    <div class="info-content" id="salesPerson">[您的姓名]</div>
+                </div>-->
+            </div>
+        </div>
+        
+        <!-- 商品/服务表格 -->
+        <div class="table-section">
+            <h3>商品/服务清单</h3>
+            <table id="itemsTable">
+                <thead>
+                    <tr>
+                        <th width="5%">序号</th>
+                        <th width="40%">商品名称 / 服务项目</th>
+                        <th width="15%">规格型号(cm)</th>
+                        <th width="10%">单位</th>
+                        <th width="10%">数量</th>
+                        <th width="10%">单价(元)</th>
+                        <th width="10%">金额(元)</th>
+                    </tr>
+                </thead>
+                <tbody id="itemsBody">
+                    <!-- 数据将通过JS动态生成 -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 金额汇总 -->
+        <div class="amount-section">
+            <div class="amount-box">
+                <div class="amount-row">
+                    <span>小计：</span>
+                    <span id="subtotal">0.00</span>
+                </div>
+                <div class="amount-row">
+                    <span>税额：</span>
+                    <span id="taxAmount">0.00</span>
+                </div>
+                <div class="amount-row">
+                    <span>优惠/折扣：</span>
+                    <span id="discount">0.00</span>
+                </div>
+                <div class="amount-row total-row">
+                    <span>应付总金额：</span>
+                    <span id="totalAmount">0.00</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 银行信息 -->
+        <div class="bank-section">
+            <h3>收款银行信息</h3>
+            <div class="bank-info">
+                <div class="bank-item">
+                    <div class="bank-label">开户名称：</div>
+                    <div class="bank-content" id="accountName">[您的公司银行账户名称]</div>
+                </div>
+                <div class="bank-item">
+                    <div class="bank-label">开户银行：</div>
+                    <div class="bank-content" id="bankName">[您的开户银行名称]</div>
+                </div>
+                <div class="bank-item">
+                    <div class="bank-label">银行账号：</div>
+                    <div class="bank-content" id="accountNumber">[您的银行账号]</div>
+                </div>
+                <div class="bank-item">
+                    <div class="bank-label">开户行地址：</div>
+                    <div class="bank-content" id="branchInfo">[开户支行详细信息]</div>
+                </div>
+                <div class="bank-item">
+                    <div class="bank-label">SWIFT Code：</div>
+                    <div class="bank-content" id="swiftCode">[SWIFT/BIC Code]</div>
+                </div>
+            </div>
+<!--            <p style="margin-top: 12px; color: #d32f2f; font-size: 14px;">
+                <strong>温馨提示：</strong>请付款时备注结算单编号，以便我们及时核对款项。
+            </p>-->
+        </div>
+        
+        <!-- 底部 -->
+        <div class="footer">
+            <div>
+                <p>感谢您的合作！如有任何疑问，请随时与我们联系。</p>
+                <p>本结算单自开具之日起30天内有效。</p>
+            </div>
+            <div class="signature-area">
+                <p>客户签字/盖章：___________________</p>
+                <p>日期：___________________</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 默认商品数据
+        const defaultItems = [
+            { name: "马上有钱-唐马", spec: "13.5*8.5*14", unit: "件", quantity: 400, price: 130.00 },
+//            { name: "商品B", spec: "豪华版", unit: "套", quantity: 2, price: 500.00 },
+//            { name: "技术服务", spec: "高级", unit: "小时", quantity: 10, price: 150.00 },
+            { name: "运输费", spec: "国内包邮", unit: "次", quantity: 1, price: 0.00 },
+//            { name: "包装材料", spec: "环保", unit: "套", quantity: 5, price: 30.00 }
+        ];
+        
+        // 初始化表格
+        function renderItemsTable(items) {
+            const itemsBody = document.getElementById('itemsBody');
+            itemsBody.innerHTML = '';
+            
+            let subtotal = 0;
+            
+            items.forEach((item, index) => {
+                const amount = item.quantity * item.price;
+                subtotal += amount;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="text-center">${index + 1}</td>
+                    <td>${item.name}</td>
+                    <td>${item.spec}</td>
+                    <td class="text-center">${item.unit}</td>
+                    <td class="text-center">${item.quantity}</td>
+                    <td class="text-right">${item.price.toFixed(2)}</td>
+                    <td class="text-right">${amount.toFixed(2)}</td>
+                `;
+                itemsBody.appendChild(row);
+            });
+            
+            // 计算金额
+            const taxRate = 0; // 13%税率，可根据需要修改
+            const taxAmount = subtotal * taxRate;
+            const discount = 0.00; // 示例折扣金额
+            const totalAmount = subtotal + taxAmount - discount;
+            
+            // 更新金额显示
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('taxAmount').textContent = taxAmount.toFixed(2);
+            document.getElementById('discount').textContent = discount.toFixed(2);
+            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+        }
+        
+        // 填充示例数据
+        function fillSampleData() {
+            // 填充客户信息
+            document.getElementById('clientName').textContent = 'Azimut Investment Management Singapore Ltd.';
+            document.getElementById('contactPerson').textContent = 'Jaselyn Teo';
+            document.getElementById('contactPhone').textContent = '+65 6958 4125';
+//            document.getElementById('clientAddress').textContent = 'Siqi';
+            
+            // 填充日期信息
+            const today = new Date();
+            const dueDate = new Date(today);
+            dueDate.setDate(today.getDate() + 30);
+            
+            document.getElementById('invoiceDate').textContent = today.toISOString().split('T')[0];
+            document.getElementById('dueDate').textContent = dueDate.toISOString().split('T')[0];
+//            document.getElementById('salesPerson').textContent = '刘女士';
+            
+            // 填充银行信息
+            document.getElementById('accountName').textContent = 'Xiamen Xinglu Network Technology Co., Ltd.';
+            document.getElementById('bankName').textContent = 'China Merchants Bank.Xiamen Branch';
+            document.getElementById('accountNumber').textContent = '592908670710701';
+            document.getElementById('branchInfo').textContent = '18 Consulate Road, Siming District, Xiamen city';
+            document.getElementById('swiftCode').textContent = 'CMBCCNBS471';
+            
+            // 生成随机单据编号
+            const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+//            document.getElementById('invoiceNo').textContent = `INV-${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2, '0')}${randomNum}`;            
+            document.getElementById('invoiceNo').textContent ='INV-2025-12600';
+            
+            // 渲染商品表格
+            renderItemsTable(defaultItems);
+            
+            alert('示例数据已填充！请根据需要修改具体信息。');
+        }
+        
+        // 页面加载时渲染空表格
+        window.onload = function() {
+            renderItemsTable([]);
+        };
+    </script>
+</body>
+</html>

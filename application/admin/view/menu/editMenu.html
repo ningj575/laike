@@ -1,0 +1,97 @@
+{include file="public/header" /}
+<style>
+    .layui-form-select dl dd, .layui-form-select dl dt{
+        line-height: normal;
+    }
+</style>
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+
+        <div class="layui-card-body" style="padding: 15px;">
+            <div class="layui-form layui-row" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin">
+                <input type="hidden" name="id" value="{$menu.id}">
+
+                <div class="layui-row layui-col-space12 layui-form-item">
+                    <div class="layui-col-lg12">
+                        <label class="layui-form-label">{:lang('parent')}</label>
+                        <div class="layui-col-xs6">
+                            <select name="pid" lay-filter="aihao">
+                                <option value="0">{:lang('choose_data')}</option>
+                                {foreach name="admin_rule" item="vo"}
+                                <option value="{$vo.id}" {if condition="$menu.pid eq $vo.id" }selected{/if}>{$vo.lefthtml}{$vo.title}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">{:lang('menu_name')}</label>
+                    <div class="layui-col-xs8 layui-col-lg6">
+                        <input type="text" name="title" lay-verify="required" value="{$menu.title}" placeholder="{:lang('menu_name')}"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">{:lang('node')}</label>
+                    <div class="layui-col-xs8 layui-col-lg6">
+                        <input type="text" name="name" lay-verify="required" value="{$menu.name}"
+                               placeholder="{:lang('node_url')}" autocomplete="off" class="layui-input">
+                        <span class="layui-form-mid layui-word-aux">eg：system/admin/useradd {:lang('one_node')}</span>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">{:lang('url_parameter')}</label>
+                    <div class="layui-col-xs8 layui-col-lg6">
+                        <input type="text" name="param"  value="{$menu.param}"
+                               placeholder="{:lang('url_parameter')}" autocomplete="off" class="layui-input">
+                        <span class="layui-form-mid layui-word-aux">eg：other=1&page=2 </span>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">{:lang('style')}</label>
+                    <div class="layui-col-xs8 layui-col-lg6">
+                        <input type="text" name="css"value="{$menu.css}" placeholder="{:lang('style')}" autocomplete="off" class="layui-input">
+                        <span class="layui-form-mid layui-word-aux">
+                            <a href="https://www.layui.com/doc/element/icon.html" target="_black">{:lang('choose_icon')}</a> eg:layui-icon-face-smile</span>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">{:lang('sort')}</label>
+                    <div class="layui-col-xs8 layui-col-lg6">
+                        <input type="text" name="sort" lay-verify="required" value="{$menu.sort}" placeholder="{:lang('sort')}" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">{:lang('status')}</label>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" lay-verify="required" lay-filter="status" value="1" name="status" {if condition="$menu.status eq 1" }checked{/if} lay-skin="switch" lay-text="{:lang('open')}|{:lang('close')}">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-hide">
+                    <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit"
+                           value="{:lang('determine')}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="__LAYUI__/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '__LAYUI__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'])
+</script>
+</body>
+</html>

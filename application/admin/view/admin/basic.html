@@ -1,0 +1,105 @@
+{include file="public/header" /}
+<body>
+
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+
+                    <div class="layui-card-body" pad15>
+
+                        <div class="layui-form" lay-filter="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">{:lang('my_role')}</label>
+                                <div class="layui-input-inline">
+                                    <select name="role" lay-verify="">
+
+                                        {if !empty($role)}
+                                        {volist name='role' id='vo'}
+                                        <option value="{$vo.id}"  {eq name='$user.groupid' value='$vo.id'} selected{else/} disabled  {/eq}>{$vo.title}</option>
+                                        {/volist}
+
+                                        {/if}
+                                        <!--                                        <option value="1" selected>超级管理员</option>
+                                                                                <option value="2" disabled>普通管理员</option>
+                                                                                <option value="3" disabled>审核员</option>
+                                                                                <option value="4" disabled>编辑人员</option>-->
+                                    </select> 
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">{:lang('role_can_not_change')}</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">{:lang('user_name')}</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="username" value="{$user.admin_name}" readonly class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">{:lang('can_not_change')}</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">{:lang('nickname')}</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="real_name" value="{$user.real_name}" lay-verify="real_name" autocomplete="off" placeholder="{:lang('input_nickname')}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">{:lang('gender')}</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="sex" value="1" title="{:lang('male')}" {eq name='$user.sex' value='1'} checked {/eq}>
+                                    <input type="radio" name="sex" value="2" title="{:lang('female')}" {eq name='$user.sex' value='2'} checked {/eq}>
+                                </div>
+                            </div>
+
+                            <div  class="layui-form-item">
+                                <label class="layui-form-label">{:lang('upload_pictures')}</label>
+                                <div class="layui-input-inline">
+                                    <div class="layui-upload">
+                                        <button type="button" class="layui-btn" id="image"><i class="layui-icon">&#xe67c;</i>{:lang('upload_pictures')}</button>
+                                        <input type="hidden" name="portrait" value="{$user.portrait??''}" id="imgurl">
+                                        <div class="layui-upload-list">
+                                            <img class="layui-upload-img" id="image_src" style="width: 100px;height: 100px"  {if condition="$user.portrait neq ''" }src="{$user.portrait_text}"{/if}>
+                                                 <p id="demoText"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+     
+
+                            <div class="layui-form-item layui-hide">
+                                <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+                            </div>
+                         
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <script src="__LAYUI__/upload.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form', 'upload'], function () {
+
+
+            var imgParam = {
+                elementId: '#imgurl', //存储数据的隐藏控件
+                elem: '#image', //点击上传的按钮
+                preview: '#image_src', //预览的DIV
+                number: 1, //数量限制
+                rootUrl: '__ROOT__', //初始化专用路径
+                againUploadId: '#demoText'
+            };
+            uploadImage(imgParam);
+
+
+        })
+
+
+    </script>
+</body>
+</html>

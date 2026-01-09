@@ -1,0 +1,193 @@
+{include file="public/header" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-admin" data-type="add">{$Think.lang.add_role}</button>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">{$Think.lang.role_name}</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+            <script type="text/html" id="buttonTpl">
+                {{#  if(d.status == true){ }}
+                <button class="layui-btn layui-btn-xs">{$Think.lang.open}</button>
+                {{#  } else { }}
+                <button class="layui-btn layui-btn-primary layui-btn-xs">{$Think.lang.close}</button>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="table-useradmin-admin">
+                {{#  if(d.id != 1){ }}
+                    <a class="layui-btn layui-btn-xs" lay-event="role"><i class="layui-icon layui-icon-group"></i>{$Think.lang.set_access}</a>
+                    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>{$Think.lang.edit}</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>{$Think.lang.delete}</a>
+                {{#  } }}
+            </script>
+        </div>
+    </div>
+</div>
+<!-- 角色分配 -->
+<div class="zTreeDemoBackground left" style="display: none" id="role">
+    <input type="hidden" id="nodeid">
+    <div class="form-group">
+        <div style="margin-left: 16.66666667%;">
+            <ul id="treeType" class="ztree"></ul>
+        </div>
+    </div>
+    <div class="form-group" style="text-align: center;">
+        <div class="layui-inline" style="margin-bottom: 15px">
+            <input type="button" value="{$Think.lang.determine}" class="layui-btn" id="postform"/>
+        </div>
+    </div>
+</div>
+
+{include file="public/footer" /}
+<link rel="stylesheet" href="__LAYUI__/plugins/zTree/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="__LAYUI__/plugins/zTree/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="__LAYUI__/plugins/zTree/jquery.ztree.excheck-3.5.js"></script>
+<!--<script type="text/javascript" src="__LAYUI__/plugins/zTree/jquery.ztree.exedit-3.5.js"></script>-->
+
+<script>
+    var listUrl = 'index';          //当前列表 URL
+    var addEditUrl = 'roleEdit';    //新增、编辑
+    var delUrl = 'roleDel';         //删除当前角色
+    var stateUrl = 'role_state';     //菜单状态
+
+    //动态表格
+    layui.use('table',function () {
+        var $ = layui.$;
+        var table = layui.table;
+        var area = ['30%','30%'];
+
+        //执行渲染 - 实例 Table
+        table.render({
+            elem:'#LAY-user-back-manage',
+            url:listUrl,
+            page:true,
+            limit:20,
+            cols:[{$cell|getCell|raw}]
+        });
+
+        //监听动态表格中的事件
+        table.on("tool(LAY-user-back-manage)",function(e){
+            //e.data;   当前行数据
+            var id = e.data.id;
+            switch (e.event) {
+                case 'edit':
+                    //编辑
+                    var url = addEditUrl+"?id="+id;
+                    tpmsg.addEdit(url,area,"{:lang('edit_role')}");
+                    break;
+                case 'del':
+                    //删除
+                    tpmsg.confirm(id,delUrl);
+                    break;
+                case 'role':
+                    //权限
+                    giveQx(id);
+                    break;
+            }
+        });
+
+        //监听表格上列的添加、搜索框事件
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function(){
+            var type = $(this).data('type');
+            switch (type) {
+                case 'add':
+                    tpmsg.addEdit(addEditUrl,area,"{:lang('add_role')}");
+                    break;
+                case 'batchdel':
+                    tpmsg.batchdel(delUrl);
+                    break;
+            }
+        });
+
+        zNodes = '';
+        var index = '';
+        var index2 = '';
+
+        //分配权限
+        function giveQx(id){
+            $("#nodeid").val(id);
+            //加载层
+            index2 = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+            //获取权限信息
+            $.getJSON("giveaccess", {'type' : 'get', 'id' : id}, function(res){
+                layer.close(index2);
+                if(res.code == 1000){
+                    zNodes = JSON.parse(res.data);  //将字符串转换成obj
+
+                    //页面层
+                    index = layer.open({
+                        type: 1,
+                        area:['350px', '600px'],
+                        title:"{:lang('set_access')}",
+                        skin: 'layui-layer-demo', //加上边框
+                        maxmin: true,
+                        content: $('#role')
+                    });
+                    //设置位置
+                    layer.style(index, {
+                        top: '5%'
+                    });
+
+                    //设置zetree
+                    var setting = {
+                        check:{
+                            enable:true
+                        },
+                        data: {
+                            simpleData: {
+                                enable: true
+                            }
+                        }
+                    };
+                    $.fn.zTree.init($("#treeType"), setting, zNodes);
+                    var zTree = $.fn.zTree.getZTreeObj("treeType");
+                    zTree.expandAll(true);
+                }else{
+                    layer.alert(res.msg);
+                }
+            });
+        }
+
+        //确认分配权限
+        $("#postform").click(function(){
+            var zTree = $.fn.zTree.getZTreeObj("treeType");
+            var nodes = zTree.getCheckedNodes(true);
+            var NodeString = '';
+            $.each(nodes, function (n, value) {
+                if(n>0){
+                    NodeString += ',';
+                }
+                NodeString += value.id;
+            });
+            var id = $("#nodeid").val();
+            //写入库
+            $.post('giveAccess', {'type' : 'give', 'id' : id, 'rule' : NodeString}, function(res){
+                layer.close(index);
+                if(res.code == 1000){
+                    layer.msg(res.msg,{icon:1,time:1500,shade: 0.1}, function(){
+                        Ajaxpage(1,5)
+                    });
+                }else{
+                    layer.msg(res.msg);
+                }
+
+            }, 'json')
+        })
+    });
+</script>

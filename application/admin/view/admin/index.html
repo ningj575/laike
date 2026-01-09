@@ -1,0 +1,115 @@
+{include file="public/header" /}
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">{$Think.lang.admin_name}</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="admin_name" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">{$Think.lang.role}</label>
+                        <div class="layui-input-block">
+                            <select name="groupid">
+                                <option value="">=={$Think.lang.chose_role}==</option>
+                                {if !empty($role)}
+                                {foreach name="role" item="vo"}
+                                <option value="{$vo.id}">{$vo.title}</option>
+                                {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-card-body">
+                <div style="padding-bottom: 10px;">
+                    <button class="layui-btn  layui-btn-danger layuiadmin-btn-admin" data-type="batchdel">{$Think.lang.batch_delete}</button>
+                    <button class="layui-btn layuiadmin-btn-admin" data-type="add">{$Think.lang.add}</button>
+                </div>
+
+                <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage">
+
+                </table>
+                <script type="text/html" id="buttonTpl">
+                    {{#  if(d.status == true){ }}
+                    <button class="layui-btn layui-btn-xs">{$Think.lang.open}</button>
+                    {{#  } else { }}
+                    <button class="layui-btn layui-btn-primary layui-btn-xs">{$Think.lang.close}</button>
+                    {{#  } }}
+                    </script>
+
+                    <script type="text/html" id="table-useradmin-admin">
+                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>{$Think.lang.edit}</a>
+                        {{#  if(d.id == 1){ }}
+
+                        <a class="layui-btn layui-btn-disabled layui-btn-xs"><i class="layui-icon layui-icon-delete"></i>{$Think.lang.delete}</a>
+                        {{#  } else { }}
+
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>{$Think.lang.delete}</a>
+                        {{#  } }}
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+            {include file="public/footer" /}
+            <script>
+                layui.use(['index', 'table'], function () {
+                    var $ = layui.$, table = layui.table;
+                    var area = ['60%', '80%'];
+                    
+                        //执行渲染 - 实例 Table
+                        table.render({
+                            elem:'#LAY-user-back-manage',
+                            url:'index',
+                            page:true,
+                            limit:20,
+                            cols:[{$cell|getCell|raw}]
+                        });                       
+                    //监听动态表格中的事件
+                    table.on("tool(LAY-user-back-manage)", function (e) {
+                        //e.data;   当前行数据
+                        var id = e.data.id;
+                        switch (e.event) {
+                            case 'edit':
+                                var url = "userEdit?id=" + e.data.id;
+                                tpmsg.addEdit(url, area,"{:lang('edit_account')}");
+                                break;
+                            case 'recharge':
+                                var url = "recharge?id=" + e.data.id;
+                                tpmsg.addEdit(url, area,"充值");
+                                break;
+                            case 'del':
+                                tpmsg.confirm(id, 'userDel');
+                                break;
+
+                        }
+                    });
+
+                    //监听表格上列的添加、搜索框事件
+                    $('.layui-btn.layuiadmin-btn-admin').on('click', function () {
+                        var type = $(this).data('type');
+                        switch (type) {
+                            case 'add':
+                                var url = 'userEdit';
+                                tpmsg.addEdit(url, area,"{:lang('add_account')}");
+                                break;
+                            case 'batchdel':
+                                tpmsg.batchdel('userDel');
+                                break;
+                        }
+                    });
+                });
+            </script>
+        </body>
+    </html>

@@ -1,0 +1,668 @@
+body {
+    background-color: #ff6b81;
+    min-height: 100vh;
+    background: url("../../img/tiger_game/bg.png") 0 0 no-repeat;
+    background-size: 100% auto;
+}
+.wrap {
+    width: 100%;
+    overflow: hidden;
+    padding: 0 0 0.8rem;
+}
+.displays {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slot-machine {
+    position: relative;
+    width: 7.5rem;
+    height: 9.42rem;
+    padding-top: 3rem;
+    background: url("../../img/tiger_game/main.png") 0 0 no-repeat;
+    background-size: 100% 100%;
+}
+.logs {
+    padding: 0.44rem 0.32rem;
+}
+.logs-l {
+    flex: 1;
+}
+.logs-l img{
+    width: 2.03rem;
+    height: auto;
+}
+.logs-r img{
+    width: 2.64rem;
+    height: auto;
+}
+.tits img {
+    padding-top: 0.3rem;
+    width: 6.88rem;
+    margin: 0 auto;
+}
+.adv {
+    overflow: hidden;
+    width: 6.2rem;
+    height: 0.8rem;
+    padding: 0 0.5rem;
+    margin: 0 auto 0;
+    line-height: 0.8rem;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 0.26rem;
+    color: #fff;
+}
+.adv .swiper-container{
+    width: 100%;
+    height: 100% !important;
+}
+.adv  .swiper-container {
+    width: 100%;
+    height: 100% !important;
+}
+.adv   .swiper-slide {
+    width: 100%;
+    font-size: 13px; /* 增大字体大小 */
+    /*height: 100% !important;*/
+}
+.gifs {
+    /* margin-top: 1.4rem; */
+}
+.prizes {
+    width: 6.5rem;
+    /* width: 100%; */
+    height: 1.5rem;
+    padding: 0 0 0 0.32rem;
+    margin: 0 auto;
+}
+.prizes .swiper-container{
+    width: 100%;
+    height: 100% !important;
+}
+.prizes  .swiper-container {
+    width: 100%;
+    height: 100% !important;
+}
+.prizes .swiper-wrapper {
+    /* overflow: hidden; */
+    height: 100%;
+    display: flex;
+}
+.prizes   .swiper-slide {
+    /* width: 100%; */
+    height: 100% !important;
+}
+.prizes .slide img {
+    width: 1.19rem;
+    height: 1.66rem;
+    margin: 0 0 0 0.1rem;
+}
+.reels {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    /*width: 5.5rem;*/
+    height: 2.5rem;
+    overflow: hidden;
+}
+
+.reel {
+    /* overflow: hidden; */
+    width: 1.9rem;
+    /* height: 2.5rem;
+    display: flex; */
+    /* align-items: center; */
+    justify-content: center;
+    /*margin: 0 0.2rem;*/
+    border-radius: 5px;
+    /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1); */
+}
+.reel img {
+    width: 100%;
+    height: 2.5rem;
+}
+.reel-inner1,.reel-inner2,.reel-inner3 {
+    width: 100%;
+}
+.controls {
+    position: relative;
+    /* margin: 20px 0; */
+    margin-top: 0.5rem;
+}
+.finsk {
+    position: absolute;
+    top: 0.6rem;
+    right:21%;
+    width: 0.89rem;
+    height: 1.42rem;
+    z-index: 2;
+    animation: pressEffect 1s ease-in-out infinite alternate;
+    transform-style: preserve-3d;
+}
+@keyframes pressEffect {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.8);
+    }
+}
+.flower {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 2rem;
+    height: 2rem;
+    z-index: 108;
+}
+.flower2 {
+    position: fixed;
+    top: 5%;
+    left: 0%;
+    width: 2rem;
+    height: 2rem;
+    z-index: 108;
+}
+.flower3 {
+    position: fixed;
+    right: 5%;
+    top: 15%;
+    width: 2rem;
+    height: 2rem;
+    z-index: 108;
+}
+.flower4 {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 2rem;
+    height: 2rem;
+    z-index: 108;
+}
+.hua{
+    width: 2rem;
+    height: 2rem;
+    animation: pressEffects 2s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+/* .flower2 img {
+    animation-delay: 0.5s;
+}
+.flower3 img {
+    animation-delay: 0.3s;
+} */
+@keyframes pressEffects {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(01);
+    }
+}
+button {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.prizes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0.3rem;
+}
+
+.prize {
+    text-align: center;
+}
+
+.prize img {
+    width: 0.4rem;
+    height: 0.4rem;
+}
+.controls-l {
+    /* margin-top: 0.45rem; */
+    font-size: 0.2rem;
+    color: #fff;
+    text-align: center;
+}
+.controls-l p {
+    font-style: italic;
+}
+.controls-l h2 {
+    font-size: 0.24rem;
+}
+.buttons img {
+    margin: 0 0.4rem 0 0.45rem;
+    width: 3.79rem;
+    height: 1.27rem;
+}
+.cons-r {
+    position: absolute;
+    right: 0.65rem;
+    bottom: 0.4rem;
+}
+.cons-r img {
+    width: 0.62rem;
+    height: 1.12rem;
+}
+.buttons {
+    margin-top: 0.2rem;
+    margin-right: 0.5rem;
+}
+.shares {
+    width: 6.79rem;
+    height: 1.17rem;
+    margin: 0.6rem auto 0;
+    background: url("../../img/tiger_game/fenxiang.png") 0 0 no-repeat;
+    background-size: cover;
+    font-size: 0.32rem;
+    color: #fff;
+}
+.shares img {
+    width: 0.4rem;
+    margin-right: 0.1rem;
+    height: auto;
+}
+.tits-b {
+    font-size: 0.24rem;
+    padding: 0 0.5rem;
+    color: #ECD2AB;
+    font-family: 'PingFang-SC-Medium';
+}
+.tits-t img {
+    width: 3.9rem;
+    height: 0.74rem;
+    margin: 0 auto;
+}
+.tits-t {
+    margin-top: 0.6rem;
+}
+.list-out {
+    padding: 0 0.2rem;
+}
+.list-inner {
+    width: 100%;
+    padding: 0 0.25rem;
+    border-radius: 20px;
+    background-color: #FFF3F3;
+    border: 2px solid #FFD151;
+}
+.list-inner li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #DBDBDB;
+}
+.list-inner li:last-child {
+    border-bottom: none;
+}
+.list-img {
+    display: flex;
+    width: 0.9rem;
+    /*height: 0.72rem;*/
+    align-items: center;
+    justify-content: center;
+}
+.list-img img {
+    width: 100%;
+    height: 100%;
+}
+.list-m {
+    flex: 1;
+    padding: 0.3rem 0 0.2rem;
+    margin-left: 0.2rem;
+    font-size: 0.26rem;
+}
+.list-m h2 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #232323;
+    font-weight: bold;
+    font-size: 0.3rem;
+}
+.list-m p {
+    margin-top: 0.2rem;
+    color: #909090;
+}
+.list-r {
+    color: #fff;
+    background-color: #000;
+    font-size: 0.23rem;
+    width: 1.4rem;
+    height: 0.6rem;
+    text-align: center;
+    line-height: 0.6rem;
+    border-radius: 20px;
+}
+.rules {
+    position: fixed;
+    top: 4.1rem;
+    z-index: 10;
+    right: 0;
+}
+.rules a {
+    display: block;
+    width: 1rem;
+    height: 0.48rem;
+    text-align: center;
+    background: #FFD151;
+    border-radius: 24px 0px 0px 2;
+    color: #926934;
+    font-size: 0.3rem;
+    line-height: 0.48rem;
+    border-radius: 24px 0px 0px 24px;
+}
+/* 弹窗 */
+.alert-out {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+}
+.share-out {
+    display: none;
+    position: fixed;
+    bottom:  0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    padding: 0.3rem 0 0.7rem;
+    background: linear-gradient(-20deg, rgba(228,238,255,0.9), rgba(241,232,236,0.9));
+    box-shadow: 1px 2px 0px 0px #FFFFFF;
+    border-radius: 30px 30px 0px 0px;
+}
+.closes {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.75rem;
+    width: 0.52rem;
+    height: 0.53rem;
+}
+.share-h {
+    padding: 0.6rem 0.3rem 0.25rem;
+    font-size: 0.3rem;
+    color: #000;
+}
+.share-out p {
+    padding: 0 0.3rem;
+    color: #666666;
+    font-size: 0.24rem;
+}
+.share-img {
+    margin: 0.5rem 0 0;
+}
+.share-img img {
+ width: 1.2rem;
+ height: auto;
+ margin-right: 0.5rem;
+}
+.share-img img:last-child {
+    margin-right: 0;
+}
+.not-gif {
+    display: none;
+    position: fixed;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    z-index: 100;
+    transform: translate(-50%,-50%);
+}
+.leftRight {
+    width: max-content;
+}
+.have-gif {
+    display: none;
+    position: fixed;
+    width: 80%;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    z-index: 100;
+    transform: translate(-50%,-50%);
+}
+.not-top {
+    width: 100%;
+    padding: 0 0 0.5rem;
+    /* height: 720px; */
+    background: linear-gradient(-20deg, rgba(255,234,234,0.9), rgba(255,246,250,0.9));
+    border-radius: 30px;
+    border: 4px solid #DF6265;
+}
+.nones {
+    width: 5rem;
+    margin: -0.7rem auto 0;
+}
+.tit-n {
+    color: #402365;
+    font-size: 0.3rem;
+    text-align: center;
+}
+.face-n {
+    width: 2.8rem;
+    margin: 0 auto 0;
+}
+.tit-b {
+    margin: 0.8rem 0 0.3rem;
+    color: #232323;
+    text-align: center;
+    font-size: 0.24rem;
+}
+.close-none {
+    width: 0.52rem;
+    height: 0.52rem;
+    margin: 0.15rem auto;
+}
+.btn-not,.btn-have {
+    width: 2.95rem;
+    height: 0.66rem;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 0.66rem;
+    background: linear-gradient(-10deg, rgba(222,18,30,0.9), rgba(255,114,0,0.9));
+    box-shadow: 1px 4px 19px 0px #FFFFFF;
+    border-radius: 100px;
+    color: #fff;
+    font-size: 0.3rem;
+    border-image: linear-gradient(0deg, #E2AF5F, #ECD2AB) 2 2;
+}
+.inpust {
+    width: 82%;
+    margin: 0 auto;
+    padding: 0.2rem 0.3rem;
+    border-radius: 0.4rem;
+    border: 1px solid #545454;
+    font-size: 0.24rem;
+    color: #545454;
+    background: #EFEFEF;
+}
+.inpust input {
+    width: 100%;
+    display: block;
+    border-radius: none;
+    outline: none;
+}
+.mgt40 {
+    margin-top: 0.4rem;
+}
+/* 规则 */
+.rules-out {
+    background-color: #E62625;
+    min-height: 100vh;
+    padding: 0.78rem 0.3rem;
+}
+.rule-con {
+    background: #FFF3F3;
+    border-radius: 20px;
+    font-size: 0.26rem;
+    color: #000;
+    padding: 0.5rem 0.3rem;
+}
+
+/* 灯 */
+.dengs {
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin: auto;
+    top: 2.48rem;
+    width: 6rem;
+    height: 0.39rem;
+    /* background: url(../../img/tiger_game/ponts.png) 0 0 repeat-x;
+    background-size: 0.39rem 0.39rem; */
+    transform: translate(-50%, 0);
+}
+.dengs-b {
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin: auto;
+    top: 5.8rem;
+    width: 6rem;
+    height: 0.39rem;
+    /* background: url(../../img/tiger_game/ponts.png) 0 0 repeat-x;
+    background-size: 0.39rem 0.39rem; */
+    transform: translate(-50%, 0);
+}
+.dengs-l {
+    overflow: hidden;
+    position: absolute;
+    left: 7.8%;
+    margin: auto;
+    top: 2.5rem;
+    width: 0.39rem;
+    height: 3.7rem;
+    /* background: url(../../img/tiger_game/ponts.png) 0 0 repeat-y;
+    background-size: 0.39rem 0.39rem; */
+    transform: translate(-50%, 0);
+}
+.dengs-l span,.dengs-r span,.dengs span,.dengs-b span {
+    display: block;
+    width: 0.21rem;
+    height: 0.21rem;
+    margin: 0.12rem 0.09rem;
+    background: #F31D1F;
+    border-radius: 50%;
+}
+.dengs-r {
+    overflow: hidden;
+    position: absolute;
+    right: 2%;
+    margin: auto;
+    top: 2.5rem;
+    width: 0.39rem;
+    height: 3.7rem;
+    /* background: url(../../img/tiger_game/ponts.png) 0 0 repeat-y;
+    background-size: 0.39rem 0.39rem; */
+    transform: translate(-50%, 0);
+}
+.dengShow {
+    /* background: #FFF6EB; */
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 246, 235, 1), rgba(255, 246, 235, 1)) !important;
+    box-shadow:  0px 2px 6px 0px rgba(255, 246, 235, 1) !important;
+}
+.dengs img,.dengs-b img,.dengs-l img,.dengs-r img {
+    width: 0.39rem;
+    height: 0.39rem;
+}
+.show-l {
+    display: none;
+}
+.show-b {
+    display: none;
+}
+.show-r {
+    display: none;
+}
+.dengs-inner {
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: -6.7rem;
+    width: 6rem;
+    height: 0.39rem;
+    /* background: url("../../img/tiger_game/potin_l.png") 0 0 repeat-x;
+    background-size: 0.39rem 0.39rem; */
+}
+.dengs-rnner {
+    position: absolute;
+    top: -3.7rem;
+    left: 0;
+    width: 0.39rem;
+    height: 2.3rem;
+    /* background: url("../../img/tiger_game/potin_l.png") 0 0 repeat-y;
+    background-size: 0.39rem 0.39rem; */
+}
+.dengs-bnner {
+    position: absolute;
+    top: 0;
+    right: -6.7rem;
+    width: 5.5rem;
+    height: 0.39rem;
+    /* background: url("../../img/tiger_game/potin_l.png") 0 0 repeat-x;
+    background-size: 0.39rem 0.39rem; */
+}
+.dengs-lner {
+    position: absolute;
+    bottom: -3.7rem;
+    left: 0;
+    width: 0.39rem;
+    height: 3rem;
+    /* background: url(../../img/tiger_game/potin_l.png) 0 0 repeat-y;
+    background-size: 0.39rem 0.39rem; */
+}
+.no-plays {
+    display: none;
+}
+.alert-prize1 {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0.75rem;
+    width: 2rem;
+    height: 2.5rem;
+    padding: 0 0.2rem;
+    z-index: 10;
+}
+.alert-prize2 {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 2.65rem;
+    width: 2rem;
+    height: 2.5rem;
+    padding: 0 0.2rem;
+    z-index: 10;
+}
+.alert-prize3 {
+    display: none;
+    position: absolute;
+    top: 0rem;
+    left: 4.55rem;
+    width: 2rem;
+    height: 2.5rem;
+    padding: 0 0.2rem;
+    z-index: 10;
+}
+.alert-prize1 img,.alert-prize2 img,.alert-prize3 img {
+    max-width: 1.9rem;
+    height: 2.5rem;  
+}
+.opactys {
+    opacity: 0;
+}

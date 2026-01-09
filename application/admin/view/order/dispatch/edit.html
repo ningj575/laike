@@ -1,0 +1,43 @@
+{include file="public/header" /}
+<body>
+<div class="layui-fluid">
+<div class="layui-card">
+    <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin">
+        <input type="hidden" name="id"  value="{$rules.id}" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">规则名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="rule_name" lay-verify="required" value="{$rules.rule_name}" placeholder="请输入规则名" autocomplete="off"  maxlength="20" class="layui-input">
+            </div>
+        </div>  
+        <div class="layui-form-item">
+            <label class="layui-form-label">规则描述</label>
+            <div class="layui-input-inline">
+                <textarea name="desc" class="layui-textarea" placeholder="请输入规则描述">{$rules.desc}</textarea>
+            </div>
+        </div>  
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">                
+                <input type="checkbox" lay-verify="required" value="1" lay-filter="status" name="status" {if condition="$rules.status eq 1" }checked{/if} lay-skin="switch" lay-text="{:lang('open')}|{:lang('close')}">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="__LAYUI__/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '__LAYUI__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','form'],function(){
+        
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{include file="public/header" /}
+<body>
+<div class="layui-fluid">
+<div class="layui-card">
+    <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin">
+        <input type="hidden" name="id"  value="{$sales.id}" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" lay-verify="required" value="{$sales.name}" placeholder="请输入姓名" autocomplete="off"  maxlength="20" class="layui-input">
+            </div>
+        </div>  
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" lay-verify="required" value="1" lay-filter="status" name="status" {if condition="$sales.status eq 1" }checked{/if} lay-skin="switch" lay-text="{:lang('open')}|{:lang('close')}">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="__LAYUI__/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '__LAYUI__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','form'],function(){
+        
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+{include file="public/header" /}
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .sortable-card {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #e6e6e6;
+        border-radius: 4px;
+        cursor: move;
+        transition: all 0.3s;
+    }
+    .sortable-card:hover {
+        box-shadow: 0 2px 12px rgba(0,0,0,.1);
+    }
+    .card-header {
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+    }
+    .card-content {
+        color: #666;
+    }
+    .sorting {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+</style>
+<body>    
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md5">
+                <div class="layui-row layui-col-space15">  
+                    <div class="layui-col-md12 layui-form">  
+                        <div class="layui-card">
+                            <div class="layui-card-header">销售人员
+                                <div class="layui-inline" style='margin-left:30%;'>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="name"  placeholder="请输入姓名搜索" autocomplete="off" class="layui-input">
+                                    </div>
+                                    <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                                        <i class="layui-icon layui-icon-search  layuiadmin-button-btn"></i>
+                                    </button>
+                                </div>     
+                                <div class="layui-inline" style="float:right;">
+                                    <a class="layui-btn layui-btn-normal layui-btn-sm layuiadmin-btn-admin" data-type="addSales" >新增销售</a>
+                                </div>     
+                            </div>
+
+                            <div class="layui-card-body" style="padding: 22px 15px;">
+                                <table id="LAY-user-back-manage"></table>
+                                <script type="text/html" id="buttonStatus">
+                                    {{#  if(d.status == 1){ }}
+                                    <button class="layui-btn layui-btn-xs">上线</button>
+                                    {{#  } else { }}
+                                    <button class="layui-btn layui-btn-danger layui-btn-xs">下线</button>
+                                    {{#  } }}
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md7">
+                    <div class="layui-card layui-form">
+                        <div class="layui-card-header">派单规则
+                            <div class="layui-inline" style="float:right;">
+                                <a class="layui-btn layui-btn-normal layui-btn-sm layuiadmin-btn-admin" data-type="addRules">新增规则</a>
+                            </div> 
+                        </div>
+                        <div class="layui-card-body card-container" id="card-sort">
+                            {volist name='rules' id='val'}
+                            <div class="sortable-card">
+                                <div class="card-header">{$val.rule_name}</div>
+                                <div class="card-body card-content layui-row layui-col-space10">
+                                    <div class="layui-input-inline">
+                                        {$val.desc}
+                                    </div>                                
+                                    <div class="layui-input-inline" style='float:right;'>
+                                        <input type="checkbox" name="status" lay-filter="status" data-id='{$val.id}'  lay-skin="switch" {if condition="$val.status eq 1" }checked{/if}>
+                                        <a href='javascript:void(0);' class='layuiadmin-btn-admin' data-id='{$val.id}' data-type="editRule" style='padding:0 10px;'><i class="layui-icon layui-icon-edit"></i></a>
+                                        <a href='javascript:void(0);' class='layuiadmin-btn-admin' data-id='{$val.id}' data-type="deleteRule"><i class="layui-icon layui-icon-delete"></i></a>
+                                    </div>                                
+                                </div>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>                
+                </div>
+
+            </div>
+        </div>
+
+        {include file="public/footer" /}
+        <script src="__LAYUI__/Sortable.js"></script>
+        <script>
+    layui.use(['table','form'], function () {
+        var $ = layui.$;
+        var table = layui.table;
+        var area = ['30%','50%'];
+        var form = layui.form;
+        table.render({
+            elem: '#LAY-user-back-manage'
+            , url: '/sales/SalesUser/index' //模拟接口
+            , page: true
+            ,limit:10
+            , cols: [[
+                    {field: 'status', title: '状态', templet: '#buttonStatus'}
+                    , {field: 'name', title: '姓名'}
+                    , {field: 'pending_orders', title: '待跟进订单', sort: true}
+                    , {field: 'deal_orders', title: '已处理订单', sort: true}
+                    , {field: 'overdue_orders', title: '超时流转订单', sort: true}
+                ]]
+            , skin: 'line'
+        });
+        form.on('switch(status)', function(data){
+             var id=$(this).data('id');   
+             var status;
+            if(data.elem.checked){
+              status=1;
+            } else {
+              status=0
+            }
+            layui.$.post('status', {id: id,status:status}, function (data) {              
+            });
+          });
+         //监听表格上列的添加、搜索框事件
+        $('.layuiadmin-btn-admin').on('click', function(){
+            var type = $(this).data('type');
+            var id=$(this).data('id');
+            switch (type) {
+                case 'addSales':
+                    tpmsg.addEdit('/sales/SalesUser/add','350px',"新增销售",['200px','200px']);
+                    break;
+                case 'addRules':
+                    tpmsg.addEdit('add',['25%','45%'],"新增规则",['200px','60%']);
+                    break;
+                case 'deleteRule':
+                    //删除
+                    tpmsg.confirm(id,'delete');
+                    break; 
+                case 'editRule':
+                     //编辑
+                    var url = "add?id="+id;
+                    tpmsg.addEdit(url,['25%','45%'],"编辑规则",['200px','60%'],2);
+                    break;
+            }
+        });
+
+    });
+    // 初始化排序
+    var el = document.getElementById('card-sort');
+    var sortable = new Sortable(el, {
+        animation: 150,
+        filter: 'sortable-card',
+        onEnd: function (evt) {
+            layer.msg('成功');
+        }
+    });
+        </script> 
+
+    </body>
+</html>

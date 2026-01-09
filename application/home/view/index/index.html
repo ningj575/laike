@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="screen-orientation" content="portrait">
+    <title>老虎机</title>
+<!--    <script>-->
+<!--        function setRem() {-->
+<!--            const html = document.documentElement;-->
+<!--            const designWidth = 750;-->
+<!--            console.log("html.clientWidth",html.clientWidth)-->
+<!--            let fontSize = html.clientWidth / designWidth * 100;-->
+<!--            html.style.fontSize = fontSize + 'px';-->
+<!--        }-->
+
+<!--        setRem();-->
+<!--        window.addEventListener('resize', setRem);-->
+<!--    </script>-->
+    <link rel="stylesheet" href="/static/home/css/style.css?s=2">
+    <!-- Swiper -->
+    <link rel="stylesheet" href="/static/home/swiper/swiper-bundle.min.css"/>
+    <script src="/static/home/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="/static/home/css/animate.min.css" />
+</head>
+<body>
+<div class="main-box">
+    <div  class="logo">
+        <img src="/static/home/image/logo.png">
+    </div>
+    <div id="targetDiv" class="winner-swiper-container">
+        <div class="swiper-wrapper">
+            {foreach $page_data.user_prize_list as $k => $v}
+                <div class="swiper-slide">{$v.email} just obtained {$v.prize_title}</div>
+            {/foreach}
+        </div>
+    </div>
+    <div  class="m-ui-tiger">
+        <div class="item-box">
+            <div class="item">
+                <ul class="roller">
+                    {foreach $page_data.roller_list0 as $k => $v}
+                        <li>
+                            <img src="{$v.img}" alt=""/>
+                        </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        <div class="item-box">
+            <div class="item">
+                <ul class="roller">
+                    {foreach $page_data.roller_list1 as $k => $v}
+                    <li>
+                        <img src="{$v.img}" alt=""/>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        <div class="item-box">
+            <div class="item">
+                <ul class="roller">
+                    {foreach $page_data.roller_list2 as $k => $v}
+                    <li>
+                        <img src="{$v.img}" alt=""/>
+                    </li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="prize-button-list">
+        <div class="rule-toggle">
+            <img src="/static/home/image/rules.png">
+        </div>
+        <div class="gifts-toggle">
+            <img src="/static/home/image/gift.png">
+        </div>
+        <div class="game-times-text">
+            <a href="javascript:void(0)"><font class="sur-times">{$page_data.sur_times}</font> times left</a>
+        </div>
+        <div id="js_toggle" class="play-toggle " href="javascript:;" onclick="open_lottery()">
+            <img src="/static/home/image/play.png">
+        </div>
+    </div>
+    <div class="share-botton">Share To Friends</div>
+    <div class="share-tip-box">
+        Share the activity page with friends and you will receive an additional 3 chances.
+    </div>
+    <div class="prize-list">
+        <div class="prize-list-box">
+            <div class="prize-marquee-box">
+                <ul>
+                    {foreach $page_data.goods_list as $k => $v}
+                        <li><img src="{$v.banner_img}" alt=""></li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 抽中 start-->
+    <div class="win-lottery-modal modal" style="display:none;">
+        <!-- 弹窗内容 -->
+        <div class="modal-content">
+            <p class="title">Congratulations！</p>
+            <p class="title-two">win the lottery</p>
+            <div class="prize-box">
+                <img src="/static/home/image/prize_goods.png">
+                <p class="coupon-code">$30 coupon</p>
+            </div>
+            <div class="email-box">
+                <input type="text" class="email-input" placeholder="Enter Email Address For Coupon">
+                <input type="hidden" class="lottery-id-input">
+            </div>
+            <div class="botton-box receive-botton">
+                <button>GET IT NOW</button>
+            </div>
+        </div>
+        <div class="close-btn"></div>
+    </div>
+    <!-- 抽中 end -->
+    <!-- 未抽中 start-->
+    <div class="no-win-lottery-modal modal" style="display:none;">
+        <!-- 弹窗内容 -->
+        <div class="modal-content">
+            <p class="title">Sorry</p>
+            <p class="title-two">you did not win the prize</p>
+            <div class="prize-box">
+                <img src="/static/home/image/no_win.png">
+            </div>
+            <div class="title-three">
+                Thank you for your participation
+            </div>
+            <div class="botton-box">
+                <button>I KNOW</button>
+            </div>
+        </div>
+        <div class="close-btn"></div>
+    </div>
+    <!-- 未抽中 end -->
+    <!-- 规则 start-->
+    <div class="rule-lottery-modal modal" style="display:none;">
+        <!-- 弹窗内容 -->
+        <div class="modal-content">
+            <div class="title">Activity Rules</div>
+            <div class="rule-content">
+                <p>1. Event time: October 1, 2025 0:00:00- October 7, 2025 23:59:59.</p>
+                <p>2. Participation method: During the event, users will log in every day and have one chance to participate in the "Lucky Lottery Machine" activity to draw a big prize. Each person can participate up to three times a day.</p>
+                <p>3. Redemption instructions: After the coupon is drawn, it will be directly credited to the account and can be viewed in [Personal Center] - [My Coupons]. All physical prizes will be issued within 7 working days after the end of the event.</p>
+            </div>
+        </div>
+        <div class="close-btn"></div>
+    </div>
+    <!-- 规则 end -->
+
+    <!-- 中奖奖品 start-->
+    <div class="gift-lottery-modal modal" style="display:none;">
+        <!-- 弹窗内容 -->
+        <div class="modal-content">
+            <div class="title">My prize</div>
+            <div class="gift-list">
+<!--                <div class="gift-item">-->
+<!--                    <div class="gift-img"><img src="/static/home/image/goods.png"></div>-->
+<!--                    <div class="gift-text">-->
+<!--                        <p class="gift-title">slc-130le golf bag</p>-->
+<!--                        <p class="gift-date">12:20 07-14-2025</p>-->
+<!--                    </div>-->
+<!--                    <div class="gift-view">-->
+<!--                        <div class="gift-view-botton">VIEW</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+        <div class="close-btn"></div>
+    </div>
+    <!-- 中奖奖品 end -->
+    <!-- 分享弹窗 start-->
+    <div class="share-modal modal" style="display:;">
+        <!-- 弹窗内容 -->
+        <div class="modal-content">
+            <div class="share-platform">
+                <ul class="share-platform-ul">
+                    <li>
+                        <img src="/static/home/image/share/facebook.svg">
+                        <div class="text">facebook</div>
+                    </li>
+                    <li>
+                        <img src="/static/home/image/share/facebook.svg">
+                        <div class="text">whatsapp</div>
+                    </li>
+                    <li>
+                        <img src="/static/home/image/share/facebook.svg">
+                        <div class="text">X</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 分享弹窗 end -->
+    <div style="display: none">
+        <audio id="gd-audio" src="/static/home/mp3/gd.mp3" preload="auto"></audio>
+        <audio id="lottery-success-audio" src="/static/home/mp3/success.mp3" preload="auto"></audio>
+        <audio id="lottery-fail-audio" src="/static/home/mp3/fail.mp3" preload="auto"></audio>
+    </div>
+<!--    <button id="playButton">播放/暂停</button>-->
+</div>
+</body>
+<script src="/static/home/js/jquery.min.js"></script>
+<script src="/static/home/layer/layer.js"></script>
+<script src="/static/home/js/tiger.js"></script>
+<script src="/static/home/js/zouma.js"></script>
+<script>
+      
+    // const element = document.querySelector('.play-toggle');
+    // element.classList.add('animate__animated','animate__backInDown', 'animate__shakeY');
+    // // animate__animated animate__bounce animate__flash
+    // element.addEventListener('animationend', () => {
+    //     element.classList.remove('animate__animated', 'animate__backInDown', 'animate__shakeY');
+    //     setTimeout(function(){
+    //         element.classList.add('animate__animated', 'animate__shakeY');
+    //     }, 2000);
+    // });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const target = document.getElementById('targetDiv');
+        window.scrollTo({
+            top: target.offsetTop - 200,
+            behavior: 'smooth'
+        });
+    });
+    let play_timer = null;
+    var play_up_down = 0;
+    function animatePlayToggle() {
+        if(play_up_down == 0){
+            play_up_down = 1;
+            $("#js_toggle img").attr("src","/static/home/image/play_down.png");
+        }else{
+            play_up_down = 0;
+            $("#js_toggle img").attr("src","/static/home/image/play.png");
+        }
+    }
+
+    // 鼠标事件
+    const js_toggle = document.getElementById('js_toggle');
+    js_toggle.addEventListener('mouseenter', () => {
+        clearTimeout(play_timer);
+        play_up_down = 0;
+        $("#js_toggle img").attr("src","/static/home/image/play.png");
+    });
+
+    js_toggle.addEventListener('mouseleave', () => {
+        startFlashing();
+    });
+    play_timer = setInterval(function () {
+        animatePlayToggle()
+    },500)
+
+</script>
+<script>
+
+    $(".share-modal").click(function() {
+        $(".share-modal").hide();
+    });
+    $('.share-modal .modal-content').click(function(event) {
+        event.stopPropagation(); // 阻止事件冒泡到 document
+    });
+
+    var lottery = new LotteryTiger(document.getElementById('js_toggle'), document.querySelectorAll('.roller'),{
+        interval: 600, //每个roller间动画间隔
+        aniMinTime: 6000, //动画执行最少时间
+        resize: false //roller大小是否是可变的
+    });
+    var gd_audio = $("#gd-audio")[0];
+    var lottery_success_audio = $("#lottery-success-audio")[0];
+    var lottery_fail_audio = $("#lottery-fail-audio")[0];
+
+
+    gd_audio.addEventListener('ended', function () {
+        gd_audio.currentTime = 1; // 重置音频到开始
+        gd_audio.play(); // 重新播放
+    });
+
+    $(".win-lottery-modal .receive-botton").click(function () {
+        var email = $(".win-lottery-modal .email-input").val();
+        var lottery_id = $(".win-lottery-modal .lottery-id-input").val();
+        if(email == ""){
+            layer.msg("Please enter your email address");
+            return;
+        }
+        if(lottery_id == ""){
+            layer.msg("receive failed");
+            return;
+        }
+        var that = this;
+        if($(that).hasClass("disabled")){
+            return;
+        }
+        $(that).addClass("disabled")
+        $.ajax({
+            url: "{:url('Index/receivePrize')}",
+            data: {email:email,lottery_id:lottery_id},
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                $(that).removeClass('disabled');
+                if(data.code == 1000){
+                    layer.msg("receive success",{icon:1,time:2000},function () {
+                        window.location.reload();
+                    });
+                }else{
+                    layer.msg(data.msg,{icon:5,time:2000},function () {
+                    });
+                }
+            },error:function () {
+                layer.msg("Fail",{icon:5,time:2000},function () {
+                });
+                $(that).removeClass('disabled');
+            },complete:function () {
+                $(that).removeClass('disabled');
+            }
+        });
+    })
+    
+    function winLottery(lottery_info) {
+        lottery_success_audio.play();
+        $(".win-lottery-modal .prize-box img").attr("src", lottery_info.prize_img);
+        $(".win-lottery-modal .prize-box .coupon-code").html(lottery_info.prize_coupon_code);
+        $(".win-lottery-modal .email-box .lottery-id-input").val(lottery_info.lottery_id);
+        setTimeout(function () {
+            $(".win-lottery-modal").show();
+        },1000)
+    }
+    
+    function failLottery() {
+        lottery_fail_audio.play();
+        setTimeout(function () {
+            $(".no-win-lottery-modal").show();
+        },1000)
+    }
+
+
+    function open_lottery() {
+
+        if($(".play-toggle").hasClass("disabled")){
+            return false;
+        }
+        $("#js_toggle img").attr("src","/static/home/image/play_down.png");
+        $(".play-toggle").addClass('disabled');
+        $.ajax({
+            url: "{:url('Index/openLottery')}",
+            data: {},
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                $(".play-toggle").removeClass('disabled');
+                if(data.code == 1000){
+                    var is_win = data.data.is_win;
+                    var lottery_info = data.data.lottery_info;
+                    $(".sur-times").html(data.data.sur_times);
+                    lottery.on('start', function () {
+                        gd_audio.play();
+                        setTimeout(function () {
+                            lottery.setResult(data.data.lottery_result);
+                        }, 1000);
+                    });
+                    lottery.draw();
+                    lottery.on('end', function () {
+                        console.log("已停止",data)
+                        gd_audio.pause();
+                        if(is_win == 1){
+                            console.log("中奖",data)
+                            winLottery(lottery_info);
+                        }else{
+                            console.log("未中奖",data)
+                            failLottery();
+                        }
+                    });
+                }else{
+                    layer.msg(data.msg,{icon:5,time:2000},function () {
+                    });
+                }
+            },error:function () {
+                layer.msg("Fail",{icon:5,time:2000},function () {
+                });
+                $(".play-toggle").removeClass('disabled');
+            },complete:function () {
+                $(".play-toggle").removeClass('disabled');
+            }
+        });
+    }
+
+    var swiper = new Swiper('.winner-swiper-container', {
+        direction: 'vertical', // 设置轮播方向为垂直
+        loop: true, // 循环模式选项
+        autoplay: { // 启用自动播放
+            delay: 2000, // 每3秒切换一次幻灯片
+            disableOnInteraction: false, // 用户操作后是否停止自动播放，这里设置为false表示不停顿继续播放
+        },
+    });
+    const zouma_obj = new Zouma('prize-marquee-box',30);
+    zouma_obj.start();
+    $(".rule-toggle img").click(function () {
+        $(".rule-lottery-modal").show();
+    })
+    $(".no-win-lottery-modal .botton-box").click(function () {
+        // $(".no-win-lottery-modal").hide();
+        window.location.reload();
+    })
+
+    $(".gifts-toggle img").click(function () {
+        var that = this;
+        $(that).prop('disabled', true);
+        $.ajax({
+            url: "{:url('Index/myPrize')}",
+            data: {},
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                $(that).prop('disabled', false);
+                var prize_list = data.data
+                var html = "";
+                var prize_length = prize_list.length;
+                for(var i=0;i<prize_length;i++){
+                    html+= "<div class=\"gift-item\">";
+                    html+= "<div class=\"gift-img\"><img src=\""+prize_list[i]['prize_img']+"\"></div>";
+                    html+= '<div class="gift-text">';
+                    html+= '<p class="gift-title">'+prize_list[i]['prize_title']+'</p>';
+                    html+= '<p class="gift-date">'+prize_list[i]['c_time']+'</p>';
+                    html+= '</div>';
+                    html+= '<div class="gift-view"><div class="gift-view-botton">VIEW</div></div>';
+                    html+= '</div>';
+                }
+                $(".gift-lottery-modal .gift-list").html(html);
+            },error:function () {
+                $(that).prop('disabled', false);
+            },complete:function () {
+                $(that).prop('disabled', false);
+            }
+        });
+        $(".gift-lottery-modal").show();
+    })
+    $(".close-btn").click(function () {
+        window.location.reload();
+        // $(this).parent("div").hide();
+    })
+</script>
+</html>

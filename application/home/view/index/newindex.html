@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, minimal-ui, viewport-fit=cover,user-scalable=no">
+    <link rel="stylesheet" href="/static/css/tiger_game/products.css?v=5">
+    <link rel="stylesheet" href="/static/css/tiger_game/reset.css">
+    <link rel="stylesheet" href="/static/css/tiger_game/idangerous.swiper.css">
+    <script src="/static/js/tiger_game/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/tiger_game/swiper-bundle.min.js"></script>
+    <script src="/static/js/tiger_game/rem.js"></script>
+    <script src="/static/home/layer/layer.js"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0&appId=yourAppId&autoLogAppEvents=1" nonce="yourNonceValue"></script>
+    <script async defer src="https://platform.twitter.com/widgets.js"></script>
+    <script async defer src="//platform.linkedin.com/in.js" type="text/javascript">  lang: en_US</script>
+    <title>Tiger Game</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="logs displays">
+            <div class="logs-l"><img src="/static/img/tiger_game/logo.png" alt=""></div>
+            <div class="logs-r"><img src="/static/img/tiger_game/slogan.png" alt=""></div>
+        </div>
+        <div class="tits"><img src="/static/img/tiger_game/luky.png" alt=""></div>
+        <div class="adv">
+            <div class="swiper-container" id="swiper1">
+                <div class="swiper-wrapper">
+                    {foreach $page_data.user_prize_list as $v}
+                    <div class="swiper-slide">{$v}</div>
+                    {/foreach}
+                </div>
+            </div>        
+        </div>
+        <div class="slot-machine">
+            <div class="dengs-l">
+                <span style="margin-top: 0.07rem;"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="dengs displays">
+                <span style="margin-right: 0.12rem;"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="dengs-b displays">
+                <span style="margin-right: 0.12rem;"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="dengs-r">
+                <span style="margin-top: 0.07rem;"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span style="margin-bottom: 0.09rem;"></span>
+                <span style="margin-top: 0.07rem;"></span>
+            </div>
+            <div class="reels">
+                <div class="alert-prize1"><img src="" alt=""></div>
+                <div class="reel" id="reel1">
+                    {foreach $page_data.roller_list0 as $k => $v}
+                    <div class="reel-inner1">
+                        <img src="{$v.img}" alt="">
+                    </div>
+                     {/foreach}                    
+                </div>
+                <div class="alert-prize2"><img src="" alt=""></div>
+                <div class="reel" id="reel2">
+                    {foreach $page_data.roller_list1 as $k => $v}
+                    <div class="reel-inner2">
+                        <img src="{$v.img}" alt="">
+                    </div>
+                      {/foreach}                   
+                </div>
+                <div class="alert-prize3"><img src="" alt=""></div>
+                <div class="reel" id="reel3">
+                   {foreach $page_data.roller_list2 as $k => $v}
+                    <div class="reel-inner3">
+                        <img src="{$v.img}" alt="">
+                    </div>
+                    {/foreach}                   
+                </div>
+            </div>
+            <div class="controls displays">
+                <div class="controls-l">
+                    <h2 class="sur-times">{$page_data.sur_times}</h2>
+                    <p>Draws left</p>
+                </div>
+                <div class="buttons">
+                    <img src="/static/img/tiger_game/play_on.png" alt="" class="plays" onclick="spin()">
+                    <!-- 灰色按扭 -->
+                    <img src="/static/img/tiger_game/play_not.png" alt="" class="no-plays">
+                </div>
+                <div class="cons-r"><img src="/static/img/tiger_game/letf.png" alt=""></div>
+                <img src="/static/img/tiger_game/find.png" alt="" class="finsk">
+            </div>
+            <div class="gifs">
+                <div class="prizes">
+                    <div class="swiper-container" id="swiper2">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide displays leftRight">
+                                {foreach $page_data.goods_list as $k => $v}
+                                <div class="slide slideleft"><img src="{$v.banner_img}" alt=""></div>
+                                {/foreach}                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lists">
+            <div class="shares displays">
+                <img src="/static/img/tiger_game/share.png" alt="">
+                <p>Share With Friends</p>
+            </div>
+            <div class="tits-b">Share the activity page with friends and you will receive an additional 3 chances.</div>
+            <div class="tits-t"><img src="/static/img/tiger_game/tits_1.png" alt=""></div>
+            <div class="list-out">
+                <ul class="list-inner">                
+                    {foreach $my_prize as $k => $v}
+                    <li>
+                        <div class="list-img"><img src="{$v.prize_img}" alt=""></div>
+                        <div class="list-m">
+                            <h3>{$v.prize_title|raw}</h3>
+                            <p>{$v.c_time}</p>
+                        </div>
+                        <a class="list-r" href='{$v.prize_jump_url}'>USE NOW</a>
+                    </li>
+                    {/foreach}               
+                </ul>
+            </div>
+        </div>
+        <div class="rules"><a href="{:url('Index/rule')}">rules</a></div>
+        <!-- 遮罩层 -->
+        <div class="alert-out"></div>
+        <!-- 分享 -->
+        <div class="share-out">
+            <img src="/static/img/tiger_game/close.png" alt="" class="closes">
+            <div class="share-h">Share With Friends</div>
+            <p>Share the activity page with friends and you will receive an adreceive an ad</p>
+            <div class="share-img displays">
+                <img src="/static/img/tiger_game/share_1.png" alt="" onclick="shareOnFacebook()">
+                <img src="/static/img/tiger_game/share_2.png" alt="" onclick="shareOnIns()">
+                <img src="/static/img/tiger_game/share_3.png" alt="" onclick="shareOnLinkedIn()">
+                <img src="/static/img/tiger_game/share_4.png" alt="" onclick="shareOnX()">
+                <!--<img src="/static/img/tiger_game/share_5.png" alt="" onclick="shareOnFacebook()">-->
+                <!--<img src="/static/img/tiger_game/share_6.png" alt=""onclick="shareOnTk()">-->
+            </div>
+        </div>
+        <!-- 未中奖 -->
+        <div class="not-gif">
+            <div class="not-top">
+                <img src="/static/img/tiger_game/nones.png" alt="" class="nones">
+                <div class="tit-n">you did not win the prize</div>
+                <img src="/static/img/tiger_game/none_f.png" alt="" class="face-n">
+                <div class="tit-b" id="fail_not_gif">You still have 3 chances</div>
+                <div class="btn-not">try again</div>
+            </div>
+            <img src="/static/img/tiger_game/close_1.png" alt="" class="close-none close-none1">
+        </div>
+        <!-- 中奖 -->
+        <div class="have-gif">
+            <div class="not-top">
+                <img src="/static/img/tiger_game/fifs.png" alt="" class="nones">
+                <div class="tit-n have-gif_text">you get the $30 coupon</div>
+                <img src="/static/img/tiger_game/juan.png" alt="" class="face-n mgt40 have-gif_img">
+                <div class="tit-b" style='margin: 0.4rem 0 0.3rem;'>
+                        <div class="inpust"><input id="input_email" type="text" placeholder="Enter Email Address For Coupon"></div>
+                </div>
+                <div class="btn-have">Get it now</div>
+            </div>
+            <img src="/static/img/tiger_game/close_1.png" alt="" class="close-none close-none2">
+            <!-- 烟花 -->
+            <div class="flower">
+                <img src="/static/img/tiger_game/flower.png" alt="" class="hua">
+            </div>
+            <div class="flower2">
+                <img src="/static/img/tiger_game/flower.png" alt="" class="hua">
+            </div>
+            <div class="flower3">
+                <img src="/static/img/tiger_game/flower.png" alt="" class="hua">
+            </div>
+        </div>
+        <div id='gif_hua'  style='display: none;'>
+         <!-- 烟花 -->
+            <div class="flower4">
+                <img src="/static/img/tiger_game/flower.png" alt="" class="hua">
+            </div>       
+         </div>
+        <!--音乐  -->
+        <audio  src="/static/img/tiger_game/tiger.mp3" id="audios" loop></audio >
+    </div>
+    <script>   
+        var url=window.location.origin;
+        function shareOnFacebook() {
+            FB.ui({
+                method: 'share',
+                href: url,
+            }, function(response){});
+        }
+        function shareOnX() {
+            window.open('https://twitter.com/intent/tweet?text=Game&url='+url, 'sharer', 'toolbar=0,status=0,width=626,height=436,_blank');
+        }
+        function shareOnIns() {
+            window.open('https://www.instagram.com/share?url='+url, '_blank');
+        }
+//        IN.Environment.js = "https://platform.linkedin.com/in.js/v=v2.0&lang=en_US";
+//        IN.init(); 
+        function shareOnLinkedIn() {
+          IN.UI.Share({
+            'url': url, // 需要分享的网页URL
+            'summary': 'game', // 分享的摘要
+            'source': 'game', // 来源，例如你的网站名
+            'title': 'game', // 分享的标题
+          }).place();
+        }          
+        {if condition='$page_data.sur_times elt 0'}
+            $('.plays').css('display','none');
+            $('.finsk').css('display','none');
+            $('.no-plays').css('display','block');
+            {/if}
+            // 设置哪一个中奖
+            var prizeNum1 = 1; //通过数字索引对应的子元素
+            var prizeNum2 = 2; //通过数字索引对应的子元素
+            var prizeNum3 = 3; //通过数字索引对应的子元素
+            var lottery_id=0;
+            const $slider = $('#reel1');
+            const $slides = $('.reel-inner1');
+            const slideCount = $slides.length;
+            const $slider2 = $('#reel2');
+            const $slides2 = $('.reel-inner2');
+            const slideCount2 = $slides.length;
+            const $slider3 = $('#reel3');
+            const $slides3 = $('.reel-inner3');
+            const slideCount3 = $slides.length;
+            let currentIndex = 0;
+            let autoScrollInterval;
+            let currentIndex2 = 0;
+            let autoScrollInterval2;
+            let currentIndex3 = 0;
+            let autoScrollInterval3;
+            // 克隆第一个和最后一个slide实现无缝循环
+            $slider.append($slides.first().clone());
+            $slider.prepend($slides.last().clone());
+            $slider2.append($slides2.first().clone());
+            $slider2.prepend($slides2.last().clone());
+            $slider3.append($slides3.first().clone());
+            $slider3.prepend($slides3.last().clone());
+            $slider2.children().eq(1).find('img').attr('src',$('#reel2').children().eq(2).find('img').attr('src'));
+            $slider3.children().eq(1).find('img').attr('src',$('#reel3').children().eq(3).find('img').attr('src'));
+            
+            // 调整初始位置
+            $slider.css('transform', 'translateY(-2.5rem)');
+            $slider2.css('transform', 'translateY(-2.5rem)');
+            $slider3.css('transform', 'translateY(-2.5rem)');
+            function nextSlide() {
+                if (currentIndex >= slideCount - 1) {
+                    $slider.css('transition', 'none');
+                    $slider.css('transform', 'translateY(0)');
+                    setTimeout(() => {
+                        goToSlide(0);
+                    }, 50);
+                } else {
+                    goToSlide(currentIndex + 1);
+                }
+            }
+            function prevSlide() {
+                if (currentIndex <= 0) {
+                    $slider.css('transition', 'none');
+                    $slider.css('transform', `translateY(${-2.5 * (slideCount + 1)}rem)`);
+                    setTimeout(() => {
+                        goToSlide(slideCount - 1);
+                    }, 50);
+                } else {
+                    goToSlide(currentIndex - 1);
+                }
+            }
+            function goToSlide(index) {
+                $slider.css('transition', 'transform 0.5s ease');
+                $slider.css('transform', `translateY(${-2.5 * (index + 1)}rem)`);
+                currentIndex = index;
+            }
+            // 自动轮播
+            function startAutoScroll() {
+                autoScrollInterval = setInterval(nextSlide, 100);
+            }
+
+            function stopAutoScroll() {
+                clearInterval(autoScrollInterval);
+            }
+
+            // // 开始自动轮播
+            // startAutoScroll();
+            // 第二个框变化
+            function nextSlide2() {
+                if (currentIndex2 >= slideCount2 - 1) {
+                    $slider2.css('transition', 'none');
+                    $slider2.css('transform', 'translateY(0)');
+                    setTimeout(() => {
+                        goToSlide2(0);
+                    }, 50);
+                } else {
+                    goToSlide2(currentIndex2 + 1);
+                }
+            }
+            function goToSlide2(index) {
+                $slider2.css('transition', 'transform 0.5s ease');
+                $slider2.css('transform', `translateY(${-2.5 * (index + 1)}rem)`);
+                currentIndex2 = index;
+            }
+            // 自动轮播
+            function startAutoScroll2() {
+                autoScrollInterval2 = setInterval(nextSlide2, 100);
+            }
+
+            function stopAutoScroll2() {
+                clearInterval(autoScrollInterval2);
+            }
+
+            // // 开始自动轮播
+            // startAutoScroll2();
+            // 第三个框变化
+            function nextSlide3() {
+                if (currentIndex3 >= slideCount3 - 1) {
+                    $slider3.css('transition', 'none');
+                    $slider3.css('transform', 'translateY(0)');
+                    setTimeout(() => {
+                        goToSlide3(0);
+                    }, 50);
+                } else {
+                    goToSlide3(currentIndex3 + 1);
+                }
+            }
+            function goToSlide3(index) {
+                $slider3.css('transition', 'transform 0.5s ease');
+                $slider3.css('transform', `translateY(${-2.5 * (index + 1)}rem)`);
+                currentIndex3 = index;
+            }
+            // 自动轮播
+            function startAutoScroll3() {
+                autoScrollInterval3 = setInterval(nextSlide3, 100);
+            }
+
+            function stopAutoScroll3() {
+                clearInterval(autoScrollInterval3);
+            }
+
+            // // 开始自动轮播
+            // startAutoScroll3();
+            var is_click=0;
+            function spin() {     
+                if(is_click==1){
+                    return false;
+                }
+                 // 音乐播放
+                 var audio = $("#audios")[0]; 
+                  is_click=1;
+                    // 模拟灯旋转效果
+                    const spinReel = (reelElement,bool) => {
+                        var spins = 0;
+                        var numbers = 0;
+                        var nums = 15;
+                        var nums2 = 12;
+                        if(bool==1){ //第一个框变化
+                            const spinInterval = setInterval(() => {
+                            // console.log(reels[Math.floor(Math.random() * reels.length)])
+                            // return;
+                                if(true) {
+                                    spins++;
+                                    if(spins % 1==0) {
+                                        numbers++;
+                                        $('.dengs').children().eq(numbers-1).addClass('dengShow');
+                                        if(numbers>15) {
+                                            $('.dengs-r').children().eq(numbers-16).addClass('dengShow');
+                                        }
+                                        if (numbers>26) {
+                                            nums--;
+                                            // $('.dengs-b').children().get().reverse().forEach(function(element, index) {
+                                            // // 处理逻辑
+                                            //     console.log(element)
+                                            //     $(element).addClass('dengShow');
+                                            // });
+                                            $('.dengs-b').children().eq(nums).addClass('dengShow');
+                                        }
+                                        if(numbers>40) {
+                                            nums2--;
+                                            $('.dengs-l').children().eq(nums2).addClass('dengShow');
+                                        }
+                                        if(numbers>52) {
+                                            $('.dengs-b').children().get().reverse().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).removeClass('dengShow');
+                                            });
+                                            $('.dengs-r').children().get().reverse().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).removeClass('dengShow');
+                                            });
+                                            $('.dengs').children().get().reverse().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).removeClass('dengShow');
+                                            });
+                                            $('.dengs-l').children().get().reverse().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).removeClass('dengShow');
+                                            });
+                                            numbers = 0;
+                                            nums = 15;
+                                            nums2 = 12;
+                                        }
+                                    } 
+                                    if (spins >= 200) { //不能和下面的时间相差太远   
+                                        clearInterval(spinInterval);
+                                        audio.pause();
+                                    }
+                                    if(spins >=150 ) { //第一个框中奖控制时间
+                                        stopAutoScroll();
+                                        let srcs = $('#reel1').children().eq(prizeNum1).find('img').attr('src');
+                                        $('.alert-prize1').css('display','block');
+                                        $('#reel1').addClass('opactys');
+                                        $('.alert-prize1 img').attr('src', srcs);
+                                    }
+                                }
+                            }, 20);
+                        }
+                        if(bool==2) { //第二个框变化
+                            const spinInterval2 = setInterval(() => {
+                                // $(reelElement).find('img').attr('src',reels[Math.floor(Math.random() * reels.length)]);
+                                    spins++;
+                                    if (spins >= 30) { //第二个框中奖
+                                        clearInterval(spinInterval2);
+                                        stopAutoScroll2();
+                                        let srcs1 = $('#reel2').children().eq(prizeNum2).find('img').attr('src');
+                                        $('.alert-prize2').css('display','block');
+                                        $('#reel2').addClass('opactys')
+                                        $('.alert-prize2 img').attr('src', srcs1);
+                                    }
+                            }, 100)
+                        }
+                        if(bool==3) { //第三个框变化
+                            const spinInterval3 = setInterval(() => {
+                                    spins++;
+                                    //结束抽奖时间
+                                    if (spins >= 30) {
+                                        clearInterval(spinInterval3);
+                                        stopAutoScroll3();
+                                        let srcs2 = $('#reel3').children().eq(prizeNum3).find('img').attr('src');
+                                        $('.alert-prize3').css('display','block');
+                                        $('#reel3').addClass('opactys')
+                                        $('.alert-prize3 img').attr('src', srcs2);
+                                        audio.pause();
+                                        $('.dengs-b').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs-r').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs-l').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                        setTimeout(() => {
+                                            $('.dengs-b').children().get().forEach(function(element, index) {
+                                                // 处理逻辑
+                                                    $(element).removeClass('dengShow');
+                                                });
+                                                $('.dengs-r').children().get().forEach(function(element, index) {
+                                                // 处理逻辑
+                                                    $(element).removeClass('dengShow');
+                                                });
+                                                $('.dengs').children().get().forEach(function(element, index) {
+                                                // 处理逻辑
+                                                    $(element).removeClass('dengShow');
+                                                });
+                                                $('.dengs-l').children().get().forEach(function(element, index) {
+                                                // 处理逻辑
+                                                    $(element).removeClass('dengShow');
+                                                }); 
+                                        }, 200);
+                                        setTimeout(() => {
+                                            $('.dengs-b').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs-r').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs-l').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                        }, 500);
+                                        setTimeout(() => {
+                                            $('.dengs-b').children().get().forEach(function(element, index) {
+                                                // 处理逻辑
+                                                    $(element).removeClass('dengShow');
+                                                });
+                                                $('.dengs-r').children().get().forEach(function(element, index) {
+                                                // 处理逻辑
+                                                    $(element).removeClass('dengShow');
+                                                });
+                                                $('.dengs').children().get().forEach(function(element, index) {
+                                                // 处理逻辑
+                                                    $(element).removeClass('dengShow');
+                                                });
+                                                $('.dengs-l').children().get().forEach(function(element, index) {
+                                                // 处理逻辑
+                                                    $(element).removeClass('dengShow');
+                                                }); 
+                                        }, 800);
+                                        setTimeout(() => {
+                                            $('.dengs-b').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs-r').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                            $('.dengs-l').children().get().forEach(function(element, index) {
+                                            // 处理逻辑
+                                                $(element).addClass('dengShow');
+                                            });
+                                        }, 1000);   
+                                        
+                                    }
+                            }, 100)
+                        }
+                        
+                    };
+                     $.ajax({
+                    url: "{:url('Index/openLottery')}",
+                    data: {},
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.code == 1000){                            
+                            audio.play();  
+                            lottery_id=data.data.lottery_id;
+                            $(".sur-times").html(data.data.sur_times);
+                            // 开始按钮显示与隐藏
+                            $('.plays').css('display','none');
+                            $('.finsk').css('display','none');
+                            $('.no-plays').css('display','block');
+                            // 亮灯初始化
+                            $('.dengs-b').children().get().forEach(function(element, index) {
+                            // 处理逻辑
+                                $(element).removeClass('dengShow');
+                            });
+                            $('.dengs-r').children().get().forEach(function(element, index) {
+                            // 处理逻辑
+                                $(element).removeClass('dengShow');
+                            });
+                            $('.dengs').children().get().forEach(function(element, index) {
+                            // 处理逻辑
+                                $(element).removeClass('dengShow');
+                            });
+                            $('.dengs-l').children().get().forEach(function(element, index) {
+                            // 处理逻辑
+                                $(element).removeClass('dengShow');
+                            }); 
+                            if(data.data.is_win==1){
+                                prizeNum1=prizeNum2=prizeNum3=data.data.lottery_result_key;
+                            }else{
+                                prizeNum1=data.data.lottery_result_fail[0];
+                                prizeNum2=data.data.lottery_result_fail[1];
+                                prizeNum3=data.data.lottery_result_fail[2];
+                            }
+                             spinReel(reel1,1);
+                            startAutoScroll();
+                            setTimeout(() => { //间隔开始抽奖时间
+                                spinReel(reel2,2);
+                                startAutoScroll2();
+                            }, 600);
+                            setTimeout(() => { //间隔开始抽奖时间
+                                spinReel(reel3,3);
+                                startAutoScroll3();
+                            }, 1200);
+                            // 可以在这里添加中奖判断逻辑
+                            setTimeout(() => {
+                                $('.alert-out').css('display','block');
+                                if(data.data.is_win==1){                                   
+                                    $('.have-gif_text').html(data.data.lottery_info.prize_title);
+                                    $('.have-gif_img').attr('src',data.data.lottery_info.prize_img);
+                                    $('.have-gif').css('display','block');
+                                    $('#gif_hua').css('display','block');
+                                }else{                                    
+                                    $('#fail_not_gif').html('You still have '+data.data.sur_times+' chances');
+                                    $('.not-gif').css('display','block');
+                                }
+                                // // 图片初始化
+                                currentIndex = 0;
+                                currentIndex2 = 0;
+                                currentIndex3 = 0;
+                                // 调整初始位置
+                                $slider.css('transform', 'translateY(-2.5rem)');
+                                $slider2.css('transform', 'translateY(-2.5rem)');
+                                $slider3.css('transform', 'translateY(-2.5rem)');
+                                $('.dengs-b').children().get().reverse().forEach(function(element, index) {
+                                // 处理逻辑
+                                    $(element).removeClass('dengShow');
+                                });
+                                $('.dengs-r').children().get().reverse().forEach(function(element, index) {
+                                // 处理逻辑
+                                    $(element).removeClass('dengShow');
+                                });
+                                $('.dengs').children().get().reverse().forEach(function(element, index) {
+                                // 处理逻辑
+                                    $(element).removeClass('dengShow');
+                                });
+                                $('.dengs-l').children().get().reverse().forEach(function(element, index) {
+                                // 处理逻辑
+                                    $(element).removeClass('dengShow');
+                                });
+                                if(data.data.sur_times>0){
+                                    // 开始按钮显示与隐藏
+                                    $('.plays').css('display','block');
+                                    $('.finsk').css('display','block');
+                                    $('.no-plays').css('display','none');
+                                }
+                            }, 5500);
+                        }else{
+                            layer.msg(data.msg,{icon:2,time:2000},function () {
+                            });
+                        }
+                    },error:function () {
+                        layer.msg("Fail",{icon:2,time:2000},function () {
+                        });
+                        is_click=0;
+                    },complete:function () {
+                        is_click=0;
+                    }
+                }); 
+                }
+            var swiper1 = new Swiper('#swiper1', {
+                direction: 'vertical', // 设置滑动方向为竖直
+                loop: true, // 循环模式选项
+                autoplay: {
+                    delay: 2500, // 自动切换时间间隔，单位为ms
+                    disableOnInteraction: false // 用户操作后是否禁止自动切换，设置为false则用户操作后仍然继续自动播放
+                },
+            });
+    
+            // 控制按钮事件
+            $('#pauseBtn').click(function() {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            });
+            
+            $('#resumeBtn').click(function() {
+                if (!animationId) {
+                    animate();
+                }
+            });
+            
+            $('#speedUpBtn').click(function() {
+                speed = Math.min(speed + 0.5, 10);
+            });
+            
+            $('#slowDownBtn').click(function() {
+                speed = Math.max(speed - 0.5, 0.5);
+            });
+            
+            // 响应式处理
+            $(window).resize(function() {
+                position = 0;
+                $track.css('transform', 'translateX(0)');
+            });
+ 
+            $('.alert-out').click(function(){
+                $('.alert-out').css('display','none');
+                $('.share-out').css('display','none');
+                $('.have-gif').css('display','none');
+                $('.alert-prize1').css('display','none');
+                $('.alert-prize2').css('display','none');
+                $('.alert-prize3').css('display','none');
+                $('#reel1').removeClass('opactys');
+                $('#reel2').removeClass('opactys');
+                $('#reel3').removeClass('opactys');
+            })
+            $('.shares').click(function(){
+                $('.alert-out').css('display','block');
+                $('.share-out').css('display','block');
+            })
+            $('.closes').click(function(){
+                $('.alert-out').css('display','none');
+                $('.share-out').css('display','none');
+            })
+            $('.btn-not,.close-none1').click(function(){
+                $('.alert-out').css('display','none');
+                $('.not-gif').css('display','none');
+                $('.alert-prize1').css('display','none');
+                $('.alert-prize2').css('display','none');
+                $('.alert-prize3').css('display','none');
+                $('#reel1').removeClass('opactys');
+                $('#reel2').removeClass('opactys');
+                $('#reel3').removeClass('opactys');
+            })           
+            $('.close-none2').click(function(){
+                $('.alert-out').css('display','none');
+                $('.have-gif').css('display','none');
+                $('#gif_hua').css('display','none');
+                $('.alert-prize1').css('display','none');
+                $('.alert-prize2').css('display','none');
+                $('.alert-prize3').css('display','none');
+                $('#reel1').removeClass('opactys');
+                $('#reel2').removeClass('opactys');
+                $('#reel3').removeClass('opactys');
+            })
+            $('.btn-have').click(function(){                
+                var email = $("#input_email").val();
+                if(email == ""){
+                    layer.msg("Please enter your email address");
+                    return;
+                }
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if(!emailRegex.test(email)){
+                    layer.msg("Please enter the correct email address");
+                    return; ;
+                }
+                if(lottery_id==0){
+                    layer.msg("receive failed");
+                    return;
+                }
+                var that = this;
+                if($(that).hasClass("disabled")){
+                    return;
+                }
+                $(that).addClass("disabled")
+                $.ajax({
+                    url: "{:url('Index/receivePrize')}",
+                    data: {email:email,lottery_id:lottery_id},
+                    type: "post",
+                    dataType: "json",
+                    success: function (data) {
+                        $(that).removeClass('disabled');
+                        if(data.code == 1000){
+                            layer.msg('Congratulations, successfully claimed',{icon:1,time:2000},function () {
+                                window.location.reload();
+//                                $('.alert-out').css('display','none');
+//                                $('.have-gif').css('display','none');
+//                                $('.alert-prize1').css('display','none');
+//                                $('.alert-prize2').css('display','none');
+//                                $('.alert-prize3').css('display','none');
+//                                $('#reel1').removeClass('opactys');
+//                                $('#reel2').removeClass('opactys');
+//                                $('#reel3').removeClass('opactys');
+                            });
+                        }else{
+                            layer.msg(data.msg,{icon:2,time:2000},function () {
+                            });
+                        }
+                    },error:function () {
+                        layer.msg("Fail",{icon:2,time:2000},function () {
+                        });
+                        $(that).removeClass('disabled');
+                    },complete:function () {
+                        $(that).removeClass('disabled');
+                    }
+                });                
+            })
+        
+    </script>
+    <script>
+        // 走马灯效果
+        $(document).ready(function() {
+            const $track = $('.leftRight');
+            const items = $('.slideleft');
+            const itemWidth = items.first().outerWidth(true)*3.07;
+            let speed = 2;
+            let animationId;
+            let position = 0;
+            // 开始动画
+            setTimeout(() => {
+                if(items.length>5) {
+                    animate();
+                }
+            }, 1000);
+            // 克隆元素实现无缝循环
+            $track.append(items.clone());
+            console.log(itemWidth * items.length)
+            function animate() {
+                position -= speed;
+                // 当移动距离超过一半内容宽度时重置位置
+                if (position <= -itemWidth * items.length) {
+                    position = 0;
+                }
+                $track.css('transform', `translateX(${position}px)`);
+                animationId = requestAnimationFrame(animate);
+            } 
+        });
+    </script>
+</body>
+</html>

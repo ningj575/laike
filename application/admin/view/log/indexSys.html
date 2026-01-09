@@ -1,0 +1,108 @@
+{include file="public/header" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">IP</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ip" placeholder="IP,全文匹配" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">管理员</label>
+                    <div class="layui-input-block">
+                        <select name="admin_id">
+                            <option value="">==管理员==</option>
+                            {volist name="adminArr" id="v"}
+                            <option value="{$key}">{$v}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage">
+
+            </table>
+            <script type="text/html" id="buttonTpl">
+                {{#  if(d.status == true){ }}
+                <button class="layui-btn layui-btn-xs">开启</button>
+                {{#  } else { }}
+                <button class="layui-btn layui-btn-primary layui-btn-xs">关闭</button>
+                {{#  } }}
+            </script>
+
+            <script type="text/html" id="table-useradmin-admin">
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+            </script>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+
+<script>
+    var listUrl = 'operate_log';   //当前列表 URL
+    // addEditUrl = 'editMenu';    //新增、编辑 URL
+    var delUrl = 'delLog';         //删除当前角色 URL
+    //var stateUrl = 'menuState';     //菜单状态 URL
+
+    //动态表格
+    layui.use('table',function () {
+        var $ = layui.$;
+        var table = layui.table;
+        var area = ['30%','28%'];
+
+        //执行渲染 - 实例 Table
+        table.render({
+            elem:'#LAY-user-back-manage',
+            url:listUrl,
+            page:true,
+            limit:20,
+            cols:[[
+                {field:'log_id',title:'log_id',sort:true,fixed:'left',width:100},
+                {field:'admin_id',title:'用户id',width:100},
+                {field:'admin_name',title:'操作用户'},
+                {field:'description',title:'描述',width:300},
+                {field:'ip',title:'操作IP'},
+                {field:'ipaddr',title:'操作地址'},
+                {field:'log_type_text',title:'日记类型'},
+                {field:'status_text',title:'状态'},
+                {field:'c_time',title:'操作时间'},
+                {title:'操作',toolbar: "#table-useradmin-admin",align: "center"},
+            ]]
+        });
+
+        //监听动态表格中的事件
+        table.on("tool(LAY-user-back-manage)",function(e){
+            //e.data;   当前行数据
+            var id = e.data.id;
+            switch (e.event) {
+                case 'del':
+                    //删除
+                    tpmsg.confirm(id,delUrl);
+                    break;
+            }
+        });
+
+        //监听表格上列的添加、搜索框事件
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function(){
+            var type = $(this).data('type');
+            switch (type) {
+                case 'add':
+                    tpmsg.addEdit(delUrl,area);
+                    break;
+                case 'batchdel':
+                    tpmsg.batchdel(delUrl);
+                    break;
+            }
+        });
+    });
+</script>

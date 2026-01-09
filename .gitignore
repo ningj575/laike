@@ -1,0 +1,6 @@
+/nbproject
+database.php
+runtime/
+.git/
+uploads/
+.idea/

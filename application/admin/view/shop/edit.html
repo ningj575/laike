@@ -1,0 +1,131 @@
+{include file="public/header" /}
+<style>
+    .layui-upload-img{width: 112px; height: 112px; margin: 0;}
+</style>
+<body>
+<div class="layui-fluid">
+<div class="layui-card">
+    <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" >
+        <input type="hidden" name="id"  value="{$shop.id}" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">店铺名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" value="{$shop.name}" placeholder="请输入店铺名称" autocomplete="off"  maxlength="20" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+                    <label class="layui-form-label">店铺logo</label>
+                    <div class="layui-input-inline">
+                        <button type="button" class="layui-btn layui-btn-danger" id="image">
+                            <i class="layui-icon">&#xe67c;</i>选择图片
+                            <input type="hidden" name="logo" value="{$shop.logo}" id="imgurl">
+                        </button>
+                    </div>
+                     <label class="layui-form-label">预览图：</label>
+                    <div class="layui-upload-list" id="preview">
+                        <img  src="{$shop.logo_url}"  class="layui-upload-img" id="image_src">
+
+                    </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系人</label>
+            <div class="layui-input-inline">
+                <input type="text" name="linkman" lay-verify="" value="{$shop.linkman}" placeholder="请输入店铺联系人" autocomplete="off" class="layui-input">
+            </div>
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="phone" lay-verify="required|phone" value="{$shop.phone}" placeholder="请输入店铺联系电话" autocomplete="off" class="layui-input">
+            </div>                
+        </div>        
+        <div class="layui-form-item">
+            <label class="layui-form-label">营业时间</label>
+            <div class="layui-input-block">
+                <input type="text" name="hours" lay-verify="required" id="hours" value="{$shop.hours}" placeholder="请选择时间" autocomplete="off" class="layui-input">
+            </div>            
+        </div>
+        <div class="layui-form-item" id="area-picker">
+            <div class="layui-form-label">店铺区域</div>
+            <div class="layui-input-inline">
+                <select name="province" class="province-selector" data-value="{$shop.province}">
+                    <option value="">--选择省--</option>
+                </select>
+            </div>
+            <div class="layui-input-inline" >
+                <select name="city" class="city-selector" data-value="{$shop.city}">
+                    <option value="">--选择市--</option>
+                </select>
+            </div>
+            <div class="layui-input-inline" >
+                <select name="county" class="county-selector" data-value="{$shop.county}">
+                    <option value="">--选择区--</option>
+                </select>
+            </div>
+        </div>     
+        <div class="layui-form-item">
+            <label class="layui-form-label">详细地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="address" lay-verify="" value="{$shop.address}" placeholder="请输入详细地址" autocomplete="off" class="layui-input">
+            </div>            
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" lay-verify="required" value="1" lay-filter="status" name="status" {if condition="$shop.status eq 1" }checked{/if} lay-skin="switch" lay-text="{:lang('open')}|{:lang('close')}">
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="__LAYUI__/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '__LAYUI__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','form', 'upload', 'laydate','layarea'],function(){
+         //执行实例
+        var upload = layui.upload;
+        var laydate = layui.laydate;
+        var layarea = layui.layarea;
+            //时间范围
+            laydate.render({
+              elem: '#hours'
+              ,type: 'time'
+              ,range: true
+            });
+            layarea.render({
+                elem: '#area-picker',
+                change: function (res) {
+                    //选择结果
+                    console.log(res);
+                }
+            });
+        var uploadInst = upload.render({
+            elem: '#image'                                          //绑定元素
+            , url: "{:url('/system/upload/upload')}"                 //上传接口
+            , accept: 'images'                                        //图片类型
+            , multiple: false                                         //是否多张图片
+            , number: 0                                               //限制上传图片数量
+            , acceptMime: 'image/*'
+            , before: function (obj) {
+                //预读本地文件示例
+                //layui.$('#preview').append('<img src="'+ res.data.fullSrc +'" class="layui-upload-img">');
+            }
+            , done: function (res) {
+                //上传完毕回调
+//                console.log(res);
+                layui.$('#image_src').attr('src', res.data.fullSrc); //图片链接（base64）
+                layui.$('#imgurl').val(res.data.src);
+            }
+            , error: function () {
+                //请求异常回调
+            }
+        });
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{include file="public/header" /}
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form" >
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属店铺</label>
+                    <div class="layui-input-inline">
+                        <select name="shop_id" lay-verify="required" lay-search="" id='shop_id'> 
+                            <option value="">请选择店铺</option> 
+                            {foreach name="shop_list" item="vo"}
+                            <option value="{$vo.id}"{if condition="$vo.status eq 2" } disabled="" {/if} >{$vo.name}</option>
+                            {/foreach}                   
+                        </select>
+                    </div>  
+                </div>   
+                <div class="layui-form-item">
+                    <label class="layui-form-label">文件导入</label>                   
+                    <div class="layui-input-inline">
+                        <div class="layui-upload-drag" id="importOrder"> 
+                            <i class="layui-icon"></i>
+                            <p>点击上传，或将文件拖拽到此处</p>                            
+                        </div>
+                    </div>  
+                </div> 
+                <div class="layui-form-item" style='text-align: center; margin-top: 50px;'>
+                    <button type="button" class="layui-btn" id="import_id">开始上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form', 'upload'], function () {
+            //执行实例
+            var upload = layui.upload;
+            var form=layui.form;           
+            //选完文件后不自动上传
+            var uploadInst =upload.render({
+                elem: '#importOrder'
+                , url: 'importOrder' //此处配置你自己的上传接口即可
+                , auto: false
+                , bindAction: '#import_id'
+                , accept: 'file'
+                , exts: 'xls|xlsx|csv'
+                ,data:{}
+                ,before: function (obj) {              
+                    var shop_id = layui.$('#shop_id').val();
+                    if (shop_id == '') {
+                        layer.msg('请选择所属店铺', {icon: 2});
+                        return false;
+                    }
+                    this.data.shop_id=shop_id;
+                }
+                , done: function (res) {
+                    if (res.code == 1000) {
+                        layer.msg('上传成功', {icon: 1,time: 1500,},function(){
+                            parent.layer.closeAll(); // 关闭所有层
+                            parent.layui.table.reload("LAY-user-back-manage");
+                        });
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }
+            });
+
+        })
+    </script>
+</body>
+</html>

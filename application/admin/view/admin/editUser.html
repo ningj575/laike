@@ -1,0 +1,83 @@
+{include file="public/header" /}
+<body>
+    <style>
+        .layui-form-label{width:100px;}
+        .layui-input-block{margin-left:130px;}
+    </style>
+<div class="layui-fluid">
+    <div class="layui-card">
+
+        <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+            <input type="hidden" name="id"  value="{$admin_id}" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">{:lang('admin_name')}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="admin_name" lay-verify="required" value="{$user.admin_name}" placeholder="{:lang('admin_name')}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">.
+                <label class="layui-form-label">{:lang('admin_role')}</label>
+                <div class="layui-input-block">
+                    <select name="groupid" lay-verify="required">
+                        <option value="">=={:lang('choose_role')}==</option>
+                        {if !empty($role)}
+                        {foreach name="role" item="vo"}
+                        <option value="{$vo.id}" {if condition="$user['groupid'] eq $vo['id']" }selected{/if}>{$vo.title}</option>
+                        {/foreach}
+                        {/if}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">{:lang('real_name')}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="real_name"  placeholder="{:lang('real_name')}" value="{$user.real_name}" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">{:lang('password')}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="password" placeholder="{:lang('password')}"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">{:lang('status')}</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" lay-verify="required" lay-filter="status" value="1" name="status" {if condition="$user.status eq 1" }checked{/if} lay-skin="switch" lay-text="{:lang('open')}|{:lang('close')}">
+                </div>
+            </div>
+            <div class="layui-form-item layui-hide">
+                <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="__LAYUI__/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '__LAYUI__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , upload = layui.upload;
+
+        //图片上传控件
+        /*upload.render({
+            elem: '#layuiadmin-upload-useradmin'
+            , url: "{:url('system/upload/uploadface')}"
+            , accept: 'images'
+            , method: 'post'
+            , acceptMime: 'image/!*'
+            , done: function (res) {
+                $(this.item).prev("div").children("input").val(res.data.src);
+                $("#image img").attr('src',res.data.full_src);
+                $("#image").show();
+            }
+        });*/
+    })
+</script>
+</body>
+</html>

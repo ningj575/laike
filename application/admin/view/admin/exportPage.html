@@ -1,0 +1,65 @@
+{include file="public/header" /}
+<body>
+<style>
+    .layui-form-label{width:100px;}
+    .layui-input-block{margin-left:130px;}
+</style>
+<div class="layui-fluid">
+    <div class="layui-card">
+
+        <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" style="padding: 20px 0 0 0;">
+            <input type="hidden" name="id" id="id" value="{$admin_id}" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">开始时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="start_date" required id="start_date" value="" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">结束时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="end_date" required id="end_date" value="" autocomplete="off" class="layui-input" >
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn export_account_order" >{:lang('export_account_order')}</button>
+                </div>
+            </div>
+<!--            <div class="layui-form-item layui-hide">-->
+<!--                <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">-->
+<!--            </div>-->
+        </div>
+    </div>
+</div>
+
+<script src="__LAYUI__/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '__LAYUI__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'upload','laydate'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , upload = layui.upload;
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date',
+            format: 'yyyy-MM-dd HH:mm:ss'
+        });
+        laydate.render({
+            elem: '#end_date',
+            format: 'yyyy-MM-dd HH:mm:ss'
+        });
+        $('.export_account_order').on('click',function(){
+            var start_date = $("#start_date").val();
+            var end_date = $("#end_date").val();
+            var id = $("#id").val();
+            window.location.href="{:url('order/Order/exportOrder')}?uid="+id+"&c_start_date="+start_date+"&c_end_date="+end_date
+        });
+    })
+</script>
+</body>
+</html>

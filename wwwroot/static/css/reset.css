@@ -1,0 +1,169 @@
+@charset 'utf-8';
+html {
+  color: #000;
+  background: #fff;
+  /* font-family: 'Regular'; */
+  width: 100%;
+  overflow-x: hidden;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+p,
+blockquote,
+th,
+td,
+strong {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* font-family: 'Regular'; */
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+fieldset,
+img {
+  border: 0;
+}
+a {
+  text-decoration: none;
+  color: #666666;
+  outline: none;
+} /*此处待添加默认链接颜色*/
+var,
+em,
+strong,
+i {
+  font-style: normal;
+}
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var,
+optgroup {
+  font-style: inherit;
+  font-weight: inherit;
+}
+del,
+ins {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+legend {
+  color: #000;
+}
+input,
+button,
+textarea,
+select,
+optgroup,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+}
+input,
+button,
+textarea,
+select {
+  *font-size: 100%;
+}
+.clearfix:after {
+  content: "\200B";
+  display: block;
+  height: 0;
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* 加载动画 */
+.alert-out {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 101;
+  background-color: rgba(255,255,255,0.8);
+}
+.square-box-2 {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  z-index: 105;
+  -webkit-animation: load3 0.8s infinite linear ;
+  animation: load3 0.8s infinite linear ;
+}
+.circle-180 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /* 上右下左 */
+  clip: rect(50px, auto, auto, auto);
+  border-radius: 50%;
+  border: 2px solid #142c8e;
+}
+.circle-90 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  /* 上右下左 */
+  clip: rect(auto, 50px, 50px, auto);
+  border-radius: 50%;
+  border: 2px solid #142c8e;
+}
+@keyframes load3 {
+  0% {
+    transform: rotate(0);
+    transform-origin: 50% 50%;
+  }
+  100% {
+    transform: rotate(360deg);
+    transform-origin: 50% 50%;
+  }
+}

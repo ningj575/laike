@@ -1,0 +1,105 @@
+{include file="public/header" /}
+<body>
+<div class="layui-fluid">
+<div class="layui-card">
+    <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" >
+        <input type="hidden" name="id"  value="{$order.id}" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属店铺</label>
+           <div class="layui-input-inline">
+               <select name="shop_id" lay-verify="required" lay-search=""> 
+                   <option value="">请选择店铺</option> 
+                   {foreach name="shop_list" item="vo"}
+                    <option value="{$vo.id}" {if condition="$order.shop_id eq $vo.id" } selected {/if}{if condition="$vo.status eq 2" } disabled="" {/if} >{$vo.name}</option>
+                    {/foreach}                   
+               </select>
+           </div>    
+            <label class="layui-form-label">所属客服</label>
+           <div class="layui-input-inline">
+               <select name="kefu_id" lay-verify="required" lay-search=""> 
+                   <option value="">请选择客服</option> 
+                  {foreach name="kefu_list" item="vo"}
+                    <option value="{$vo.id}" {if condition="$order.kefu_id eq $vo.id" } selected {/if} {if condition="$vo.status eq 2" } disabled="" {/if}>{$vo.admin_name}</option>
+                  {/foreach}
+               </select>
+           </div>     
+        </div>   
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="item_name" lay-verify="required" value="{$order.item_name}" placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>      
+        <div class="layui-form-item">
+            <label class="layui-form-label">订单编号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="order_num" lay-verify="required" value="{$order.order_num}" placeholder="请输入订单编号" autocomplete="off" class="layui-input">
+            </div>    
+             <label class="layui-form-label">手机号</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="buy_phone" lay-verify="required|phone" value="{$order.buy_phone}" placeholder="请输入购买人手机号" autocomplete="off" class="layui-input">
+            </div>     
+        </div>    
+        <div class="layui-form-item">
+            <label class="layui-form-label">客户姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="buy_name"  value="{$order.buy_name}" placeholder="请输入客户姓名" autocomplete="off" class="layui-input">
+            </div>    
+             <label class="layui-form-label">支付时间</label>
+            <div class="layui-input-inline">
+                <input type="text" name="pay_time" lay-verify="required" id="pay_time" value="{$order.pay_time}" placeholder="请选择时间" autocomplete="off" class="layui-input">
+            </div>     
+        </div>    
+         <div class="layui-form-item">
+            <label class="layui-form-label">商品品类</label>
+            <div class="layui-input-inline">
+                <input type="text" name="item_cate" lay-verify="required" value="{$order.item_cate}" placeholder="请输入商品品类" autocomplete="off"  class="layui-input">
+            </div>
+              <label class="layui-form-label">商品类型</label>
+            <div class="layui-input-inline">
+                <input type="text" name="item_type" lay-verify="required" value="{$order.item_type}" placeholder="请输入商品类型" autocomplete="off"  class="layui-input">
+            </div>
+        </div>  
+        <div class="layui-form-item">
+            <label class="layui-form-label">购买数量</label>
+            <div class="layui-input-inline">
+                <input type="number" name="buy_num" lay-verify="required|number" value="{$order.buy_num??1}" placeholder="请输入店铺名称" autocomplete="off"  maxlength="20" class="layui-input">
+            </div>
+             <label class="layui-form-label">实收金额(￥)</label>
+            <div class="layui-input-inline">
+                <input type="text" name="receive_amount" lay-verify="required|number" value="{$order.receive_amount}" placeholder="请输入实收金额" autocomplete="off"   class="layui-input">
+            </div>
+        </div>         
+        <div class="layui-form-item">
+            <label class="layui-form-label">商家备注</label>
+            <div class="layui-input-block">
+                 <textarea name="store_remarks" placeholder="请输入商家备注" class="layui-textarea">{$order.store_remarks}</textarea>
+            </div>            
+        </div>  
+        <div class="layui-form-item layui-hide">
+            <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="__LAYUI__/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '__LAYUI__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index','form', 'upload', 'laydate','layarea'],function(){
+         //执行实例
+        var upload = layui.upload;
+        var laydate = layui.laydate;
+        var layarea = layui.layarea;
+            //时间范围
+            laydate.render({
+              elem: '#pay_time'
+              ,type: 'datetime'
+            });
+    })
+</script>
+</body>
+</html>

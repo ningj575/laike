@@ -1,0 +1,137 @@
+{include file="public/header" /}
+<style>
+    .layui-elem-quote{
+        border-left: 1px;
+    }
+    .layui-quote-nm{
+        border-width: 1px;
+    }
+</style>
+<fieldset class="layui-elem-field layui-field-title" style="margin:30px 30px;"> <legend>订单详情</legend>
+    <div class="layui-tab layui-tab-brief layui-quote-nm">
+        <ul class="layui-tab-title layui-elem-quote" style="padding:0px;">
+            <li>基本信息</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 250px;">
+            所属店铺：{$order.shop.name}</br>
+            所属客服：{$order.kefu.admin_name}</br>
+            订单编号：{$order.order_num}</br>
+            商品名称：{$order.item_name}</br>
+            商品品类：{$order.item_cate}</br>
+            商品类型：{$order.item_type}</br>
+            购买数量：{$order.buy_num}</br>
+            订单实收：{$order.receive_amount}</br>
+            支付时间：{$order.pay_time}</br>
+            客户姓名：{$order.buy_name?:'暂无'}&nbsp;&nbsp;<button class="layui-btn layui-btn-primary layui-btn-xs" data-type="update_name">修改</button></br>
+            客户手机号：{$order.buy_phone}</br>
+            沟通备忘录：{$order.store_remarks}&nbsp;&nbsp;<button class="layui-btn layui-btn-primary layui-btn-xs" data-type="update_remark">修改</button>
+
+        </div>
+    </div>
+    <div class="layui-tab layui-tab-brief layui-quote-nm">
+        <ul class="layui-tab-title layui-elem-quote" style="padding:0px;">
+            <li class="layui-this">沟通记录</li>
+            <li>电话<span class="layui-badge">6</span></li>
+            <li>短信沟通<span class="layui-badge">2</span></li>
+            <li>企业微信</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 500px;">
+            <div class="layui-tab-item layui-show">
+                <ul class="layui-timeline">
+                    <li class="layui-timeline-item"> <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">8月18日</h3>
+                            <p> layui 2.0 的一切准备工作似乎都已到位。发布之弦，一触即发。 <br>不枉近百个日日夜夜与之为伴。因小而大，因弱而强。 <br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i> </p>
+                        </div> </li>
+                    <li class="layui-timeline-item"> <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">8月16日</h3>
+                            <p>杜甫的思想核心是儒家的仁政思想，他有<em>“致君尧舜上，再使风俗淳”</em>的宏伟抱负。个人最爱的名篇有：</p>
+                            <ul>
+                                <li>《登高》</li>
+                                <li>《茅屋为秋风所破歌》</li>
+                            </ul>
+                        </div> </li>
+                    <li class="layui-timeline-item"> <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">8月15日</h3>
+                            <p> 中国人民抗日战争胜利日 <br>铭记、感恩 <br>所有为中华民族浴血奋战的英雄将士 <br>永垂不朽 </p>
+                        </div> </li>
+                    <li class="layui-timeline-item"> <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="layui-timeline-title">
+                                过去
+                            </div>
+                        </div> </li>
+                </ul>
+            </div>
+            <div class="layui-tab-item"> 
+                内容2
+            </div>
+            <div class="layui-tab-item">
+                内容3
+            </div>
+            <div class="layui-tab-item">
+                内容4
+            </div>          
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index'], function () { 
+            var id='{$order.id}';
+            /* 触发弹层 */
+            var active = {
+                update_name: function () {
+                    layer.prompt({
+                        formType: 3
+                        , title: '更新客户姓名'
+                        , value: "{$order.buy_name}"
+                    }, function (value, index) {                        
+                        layui.$.post('edit', {id: id,buy_name:value}, function (data) {
+                            if (data.code == 1000) {
+                                layer.msg('更新成功', {icon: 1, time: 1500, shade: 0.1,},function(){
+                                    location.reload();
+                                });
+                            } else {
+                                layer.msg('更新失败', {icon: 2, time: 1500, shade: 0.1, });
+                            }
+                        });
+                        layer.close(index);
+                    })
+                },
+                update_remark: function () {
+                    layer.prompt({
+                        formType: 2
+                        , title: '修改备注'
+                        , value: "{$order.store_remarks}"
+                    }, function (value, index) {                        
+                        layui.$.post('edit', {id: id,store_remarks:value}, function (data) {
+                            if (data.code == 1000) {
+                                layer.msg('修改成功', {icon: 1, time: 1500, shade: 0.1,},function(){
+                                    location.reload();
+                                });
+                            } else {
+                                layer.msg('修改失败', {icon: 2, time: 1500, shade: 0.1, });
+                            }
+                        });
+                        layer.close(index);
+                    })
+                }
+            }
+
+            $('.layui-tab-content .layui-btn').on('click', function () {
+                var type = $(this).data('type');
+                active[type] && active[type].call(this);
+            });
+
+        })
+
+    </script>
+</body>
+</html>

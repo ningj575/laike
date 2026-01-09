@@ -1,0 +1,100 @@
+
+.chat {
+	display: flex;
+	padding: 50px;
+}
+.chat-left {
+	width: 400px;
+	height: 700px;
+	padding: 10px 15px;
+	border: 1px solid #e1e1e1;
+	border-radius: 6px;
+}
+.chat-left h2 {
+	color: #333;
+	font-size: 14px;
+	font-weight: bold;
+}
+.chat-left textarea {
+	border: none;
+	height: 620px;
+	padding: 10px 0;
+	width: 100%;
+	color: #666;
+	outline: none;
+	resize: none;
+}
+.chat-right {
+	position: relative;
+	flex: 1;
+	height: 700px;
+	margin-left: 20px;
+}
+.list-custom {
+	overflow: auto;
+	padding-right: 20px;
+	max-height: 620px;
+}
+.inputs {
+	flex: 1;
+}
+.list-custom li {
+	display: flex;
+	border-bottom: 1px solid #e1e1e1;
+	align-items: center;
+	padding: 12px 0;
+	cursor: pointer;
+}
+.list-custom li span {
+	margin-right: 30px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+}
+.list-custom li textarea {
+	width: 100%;
+	/* min-height: 50px; */
+	border: 1px solid #1e9fff;
+	border-radius: 4px;
+	padding: 13px 15px;
+	color: #666;
+	outline: none;
+	line-height: 22px;
+	font-size: 16px;
+	resize: none;
+}
+.list-custom li em {
+	color: #666;
+	margin-left: 20px;
+}
+.add-con {
+	display: inline-block;
+	padding: 20px 0;
+	color: #333;
+	font-weight: bold;
+	cursor: pointer;
+}
+.submits {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 4px;
+	color: #fff;
+	background-color: #1e9fff;
+	font-size: 14px;
+	text-align: center;
+	cursor: pointer;
+}
+.taikong{
+	/*position: absolute;*/
+	/*left: -999999999999px;*/
+	width: 100%;
+	white-space:pre-wrap;
+}
+.text_taikong{
+	position: absolute;
+	left: -999999999999px;
+}

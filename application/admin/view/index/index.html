@@ -1,0 +1,146 @@
+{include file="public/header" /}
+<body>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+
+            <div class="layui-col-md8">
+                <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header">系统使用率</div>
+                            <div class="layui-card-body">
+                                <div class="layuiadmin-card-list">
+                                    <span>CPU使用率</span>
+                                    <div class="layui-progress layui-progress-big" lay-showPercent="yes" lay-filter="cpu">
+                                        <div class="layui-progress-bar" lay-percent="0%"></div>
+                                    </div>
+                                </div>
+                                <div class="layuiadmin-card-list">
+                                    <span>内存占用率</span>
+                                    <div class="layui-progress layui-progress-big" lay-showPercent="yes" lay-filter="memory">
+                                        <div class="layui-progress-bar layui-bg-orange" lay-percent="0%"></div>
+                                    </div>
+                                </div>
+                                <div class="layuiadmin-card-list">
+                                    <p>
+                                        内存总量：<span id="memoryTotal">0</span>GB&nbsp;&nbsp;&nbsp;
+                                        剩余空间：<span id="memoryFree">0</span>GB
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header">版本信息</div>
+                            <div class="layui-card-body layui-text">
+                                <table class="layui-table">
+                                    <tbody>
+                                        <tr>
+                                            <td>环境服务</td>
+                                            <td>
+                                                {$info.web_server}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>PHP版本</td>
+                                            <td>PHP {$info.phpversion}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ThinkPHP</td>
+                                            <td>ThinkPHP{$info.think_v}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MYSQL</td>
+                                            <td>{$info.mysql_v}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Layui</td>
+                                            <td><script type="text/html" template>layui-v{{ layui.v }}</script></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="layui-col-md4">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        开发者心语
+                        <i class="layui-icon layui-icon-tips" lay-tips="要支持的噢" lay-offset="5"></i>
+                    </div>
+                    <div class="layui-card-body layui-text layadmin-text">
+                        <p>首先感谢大家下载并安装youngadmin后台管理。<a href="https://www.iasing.com" target="_blank">个人站点</a></p>
+                        <p>从事开发多年来，一直使用者别人的后台管理框架。后来看到大伙都开始使用layui来做后台。就想着用layui + tp框架搞个后台管理</p>
+                        <p>后台权限管理及数据库设计借鉴网上流行的后台权限管理。如有雷同敬请谅解</p>
+                        <p>后台模板大部分采用<a href="https://www.layui.com/admin/std/dist/views/" target="_blank">layuiadmin</a>提供的模板布局。 特殊情况则到layui找相应的轮子来用的</p>
+                        <p>为了方便升级，youngadmin并没有动到tp的核心文件 thinkphp里面的东西，方便大家compoesr一键升级tp框架代码 升级时注意看下文档的<a href="https://www.kancloud.cn/manual/thinkphp5_1/354155#51265127_11" target="_blank">升级指导</a></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <script>
+    layui.config({
+        base: '__LAYUI__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'sample'], function () {
+
+        //Tab的切换功能，切换事件监听等，需要依赖element模块
+        var $ = layui.jquery, element = layui.element;
+        /*setInterval(function () {
+         $.post("{:url('getSysWindws')}",function (res) {
+         element.progress('cpu',res.cpu+'%');
+         element.progress('memory',res.memory.usage+'%');
+         $('#memoryTotal').html((res.memory.TotalVisibleMemorySize/1024/1024).toFixed(2));
+         $('#memoryFree').html((res.memory.FreePhysicalMemory/1024/1024).toFixed(2));
+         })
+         },3000);*/
+
+        $.post("{:url('getSysStatic')}", function (res) {
+            element.progress('cpu', res.cpu + '%');
+            element.progress('memory', res.memory.usage + '%');
+            $('#memoryTotal').html((res.memory.TotalVisibleMemorySize / 1024 / 1024).toFixed(2));
+            $('#memoryFree').html((res.memory.FreePhysicalMemory / 1024 / 1024).toFixed(2));
+        });
+
+        //今日热搜
+        layui.use("table", function () {
+            var e = (layui.$, layui.table);
+            e.render({
+                elem: "#LAY-index-topSearch",
+                url: layui.setter.base + "json/console/top-search.js",
+                page: false,
+                height: 300,
+                cols: [
+                    [{
+                            type: "numbers",
+                            fixed: "left"
+                        }, {
+                            field: "keywords",
+                            title: "关键词",
+                        }, {
+                            field: "frequency",
+                            title: "搜索次数",
+                            sort: !0
+                        }, {
+                            field: "userNums",
+                            title: "用户数",
+                            sort: !0
+                        }]
+                ],
+                skin: "line"
+            })
+        })
+    })
+    </script>
+</body>
+</html>
+
