@@ -19,6 +19,20 @@ class DouyinServer extends BaseServer {
         $this->client_secret = config('douyin.client_secret');
         $this->account_id = config('douyin.account_id');
     }
+    /*
+     * 生活消息推送验签
+     */
+    public  function verifySignature($signature, $body)
+    {      
+        // 将appSecret与body内容拼接后进行sha1哈希处理
+        $sign = sha1($this->client_secret .$body);
+        // 验证签名是否匹配
+        if ($sign !== $signature) {
+            return false;
+        }
+        // 如果验签通过，则继续处理业务逻辑
+        return true;
+    }
 
     /*
      * 获取token
