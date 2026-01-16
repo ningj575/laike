@@ -19,18 +19,40 @@ class DouyinServer extends BaseServer {
         $this->client_secret = config('douyin.client_secret');
         $this->account_id = config('douyin.account_id');
     }
+
     /*
      * 生活消息推送验签
      */
-    public  function verifySignature($signature, $body)
-    {      
+
+    public function verifySignature($signature, $body) {
         // 将appSecret与body内容拼接后进行sha1哈希处理
-        $sign = sha1($this->client_secret .$body);
+        $sign = sha1($this->client_secret . $body);
         // 验证签名是否匹配
         if ($sign !== $signature) {
             return false;
         }
         // 如果验签通过，则继续处理业务逻辑
+        return true;
+    }
+
+    /*
+     * spi验签
+     */
+
+    public function spiSignature($query, $body,$signature) {
+        ksort($query);
+        $str= $this->client_secret;
+        foreach ($query as $key => $value) {
+            if ($key === 'sign') {
+                continue;
+            }
+            $str =$str.'&'. $key . '=' . $value;          
+        }
+        $signStr=$str.'http_body=' . $body;
+        $sign= hash('sha256', $signStr);       
+        if ($sign !== $signature) {
+            return false;
+        }
         return true;
     }
 
@@ -65,6 +87,50 @@ class DouyinServer extends BaseServer {
     }
 
     /*
+     * 旅行社交易确认接单接口
+     * https://partner.open-douyin.com/docs/resource/zh-CN/local-life/develop/OpenAPI/JiuLv/vacation/presale_coupon/travel-agency-confirm/travel-order-confirm-api
+     */
+
+    public function order_confirm() {
+        $url = 'https://open.douyin.com/goodlife/v1/trip/trade/travelagency/order/confirm/';
+        $header = [
+            'content-type: application/json',
+            'access-token:' . $this->getToken()
+        ];
+        $post_data = json_encode([
+            'order_id' => $order_id, //预约订单号
+            'source_order_id' => '', //预约订单归属的预售订单ID
+            'confirm_info' => [
+                'confirm_result' => 1, //确认订单结果。1：接单 2：拒单
+                'reject_code' => '', //拒单原因。1:库存已约满 2：商品需加价 3：无法满足顾客需求
+                'hotel_info' => [//境内住宿类目预定信息
+                    'poi_info' => [], //酒店poi信息
+                    'room_items' => [], //酒店房型
+                    'hotel_confirm_no' => '',
+                ],
+                'play_info' => [//境内游玩类目预定信息
+                    'entrance_types' => [],
+                    'show_certs' => [],
+                    'poi_info' => [],
+                    'book_start_time' => '',
+                    'book_end_time' => '',
+                ],
+                'free_travel_info' => [//境内自由行类目预定信息
+                    'oneday_tour_list' => [],
+                    'travel_num' => [
+                        'day_num' => 0,
+                        'night_num' => 0,
+                    ]
+                ],
+                'extra_msg' => ''//其他注意事项
+            ]
+        ]);
+        $json_res = curl($url, $post_data, $header);
+        $res = json_decode($json_res, true);
+        return $res;
+    }
+
+    /*
      * 查询订单商品快照的poi
       https://partner.open-douyin.com/docs/resource/zh-CN/local-life/develop/OpenAPI/JiuLv/vacation/presale_coupon/poi-query/query-order-snapshot
      */
@@ -73,7 +139,7 @@ class DouyinServer extends BaseServer {
         $url = 'https://open.douyin.com/goodlife/v1/trip/trade/travelagency/order/poi/query/';
         $header = [
             'content-type: application/json',
-            'access-token:'.$this->getToken()
+            'access-token:' . $this->getToken()
         ];
         $post_data = json_encode([
             'account_id' => $this->account_id,
