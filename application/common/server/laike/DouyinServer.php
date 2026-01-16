@@ -47,8 +47,8 @@ class DouyinServer extends BaseServer {
                 continue;
             }
             $str =$str.'&'. $key . '=' . $value;          
-        }
-        $signStr=$str.'http_body=' . $body;
+        }        
+        $signStr=$str.'&http_body=' . $body;
         $sign= hash('sha256', $signStr);       
         if ($sign !== $signature) {
             return false;
