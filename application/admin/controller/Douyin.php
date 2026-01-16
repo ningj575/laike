@@ -61,12 +61,12 @@ class Douyin extends BaseServer {
         $param['order_no'] = getOrderSn(6);
         $mod->insert($param);
         $data = json_decode($rawBody, true);
-        return json([
+        return json(['data'=>[
             'error_code' => 0,
             'order_id' => $data['order_id'],
             'order_out_id' => $param['order_no'],
             'description' => 'success'
-        ]);
+        ]]);
     }
 
     /*
@@ -87,12 +87,12 @@ class Douyin extends BaseServer {
         $param['order_no'] = getOrderSn(6);
         $mod->insert($param);
         $data = json_decode($rawBody, true);
-        return json([
+        return json(['data'=>[
             'error_code' => 0,
             'order_id' => $data['order_id'],
             'order_out_id' => $param['order_no'],
             'description' => 'success'
-        ]);
+        ]]);
     }
 
     /*
@@ -111,10 +111,10 @@ class Douyin extends BaseServer {
         $param['rawbody'] = $rawBody;
         $param['headers'] = json_encode($headers);
         $mod->insert($param);
-        return json([
+        return json(['data'=>[
             'code' => 0,
             'message' => 'success'
-        ]);
+        ]]);
     }
 
     /*
@@ -133,10 +133,10 @@ class Douyin extends BaseServer {
         $param['rawbody'] = $rawBody;
         $param['headers'] = json_encode($headers);
         $mod->insert($param);
-        return json([
+        return json(['data'=>[
             'code' => 0,
             'message' => 'success'
-        ]);
+        ]]);
     }
 
     /*
@@ -155,10 +155,10 @@ class Douyin extends BaseServer {
         $param['rawbody'] = $rawBody;
         $param['headers'] = json_encode($headers);
         $mod->insert($param);
-        return json([
+        return json(['data'=>[
             'code' => 0,
             'message' => 'success'
-        ]);
+        ]]);
     }
 
     public function push() {
