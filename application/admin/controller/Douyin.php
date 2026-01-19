@@ -213,6 +213,27 @@ class Douyin extends BaseServer {
         dump($ser->decryptAES('Z0H4lUWbGJWtiWSjlDJG+A=='));
     }
 
+    public function order_confirm() {
+        $ser = new DouyinServer();
+        $source_order_id = '1091143376496020200';
+        $order_id = '1091122782528340200';
+        $confirm_result = 1;
+        $res = $ser->order_confirm($source_order_id, $order_id, $confirm_result, $reject_code = '');
+        $mod = new OrderLogModel();
+        $req_data = [
+            'source_order_id' => $source_order_id,
+            'order_id' => $order_id,
+            'confirm_result' => $confirm_result,
+            'reject_code'=>$reject_code
+        ];
+        $param['type'] = 6;
+        $param['query'] = json_encode($req_data);
+        $param['rawbody'] = json_encode($res);
+        $param['headers'] = '';
+        $mod->insert($param);
+        dump($res);
+    }
+
     public function test() {
         $ser = new DouyinServer();
         $query = [

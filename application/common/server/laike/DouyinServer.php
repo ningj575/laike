@@ -89,9 +89,12 @@ class DouyinServer extends BaseServer {
     /*
      * 旅行社交易确认接单接口
      * https://partner.open-douyin.com/docs/resource/zh-CN/local-life/develop/OpenAPI/JiuLv/vacation/presale_coupon/travel-agency-confirm/travel-order-confirm-api
+     * $source_order_id 预约订单归属的预售订单ID
+     * $order_id 抖音侧订单号（预约订单号）
+     * $confirm_result 1：接单 2：拒单
      */
 
-    public function order_confirm() {
+    public function order_confirm($source_order_id,$order_id,$confirm_result,$reject_code='') {
         $url = 'https://open.douyin.com/goodlife/v1/trip/trade/travelagency/order/confirm/';
         $header = [
             'content-type: application/json',
@@ -99,10 +102,10 @@ class DouyinServer extends BaseServer {
         ];
         $post_data = json_encode([
             'order_id' => $order_id, //预约订单号
-            'source_order_id' => '', //预约订单归属的预售订单ID
+            'source_order_id' => $source_order_id, //预约订单归属的预售订单ID
             'confirm_info' => [
-                'confirm_result' => 1, //确认订单结果。1：接单 2：拒单
-                'reject_code' => '', //拒单原因。1:库存已约满 2：商品需加价 3：无法满足顾客需求
+                'confirm_result' => $confirm_result, //确认订单结果。1：接单 2：拒单
+                'reject_code' => $reject_code, //拒单原因。1:库存已约满 2：商品需加价 3：无法满足顾客需求
                 'hotel_info' => [//境内住宿类目预定信息
                     'poi_info' => [], //酒店poi信息
                     'room_items' => [], //酒店房型
@@ -117,10 +120,7 @@ class DouyinServer extends BaseServer {
                 ],
                 'free_travel_info' => [//境内自由行类目预定信息
                     'oneday_tour_list' => [],
-                    'travel_num' => [
-                        'day_num' => 0,
-                        'night_num' => 0,
-                    ]
+                    'travel_num' => []
                 ],
                 'extra_msg' => ''//其他注意事项
             ]
