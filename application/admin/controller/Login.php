@@ -31,9 +31,9 @@ class Login extends BaseServer
         $sysConfig = $mod_sys_con->sysConfig();
         //调用模板
         $seo_arr = [
-            'title' => $sysConfig['web_site_title'],
-            'des' => $sysConfig['web_site_description'],
-            'keyword' => $sysConfig['web_site_keyword'],
+            'title' => $sysConfig['web_site_title']??'',
+            'des' => $sysConfig['web_site_description']??'',
+            'keyword' => $sysConfig['web_site_keyword']??'',
         ];
         $this->assign('seo_arr', $seo_arr);        
         return $this->fetch('/login');
