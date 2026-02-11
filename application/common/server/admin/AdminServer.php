@@ -13,6 +13,7 @@ class AdminServer extends BaseServer
 {
 
     protected $ADMIN_INFO;
+    protected $icon_color=[0 => 'normal', 1 => 'danger', 2 => 'container', 3 => 'checked', 4 => 'warm'];
 
     public function __construct(App $app = null)
     {

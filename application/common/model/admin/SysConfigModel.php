@@ -8,21 +8,25 @@
 namespace app\common\model\admin;
 
 use app\common\model\BaseModel;
-class SysConfigModel extends BaseModel
-{
 
-    public function __construct(array $data = [])
-    {
+class SysConfigModel extends BaseModel {
+
+    // 开启自动写入时间戳字段
+    protected $autoWriteTimestamp = true;
+    // 定义时间戳字段名
+    protected $createTime = 'c_time';
+    protected $updateTime = 'u_time';
+
+    public function __construct(array $data = []) {
         $this->table = 'sys_config';   //对应表名
         parent::__construct($data);
     }
 
     /**
-     * 获取数据库中的配置列表
+     * 获取配置列表
      * @return array
      */
-    public function sysConfig()
-    {
+    public function sysConfig() {
         $where_arr = array('status' => 1);
         $data = $this->where($where_arr)->field('type,name,value')->select();
         $config = array();
@@ -40,8 +44,7 @@ class SysConfigModel extends BaseModel
      * @param $value
      * @return array|array[]|false|string[]
      */
-    private static function parse($type, $value)
-    {
+    private static function parse($type, $value) {
         switch ($type) {
             case 3: //解析数组
                 $array = preg_split('/[,;\r\n]+/', trim($value, ",;\r\n"));

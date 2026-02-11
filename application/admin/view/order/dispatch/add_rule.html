@@ -1,0 +1,43 @@
+{include file="public/header" /}
+<style>
+    li{
+        width:13%;
+    }
+</style>
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-tabs layui-tabs-card layui-panel layui-inline">
+                <ul class="layui-tabs-header layui-bg-tint">
+                    {foreach name="main_rules" item="vo"}
+                    <li class="rules-type {if condition='$key eq $rule.rule_type'}layui-this{/if}" data-type='{$key}'>{$vo.main_name}</li>
+                    {/foreach}                    
+                </ul>
+                <div class="layui-tabs-body"> 
+                    {foreach name="main_rules" item="vo"}
+                    <div class="layui-tabs-item {if condition='$vo.rule_type eq $rule.rule_type'}layui-show{/if}" id='rule-type-{$vo.rule_type}'>
+                    </div>
+                     {/foreach}   
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__LAYUI__/layui/layui.js"></script>
+<!--    <link rel="stylesheet" href="__LAYUI__/formSelects-v4.css" >
+    <script src="__LAYUI__/formSelects-v4.js"></script>-->
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form','laydate'], function () {
+            var $ = layui.$;
+            {foreach name="main_rules" item="vo"}
+            $.post('rule_type', {rule_type:{$vo.rule_type}}, function (res) {
+                $('#rule-type-{$vo.rule_type}').html(res);          
+                });
+            {/foreach}               
+        })
+    </script>
+</body>
+</html>

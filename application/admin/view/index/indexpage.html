@@ -11,64 +11,64 @@
                                     <div carousel-item>
                                         <ul class="layui-row layui-col-space10">
                                             <li class="layui-col-xs1">
-                                                <a lay-href="app/content/comment.html" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index" class="layadmin-backlog-body">
                                                     <h3>总订单</h3>
-                                                    <p><cite>66</cite></p>
+                                                    <p><cite>{$static.order.all_order_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs1">
-                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index?order_status=1" class="layadmin-backlog-body">
                                                     <h3>待预约</h3>
-                                                    <p><cite>12</cite></p>
+                                                    <p><cite>{$static.order.stay_book_count}</cite></p>
                                                 </a>
                                             </li>                                        
                                            
                                             <li class="layui-col-xs1">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index?order_status=2" class="layadmin-backlog-body">
                                                     <h3>待接单</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.order.stay_confirm_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs1">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index?order_status=3"  class="layadmin-backlog-body">
                                                     <h3>已预约</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.order.book_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs1">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index?fllow_status=3"  class="layadmin-backlog-body">
                                                     <h3>已完成</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.order.completed_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs1">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a href="javascript:void(0);" onclick="layer.tips('没有退款申请', this, {tips: 3});" class="layadmin-backlog-body">
                                                     <h3>退款申请</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">0</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs1">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index?order_status=-1" class="layadmin-backlog-body">
                                                     <h3>已退款</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.order.refund_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs1">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index?fllow_status=1" class="layadmin-backlog-body">
                                                     <h3>待分配</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.order.dist_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs1">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index?fllow_status=2"  class="layadmin-backlog-body">
                                                     <h3>待跟进</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.order.fllow_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs1">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="/order/order/index?fllow_status=3"  class="layadmin-backlog-body">
                                                     <h3>已处理</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.order.completed_count}</cite></p>
                                                 </a>
                                             </li>
                                         </ul>                                        
@@ -85,22 +85,22 @@
                                     <div carousel-item>
                                         <ul class="layui-row layui-col-space10">
                                             <li class="layui-col-xs3">
-                                                <a lay-href="app/content/comment.html" class="layadmin-backlog-body">
+                                                <a lay-href="sales/lead/index?lead_fllow_status=1" class="layadmin-backlog-body">
                                                     <h3>待分配</h3>
-                                                    <p><cite>66</cite></p>
+                                                    <p><cite>{$static.lead.dist_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs3">
-                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                <a lay-href="sales/lead/index?lead_fllow_status=2" class="layadmin-backlog-body">
                                                     <h3>待跟进</h3>
-                                                    <p><cite>12</cite></p>
+                                                    <p><cite>{$static.lead.fllow_count}</cite></p>
                                                 </a>
                                             </li>                                        
                                            
                                             <li class="layui-col-xs3">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="sales/lead/index?lead_fllow_status=3"  class="layadmin-backlog-body">
                                                     <h3>已处理</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.lead.completed_count}</cite></p>
                                                 </a>
                                             </li>  
                                            
@@ -119,22 +119,22 @@
                                     <div carousel-item>
                                         <ul class="layui-row layui-col-space10">
                                             <li class="layui-col-xs3">
-                                                <a lay-href="app/content/comment.html" class="layadmin-backlog-body">
+                                                <a lay-href="order/Complain/index?complain_fllow_status=1" class="layadmin-backlog-body">
                                                     <h3>待分配</h3>
-                                                    <p><cite>66</cite></p>
+                                                    <p><cite>{$static.complain.dist_count}</cite></p>
                                                 </a>
                                             </li>
                                             <li class="layui-col-xs3">
-                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                <a lay-href="order/Complain/index?complain_fllow_status=2" class="layadmin-backlog-body">
                                                     <h3>待跟进</h3>
-                                                    <p><cite>12</cite></p>
+                                                    <p><cite>{$static.complain.fllow_count}</cite></p>
                                                 </a>
                                             </li>                                        
                                            
                                             <li class="layui-col-xs3">
-                                                <a href="javascript:;" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                <a lay-href="order/Complain/index?complain_fllow_status=3"  class="layadmin-backlog-body">
                                                     <h3>已处理</h3>
-                                                    <p><cite style="color: #FF5722;">5</cite></p>
+                                                    <p><cite style="color: #FF5722;">{$static.complain.completed_count}</cite></p>
                                                 </a>
                                             </li>                                          
                                            

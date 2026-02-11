@@ -13,7 +13,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">{:lang('status')}</label>
             <div class="layui-input-inline">
-                <input type="checkbox" lay-verify="required" lay-filter="status" value="1" name="status" {if condition="$role.status eq 1" }checked{/if} lay-skin="switch" lay-text="{:lang('open')}|{:lang('close')}">
+                <input type="checkbox" lay-verify="required"  name="status" lay-skin="switch" value="1" title="ON|OFF" lay-filter="switchStatus"  {if condition="$role.status eq 1" }checked{/if} >
             </div>
         </div>
         <div class="layui-form-item layui-hide">
@@ -29,7 +29,11 @@
         base: '__LAYUI__/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
-    }).use(['index','form'])
+    }).use(['index','form'],function(){
+        var form = layui.form;
+         // 指定开关事件
+
+    })
 </script>
 </body>
 </html>

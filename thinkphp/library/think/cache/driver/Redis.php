@@ -103,7 +103,6 @@ class Redis extends Driver
     public function get($name, $default = false)
     {
         $this->readTimes++;
-
         $value = $this->handler->get($this->getCacheKey($name));
 
         if (is_null($value) || false === $value) {

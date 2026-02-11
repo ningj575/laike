@@ -78,12 +78,12 @@ var tpmsg = {
                         function (formObj) {
                             //formObj.field;//表单字段集合
                             //提交 Post 成功后，静态更新表格中的数据
-                            if($('.layui-layer-btn a').hasClass("layui-btn-disabled")){
+                            if(layui.$('.layui-layer-btn a').hasClass("layui-btn-disabled")){
                                 return false;
                             }
-                            $('.layui-layer-btn a').addClass("layui-btn-disabled");
+                            layui.$('.layui-layer-btn a').addClass("layui-btn-disabled");
                             layui.$.post(url, formObj.field, function (res) {
-                                $('.layui-layer-btn a').removeClass("layui-btn-disabled");
+                                layui.$('.layui-layer-btn a').removeClass("layui-btn-disabled");
                                 if (res.code == 1000) {                                    
                                     if(is_refresh==1){
                                         layer.msg(res.msg, {offset: '15px', icon: 1, time: 1000});
@@ -95,7 +95,7 @@ var tpmsg = {
                                     }
                                     layer.close(e);
                                 } else {
-                                    layer.msg(res.msg, {offset: '15px', icon: 2, time: 1000});
+                                    layer.msg(res.msg, {offset: '15px', icon: 0, time: 1000});
                                 }
                             });
                         });
@@ -158,7 +158,7 @@ var tpmsg = {
         });
     },
     //获取数据详情
-    DataInfo: function (url, area, title,callback_fun=''){
+    DataInfo: function (url, area, title,offset='auto'){
         layer.open({
             type: 2,
             title: title,
@@ -166,11 +166,13 @@ var tpmsg = {
             btnAlign: 'c',
             maxmin: true,
             content: url,
+            offset:offset,
             btn: [],
             yes: function (e, t) {
                 layer.close(e);
             },end:function () {
 //                location.reload();
+                layui.table.reload("LAY-user-back-manage");
             }
         });
     }

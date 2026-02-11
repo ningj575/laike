@@ -4,18 +4,18 @@
 <div class="layui-card">
     <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin">
         <input type="hidden" name="id"  value="{$sales.id}" >
-        <div class="layui-form-item">
+        <div class="layui-form-item" style="padding-top:20px;">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-inline">
-                <input type="text" name="name" lay-verify="required" value="{$sales.name}" placeholder="请输入姓名" autocomplete="off"  maxlength="20" class="layui-input">
+                <input type="text" name="admin_name" lay-verify="required" value="{$sales.name}" placeholder="请输入姓名" autocomplete="off"  maxlength="20" class="layui-input">
             </div>
-        </div>  
-        <div class="layui-form-item">
-            <label class="layui-form-label">状态</label>
+        </div> 
+        <div class="layui-form-item" style="padding-bottom:20px;">
+            <label class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="checkbox" lay-verify="required" value="1" lay-filter="status" name="status" {if condition="$sales.status eq 1" }checked{/if} lay-skin="switch" lay-text="{:lang('open')}|{:lang('close')}">
+                <input type="password" name="password" lay-verify="required" value="{$sales.name}" placeholder="请输入密码" autocomplete="off"  maxlength="20" class="layui-input">
             </div>
-        </div>
+        </div>         
         <div class="layui-form-item layui-hide">
             <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
         </div>

@@ -29,7 +29,7 @@ function uploadImage(param) {
             console.log(res);
             console.log("sss=",res);
             $(param.elementId).val(res.data.src);
-            $(param.preview).attr('src',res.data.src); //图片链接（base64）
+            $(param.preview).attr('src',res.data.fullSrc); //图片链接（base64）
         }
         ,error: function(){
             //演示失败状态，并实现重传

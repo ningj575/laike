@@ -55,11 +55,11 @@
 </div>
 
 {include file="public/footer" /}
+<script src="__JS__/jquery-1.8.2.js"></script>
 <link rel="stylesheet" href="__LAYUI__/plugins/zTree/zTreeStyle.css" type="text/css">
 <script type="text/javascript" src="__LAYUI__/plugins/zTree/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="__LAYUI__/plugins/zTree/jquery.ztree.excheck-3.5.js"></script>
 <!--<script type="text/javascript" src="__LAYUI__/plugins/zTree/jquery.ztree.exedit-3.5.js"></script>-->
-
 <script>
     var listUrl = 'index';          //当前列表 URL
     var addEditUrl = 'roleEdit';    //新增、编辑
@@ -137,7 +137,10 @@
                         title:"{:lang('set_access')}",
                         skin: 'layui-layer-demo', //加上边框
                         maxmin: true,
-                        content: $('#role')
+                        content: $('#role'),
+                        end:function(){
+                            $('#role').hide();
+                        }
                     });
                     //设置位置
                     layer.style(index, {

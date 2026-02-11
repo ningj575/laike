@@ -20,7 +20,7 @@ class ShopModel extends BaseModel
 
     public function __construct($data = [])
     {
-        $this->table = 'shop';
+        $this->table = 'business';
         parent::__construct($data);
     }
 

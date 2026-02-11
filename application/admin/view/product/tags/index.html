@@ -1,0 +1,110 @@
+{include file="public/header" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-admin" data-type="add">添加标签</button>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">标签名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" placeholder="请输入标签名称搜索" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                 <div class="layui-inline">
+                    <label class="layui-form-label">标签类型</label>
+                    <div class="layui-input-inline">
+                        <select name="type" lay-search="" class="layui-input"> 
+                            <option value="">请选择</option> 
+                            <option value="1">人群标签</option>
+                            <option value="2">订单标签</option>
+                        </select>
+                    </div>
+                </div> 
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+            </div>
+        </div>       
+        <div class="layui-card-body">
+            <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+            <script type="text/html" id="buttonTpl">
+                {{#  if(d.status == 1){ }}
+                <button class="layui-btn layui-btn-xs">开启</button>
+                {{#  } else { }}
+                <button class="layui-btn layui-btn-danger layui-btn-xs">关闭</button>
+                {{#  } }}
+            </script>
+            <script type="text/html" id="table-useradmin-admin">
+                    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+            </script>
+             <script type="text/html" id="image">
+                <img class="imageurl" src="{{d.logo_url}}" width="100px">
+            </script>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+<script>
+    var listUrl = 'index';          //当前列表 URL
+    var addEditUrl = 'edit';    //新增、编辑
+    var delUrl = 'del';         //删除
+    var stateUrl = 'state';     //状态
+
+    //动态表格
+    layui.use('table',function () {
+        var $ = layui.$;
+        var table = layui.table;
+        var area = ['30%','45%'];
+
+        //执行渲染 - 实例 Table
+        table.render({
+            elem:'#LAY-user-back-manage',
+            url:listUrl,
+            page:true,
+            limit:20,
+            cols:[[
+                {field:'id',title:'标签Id',width:200},
+                {field:'name',title:'标签名称',width:200},
+                {field:'type_text',title:'标签类型'},  
+                {field:'status',title:'标签状态',templet:'#buttonTpl'},  
+                {field:'c_time',title:'创建时间',width:180},
+                {title:'操作',toolbar: "#table-useradmin-admin",align: "center"},
+            ]]
+        });
+
+        //监听动态表格中的事件
+        table.on("tool(LAY-user-back-manage)",function(e){
+            //e.data;   当前行数据
+            var id = e.data.id;
+            switch (e.event) {
+                case 'edit':
+                    //编辑
+                    var url = addEditUrl+"?id="+id;
+                    tpmsg.addEdit(url,area,"标签编辑");
+                    break;
+                case 'del':
+                    //删除
+                    tpmsg.confirm(id,delUrl);
+                    break;              
+            }
+        });
+
+        //监听表格上列的添加、搜索框事件
+        $('.layui-btn.layuiadmin-btn-admin').on('click', function(){
+            var type = $(this).data('type');
+            switch (type) {
+                case 'add':
+                    tpmsg.addEdit(addEditUrl,area,"添加标签");
+                    break;
+                case 'batchdel':
+                    tpmsg.batchdel(delUrl);
+                    break;
+            }
+        });
+    });
+</script>

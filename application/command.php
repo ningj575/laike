@@ -10,5 +10,5 @@
 // +----------------------------------------------------------------------
 
 return [
-    'getgptanswer' => '\\app\\common\\command\\CronGptAnswer', //定时获取GPT答案
+    'products' => '\\app\\common\\command\\CronProducts', //定时获取更新产品
 ];

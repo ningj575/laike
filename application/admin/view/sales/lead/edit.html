@@ -1,0 +1,79 @@
+{include file="public/header" /}
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" >
+                <input type="hidden" name="id"  value="{$lead.id}" >  
+                <div class="layui-form-item" style="padding-top:20px;">
+                    <label class="layui-form-label">线索编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="lead_num" lay-verify="required" value="{$lead.lead_num??$lead_num}" placeholder="请输入线索编号" autocomplete="off" class="layui-input">
+                    </div>  
+                    <label class="layui-form-label">线索来源</label>
+                    <div class="layui-input-inline">
+                        <select name="lead_source" lay-verify="required" lay-search=""> 
+                            <option value="">请选择</option> 
+                            {foreach name="lead_source_arr" item="vo"}
+                            <option value="{$vo}" {if condition="$lead.lead_source eq $vo" } selected {/if}>{$vo}</option>
+                            {/foreach}  
+                        </select>
+                    </div>    
+                </div>   
+                <div class="layui-form-item">
+                    <label class="layui-form-label">客户姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name"  value="{$lead.name}" placeholder="请输入客户姓名" autocomplete="off" class="layui-input">
+                    </div>  
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="phone" lay-verify="required" value="{$lead.phone}" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                    </div>  
+                </div> 
+                <div class="layui-form-item">
+                     <label class="layui-form-label">咨询时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="submit_time"  id="submit_time" value="{$lead.submit_time}" placeholder="请选择时间" autocomplete="off" class="layui-input">
+                    </div>   
+                    <label class="layui-form-label">意向等级</label>
+                    <div class="layui-input-inline">
+                        <select name="intent_level" lay-verify="required" lay-search=""> 
+                            <option value="">请选择</option> 
+                            {foreach name="intent_level_arr" item="vo"}
+                            <option value="{$key}" {if condition="$lead.intent_level eq $key" } selected {/if}>{$vo}</option>
+                            {/foreach}  
+                        </select>
+                    </div>    
+                </div>                      
+                <div class="layui-form-item" style="padding-bottom:20px;">
+                    <label class="layui-form-label">咨询内容</label>
+                    <div class="layui-input-inline">
+                        <textarea name="consult_content" lay-verify="required" placeholder="请输入咨询内容" class="layui-textarea">{$lead.consult_content??''}</textarea>
+                    </div>     
+                </div>
+                <div class="layui-form-item layui-hide">
+                    <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form', 'upload', 'laydate', 'layarea'], function () {
+            //执行实例
+            var upload = layui.upload;
+            var laydate = layui.laydate;
+            var layarea = layui.layarea;
+            //时间范围
+            laydate.render({
+                elem: '#submit_time'
+                , type: 'datetime'
+            });
+        })
+    </script>
+</body>
+</html>

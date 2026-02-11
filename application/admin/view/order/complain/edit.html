@@ -1,0 +1,76 @@
+{include file="public/header" /}
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" >
+                <input type="hidden" name="id"  value="{$complain.id}" >  
+                <div class="layui-form-item" style="padding-top:20px;">
+                    <label class="layui-form-label">投诉编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="complain_num" lay-verify="required" value="{$complain.complain_num??$complain_num}" placeholder="请输入投诉编号" autocomplete="off" class="layui-input">
+                    </div>
+                     <label class="layui-form-label">投诉时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="complain_time" lay-verify="required" id="complain_time" value="{$complain.complain_time}" placeholder="请选择时间" autocomplete="off" class="layui-input">
+                    </div>                        
+                </div>      
+                <div class="layui-form-item">
+                    <label class="layui-form-label">投诉类型</label>
+                    <div class="layui-input-inline">
+                        <select name="complain_type" lay-verify="required" lay-search=""> 
+                            <option value="">请选择</option> 
+                            {foreach name="complain_type_arr" item="vo"}
+                            <option value="{$key}" {if condition="$complain.complain_type eq $vo" } selected {/if}>{$vo}</option>
+                            {/foreach}  
+                        </select>
+                    </div>    
+                    <label class="layui-form-label">紧急程度</label>
+                    <div class="layui-input-inline">
+                        <select name="urgent_level" lay-verify="required" lay-search=""> 
+                            <option value="">请选择</option> 
+                            {foreach name="urgent_level_arr" item="vo"}
+                            <option value="{$key}" {if condition="$complain.urgent_level eq $vo" } selected {/if}>{$vo}</option>
+                            {/foreach}  
+                        </select>
+                    </div>    
+
+                </div>    
+                <div class="layui-form-item">
+                    <label class="layui-form-label"style='width:120px;'>关联来客订单号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="order_id" lay-verify="required" value="{$complain.order_id??$order_id}" placeholder="请输入关联来客订单号" autocomplete="off" class="layui-input">
+                    </div>   
+                </div>   
+                <div class="layui-form-item" style="padding-bottom:20px;">
+                    <label class="layui-form-label">投诉内容</label>
+                    <div class="layui-input-inline">
+                        <textarea name="complain_content" lay-verify="required" placeholder="请输入投诉内容" class="layui-textarea"></textarea>
+                    </div>     
+                </div>
+                <div class="layui-form-item layui-hide">
+                    <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form', 'upload', 'laydate', 'layarea'], function () {
+            //执行实例
+            var upload = layui.upload;
+            var laydate = layui.laydate;
+            var layarea = layui.layarea;
+            //时间范围
+            laydate.render({
+                elem: '#complain_time'
+                , type: 'datetime'
+            });
+        })
+    </script>
+</body>
+</html>

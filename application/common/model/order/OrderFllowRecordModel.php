@@ -1,36 +1,42 @@
 <?php
 
 /**
- * 订单日志model
+ * 订单跟进model
  */
 
 namespace app\common\model\order;
 
 use app\common\model\BaseModel;
-class OrderLogModel extends BaseModel
+class OrderFllowRecordModel extends BaseModel
 {
 
     // 开启自动写入时间戳字段
     protected $autoWriteTimestamp = true;
     // 定义时间戳字段名
     protected $createTime = 'c_time';
-    protected $updateTime = 'u_time';
-
+    protected $type=[
+        'next_fllow_time' => 'timestamp',    
+        'fllow_time'=>'timestamp'
+    ];
     public function __construct($data = [])
     {
-        $this->table = 'order_log';
+        $this->table = 'order_fllow_record';
         parent::__construct($data);
-    }  
+    }   
     
+    public function admin(){
+        return $this->belongsTo('app\common\model\admin\SysAdminModel','admin_id','id');
+    }
+
     /**
-     * 插入角色信息
+     * 
      * @param $param
      * @return array
      */
     public function insert($param)
     {
         try {
-            $result = $this->save($param);
+            $result = $this->allowField(true)->save($param);
             if (false === $result) {
                 return ['code' => 1001, 'data' => '', 'msg' => $this->getError()];
             } else {
@@ -44,7 +50,7 @@ class OrderLogModel extends BaseModel
 
 
     /**
-     * 删除角色
+     * 
      * @param $id
      * @return array
      * @throws \Exception
@@ -60,7 +66,7 @@ class OrderLogModel extends BaseModel
     }
 
     /**
-     * 编辑角色信息
+     * 
      * @param $param
      * @return array
      */

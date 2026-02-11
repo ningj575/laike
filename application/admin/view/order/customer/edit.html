@@ -1,0 +1,84 @@
+{include file="public/header" /}
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" >
+                <input type="hidden" name="id"  value="{$customer.id}" >  
+                <div class="layui-form-item" style="padding-top:20px;">
+                    <label class="layui-form-label">客户姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="buyer_info_name"  value="{$customer.buyer_info_name}" placeholder="请输入客户姓名" autocomplete="off" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="buyer_info_phone" lay-verify="required" value="{$customer.buyer_info_phone}" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                    </div>                        
+                </div>   
+                <div class="layui-form-item" style="padding-top:20px;">
+                    <label class="layui-form-label">身份证号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="id_card"  value="{$customer.id_card}" placeholder="请输入身份证号" autocomplete="off" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">护照号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="passpart"  value="{$customer.passpart}" placeholder="请输入护照号" autocomplete="off" class="layui-input">
+                    </div>                        
+                </div>     
+                <div class="layui-form-item"   id="area-picker">
+                    <label class="layui-form-label">所在区域</label>
+                    <div class="layui-input-inline">
+                        <select name="province" class="province-selector" lay-search data-value="{$customer.province}">
+                            <option value="">--选择省--</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" >
+                        <select name="city" class="city-selector" lay-search data-value="{$customer.city}">
+                            <option value="">--选择市--</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" >
+                        <select name="county" class="county-selector" lay-search data-value="{$customer.county}">
+                            <option value="">--选择区--</option>
+                        </select>
+                    </div>    
+                </div>
+                <div class="layui-form-item" style="padding-bottom:20px;">
+                    <label class="layui-form-label">客户标签</label>
+                    <div class="layui-input-block" style="width: 500px;">
+                        <select name="tags" lay-search="" xm-select="tags_select"   xm-select-show-count="4" xm-select-search-type='dl'> 
+                            <option value="">请选择</option>   
+                            {foreach name="tags_list" item="vo"}
+                            <option value="{$vo.id}" {if condition='in_array($vo.name,$customer.tags_arr)'}selected{/if}>{$vo.name}</option>
+                            {/foreach} 
+                        </select>
+                    </div>   
+                </div>                   
+                <div class="layui-form-item layui-hide">
+                    <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <link rel="stylesheet" href="__LAYUI__/formSelects-v4.css" >
+    <script src="__LAYUI__/formSelects-v4.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form', 'upload', 'laydate', 'layarea','formSelects'], function () {
+            //执行实例
+            var layarea = layui.layarea;
+             layarea.render({
+                elem: '#area-picker',
+                change: function (res) {
+                    //选择结果
+                    console.log(res);
+                }
+            });           
+        })
+    </script>
+</body>
+</html>

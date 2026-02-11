@@ -1,0 +1,62 @@
+{include file="public/header" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <form class="layui-form layui-card-header layuiadmin-card-header-auto layui-form-pane">           
+            <div class="layui-form-item">  
+                <div class="layui-inline">
+                    <label class="layui-form-label">订单Id</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="order_id" placeholder="请输入订单Id搜索" autocomplete="off" class="layui-input">
+                    </div>
+                </div>                     
+                <div class="layui-inline">
+                    <button class="layui-btn" lay-submit lay-filter="LAY-user-back-search">搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+        <div class="layui-tab layui-tab-brief">
+            <div class="layui-tab-content">        
+                <div class="layui-tab-item layui-show"> 
+                    <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>                  
+                                             
+                        </div>   
+                    </div>
+
+                </div>  
+
+            </div>
+        </div>
+        {include file="public/footer" /} 
+        <link rel="stylesheet" href="__LAYUI__/formSelects-v4.css" >
+        <script src="__LAYUI__/formSelects-v4.js"></script>
+        <script>
+            var listUrl = 'record';          //当前列表 URL          
+
+            //动态表格
+            layui.use(['table', 'upload', 'form'], function () {
+                var $ = layui.$;
+                var table = layui.table;
+                var area = ['45%', '55%'];
+                var form = layui.form;
+                var laydate = layui.laydate;
+                //执行渲染 - 实例 Table
+                table.render({
+                    elem: '#LAY-user-back-manage',
+                    url: listUrl,
+                    page: true,
+                    cellMinWidth: 80,
+                    limit: 10,
+                    cols: [[
+                            {field: 'order_id', title: '订单Id'},
+                            {field: 'admin_name', title: '操作员'},
+                            {field: 'sales_user_name', title: '分配给'},
+                            {field: 'rule_name', title: '命中规则'},
+                            {field: 'c_time', title: '时间'},                          
+                        ]],
+                    done: function (res) {
+                    }
+                });
+      
+            });
+        </script>

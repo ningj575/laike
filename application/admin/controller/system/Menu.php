@@ -19,7 +19,7 @@ class Menu extends AdminServer
     public function index()
     {       
         //用于API - JSON
-        if (input('get.page')) {
+        if (request()->isAjax()) {
             $mod = new \app\common\model\admin\SysAuthRuleModel();
             $admin_rule = $mod->getAllMenu()->toArray();
             $arr = $this->rule($admin_rule);

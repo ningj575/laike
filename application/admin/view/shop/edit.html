@@ -8,13 +8,19 @@
     <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" >
         <input type="hidden" name="id"  value="{$shop.id}" >
         <div class="layui-form-item">
-            <label class="layui-form-label">店铺名称</label>
+            <label class="layui-form-label">抖音商家id</label>
             <div class="layui-input-block">
-                <input type="text" name="name" lay-verify="required" value="{$shop.name}" placeholder="请输入店铺名称" autocomplete="off"  maxlength="20" class="layui-input">
+                <input type="text" name="account_id" lay-verify="required" value="{$shop.account_id}" placeholder="请输入抖音商家Id" autocomplete="off"  maxlength="20" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-                    <label class="layui-form-label">店铺logo</label>
+            <label class="layui-form-label">商家名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" value="{$shop.name}" placeholder="请输入商家名称" autocomplete="off"  maxlength="20" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+                    <label class="layui-form-label">商家logo</label>
                     <div class="layui-input-inline">
                         <button type="button" class="layui-btn layui-btn-danger" id="image">
                             <i class="layui-icon">&#xe67c;</i>选择图片
@@ -30,21 +36,21 @@
         <div class="layui-form-item">
             <label class="layui-form-label">联系人</label>
             <div class="layui-input-inline">
-                <input type="text" name="linkman" lay-verify="" value="{$shop.linkman}" placeholder="请输入店铺联系人" autocomplete="off" class="layui-input">
+                <input type="text" name="linkman" lay-verify="" value="{$shop.linkman}" placeholder="请输入商家联系人" autocomplete="off" class="layui-input">
             </div>
             <label class="layui-form-label">联系电话</label>
             <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" value="{$shop.phone}" placeholder="请输入店铺联系电话" autocomplete="off" class="layui-input">
+                <input type="tel" name="phone" lay-verify="" value="{$shop.phone}" placeholder="请输入商家联系电话" autocomplete="off" class="layui-input">
             </div>                
         </div>        
-        <div class="layui-form-item">
+<!--        <div class="layui-form-item">
             <label class="layui-form-label">营业时间</label>
             <div class="layui-input-block">
-                <input type="text" name="hours" lay-verify="required" id="hours" value="{$shop.hours}" placeholder="请选择时间" autocomplete="off" class="layui-input">
+                <input type="text" name="hours" lay-verify="" id="hours" value="{$shop.hours}" placeholder="请选择时间" autocomplete="off" class="layui-input">
             </div>            
-        </div>
+        </div>-->
         <div class="layui-form-item" id="area-picker">
-            <div class="layui-form-label">店铺区域</div>
+            <div class="layui-form-label">商家区域</div>
             <div class="layui-input-inline">
                 <select name="province" class="province-selector" data-value="{$shop.province}">
                     <option value="">--选择省--</option>

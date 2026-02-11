@@ -1,0 +1,143 @@
+{include file="public/header" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <form class="layui-form layui-card-header layuiadmin-card-header-auto layui-form-pane">           
+            <div class="layui-form-item">  
+                <div class="layui-inline">
+                    <label class="layui-form-label">客户姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="buyer_info_name" placeholder="请输入姓名搜索" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="buyer_info_phone" placeholder="请输入手机号搜索" autocomplete="off" class="layui-input">
+                    </div>
+                </div> 
+                <div class="layui-inline">
+                    <label class="layui-form-label">身份证号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="id_card" placeholder="请输入身份证号搜索" autocomplete="off" class="layui-input">
+                    </div>
+                </div>  
+                <div class="layui-inline">
+                    <label class="layui-form-label">客户标签</label>
+                    <div class="layui-input-inline" style='width:300px;'>
+                        <select name="tags_id" lay-search="" xm-select="tags_select"   xm-select-show-count="3" xm-select-search-type='dl'> 
+                            <option value="">请选择</option>   
+                            {foreach name="tags_list" item="vo"}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                            {/foreach} 
+                        </select>
+                    </div>
+                </div>           
+                <div class="layui-inline">
+                    <button class="layui-btn" lay-submit lay-filter="LAY-user-back-search">搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+        <div class="layui-tab layui-tab-brief">
+            <div class="layui-tab-content">        
+                <div class="layui-tab-item layui-show"> 
+                    <table id="LAY-user-back-manage" lay-filter="LAY-user-back-manage"></table>
+                    <script type="text/html" id="batch-table-toolbar">
+                        <div class="layui-btn-container">
+                            <button class="layui-btn layui-btn-sm" lay-event="batch_assign">批量分配</button>
+                        </div>
+                        </script>
+                        <script type="text/html" id="table-useradmin-admin">
+                            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="info"><i class="layui-icon layui-icon-about"></i>详情</a>
+                            </script>                            
+                        </div>   
+                    </div>
+
+                </div>  
+
+            </div>
+        </div>
+        {include file="public/footer" /} 
+        <link rel="stylesheet" href="__LAYUI__/formSelects-v4.css" >
+        <script src="__LAYUI__/formSelects-v4.js"></script>
+        <script>
+            var listUrl = 'index';          //当前列表 URL
+            var addEditUrl = 'edit';    //新增、编辑
+            var delUrl = 'del';         //删除
+            var stateUrl = 'state';     //状态
+
+            //动态表格
+            layui.use(['table', 'upload', 'form'], function () {
+                var $ = layui.$;
+                var table = layui.table;
+                var area = ['45%', '55%'];
+                var form = layui.form;
+                var laydate = layui.laydate;
+                //执行渲染 - 实例 Table
+                table.render({
+                    elem: '#LAY-user-back-manage',
+                    url: listUrl,
+                    page: true,
+                    cellMinWidth: 80,
+                    limit: 10,
+                    cols: [[
+                            {field: 'id', title: '客户编号',width:100},
+                            {field: 'buyer_info_name', title: '姓名', edit: 'text',width:120},
+                            {field: 'buyer_info_phone', title: '手机号', edit: 'text',width:120},
+                            {field: 'id_card', title: '身份证号', edit: 'text',width:180},
+                            {field: 'passpart', title: '护照号', edit: 'text',width:150},
+                            {field: '', title: '销售线索'},
+                            {field: '', title: '客户投诉'},
+                            {field: '', title: '历史订单'},
+                            {field: '', title: '消费总额'},
+                            {title: '客户标签',templet: function (d) {
+                        var html = '';
+                        for (var i = 0; i < d.tags_arr.length; i++) {
+                            html += '<button class="layui-btn layui-btn-primary layui-btn-xs" >' + d.tags_arr[i] + '</button>';
+                        }
+                        return html;
+                    }},
+                            {title: '操作', toolbar: "#table-useradmin-admin", align: "center"},
+                        ]],
+//                        data:data,
+                    done: function (res) {
+                    }
+                });
+                //监听单元格编辑
+                table.on('edit(LAY-user-back-manage)', function (obj) {
+                    var value = obj.value; //得到修改后的值
+                    var id = obj.data.id;
+                    layui.$.post('updataValue', {id: id, field: obj.field, value: value}, function (data) {
+                        if (data.code == 1000) {
+                            layer.msg(data.msg, {icon: 6, time: 1500, shade: 0.1, });
+                        } else {
+                            layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, },function(){
+                                layui.table.reload("LAY-user-back-manage");
+                            });
+                        }
+                    });
+                });
+                //监听动态表格中的事件
+                table.on("tool(LAY-user-back-manage)", function (e) {
+                    //e.data;   当前行数据
+                    var id = e.data.id;
+                    switch (e.event) {
+                        case 'edit':
+                            //编辑
+                            var url = addEditUrl + "?id=" + id;
+                            tpmsg.addEdit(url, area, "客户编辑");
+                            break;
+                        case 'info':
+                            //详情
+                            var url = "info?id=" + id;
+                            tpmsg.DataInfo(url, ['60%', '55%'],'客户详情');
+                            break;
+                        case 'del':
+                            //删除
+                            tpmsg.confirm(id, delUrl);
+                            break;
+                    }
+                });
+            });
+        </script>

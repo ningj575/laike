@@ -9,9 +9,13 @@ namespace app\admin\controller\order;
 use app\common\server\admin\AdminServer;
 use app\common\model\order\OrderModel;
 use app\common\model\shop\ShopModel;
-use app\common\server\laike\KefuServer;
-
-;
+use app\common\server\laike\SalesServer;
+use app\common\model\product\ProductModel;
+use app\common\model\admin\SysZoneModel;
+use app\common\model\order\OrderBookModel;
+use app\common\model\order\OrderFllowRecordModel;
+use app\common\model\order\TagsModel;
+use app\common\model\order\OrderAssignModel;
 
 class Order extends AdminServer {
 
@@ -19,45 +23,121 @@ class Order extends AdminServer {
         //用于API - JSON
         if (input('get.page')) {
             $mod = new OrderModel();
-            $order_num = input('get.order_num', '');
-            $item_name = input('get.item_name', '');
+            $order_id = input('get.order_id', '');
+            $product_name = input('get.product_name', '');
             $buy_phone = input('get.buy_phone', '');
             $order_status = input('get.order_status');
-            $kefu_id = input('get.kefu_id');
-            $shop_id = input('get.shop_id');
+            $fllow_status = input('get.fllow_status');
+            $sales_user_id = input('get.sales_user_id');
+            $account_id = input('get.account_id');
+            $buyer_info_name = input('get.buyer_info_name');
+            $buyer_info_phone = input('get.buyer_info_phone');
+            $departure = input('get.departure');
+            $book_start_date = input('get.book_start_date');
+            $book_date = input('get.book_date');
+            $complet_date = input('get.complet_date');
+            $tags_id = input('get.tags_id', '');
             $where = [
             ];
-            if (!empty($item_name)) {
-                $mod = $mod->whereLike('item_name', '%' . $item_name . '%');
+            if (!empty($product_name)) {
+                $product_mod = new ProductModel();
+                $product_ids = $product_mod->whereLike('product_name', '%' . $product_name . '%')->column('product_id');
+                if (!empty($product_ids)) {
+                    $mod = $mod->where('product_id', 'in', $product_ids);
+                } else {
+                    $mod = $mod->where('id', 0);
+                }
             }
-            if (!empty($order_num)) {
-                $mod = $mod->where('order_num', $order_num);
+            if (!empty($order_id)) {
+                $mod = $mod->where('order_id', $order_id);
             }
             if (!empty($buy_phone)) {
                 $mod = $mod->where('buy_phone', $buy_phone);
             }
-            if (!empty($shop_id)) {
-                $mod = $mod->where('shop_id', $shop_id);
+            if (!empty($account_id)) {
+                $mod = $mod->where('account_id', $account_id);
             }
-            if (!empty($kefu_id)) {
-                $mod = $mod->where('kefu_id', $kefu_id);
+            if (!empty($sales_user_id)) {
+                $mod = $mod->where('sales_user_id', $sales_user_id);
             }
-            if (isset($order_status)) {
+            if (!empty($order_status)) {
                 $mod = $mod->where('order_status', $order_status);
+            }
+            if (!empty($fllow_status)) {
+                $mod = $mod->where('fllow_status', $fllow_status);
+            }
+            if (!empty($buyer_info_name)) {
+                $mod = $mod->where('buyer_info_name', $buyer_info_name);
+            }
+            if (!empty($buyer_info_phone)) {
+                $mod = $mod->where('buyer_info_phone', $buyer_info_phone);
+            }
+            if (!empty($departure)) {
+                $mod = $mod->where('departure', $departure);
+            }
+            if (!empty($book_start_date)) {
+                $book_mod = new OrderBookModel();
+                $book_column = $book_mod->where('book_start_date', $book_start_date)->column('source_order_id');
+                if (!empty($book_column)) {
+                    $mod = $mod->where('order_id', 'in', $book_column);
+                } else {
+                    $mod = $mod->where('id', 0);
+                }
+            }
+            if (!empty($book_date)) {
+                $book_mod = new OrderBookModel();
+                $book_column = $book_mod->where('create_order_time_unix', 'between', [strtotime($book_date), strtotime($book_date) + 86400])->column('source_order_id');
+                if (!empty($book_column)) {
+                    $mod = $mod->where('order_id', 'in', $book_column);
+                } else {
+                    $mod = $mod->where('id', 0);
+                }
+            }
+            if (!empty($complet_date)) {
+                $mod = $mod->where('complet_date', strtotime($complet_date));
+            }
+            if (!empty($tags_id)) {
+                $tags_arr = explode(',', $tags_id);
+                $sql = '';
+                foreach ($tags_arr as $k => $v) {
+                    if ($k != 0) {
+                        $sql = $sql . ' and ';
+                    }
+                    $sql = $sql . 'JSON_CONTAINS(tags, \'"' . $v . '"\')';
+                }
+                $where = 'tags!="" and (' . $sql . ')';
             }
             $page = input('get.page/d', 1);
             $limit = input('get.limit/d', 10);
-            $count = $mod->count();
-            $lists = $mod->with(['shop', 'kefu'])->where($where)->page($page, $limit)->order('id desc')->select();         
+            $count = $mod->where($where)->count();
+            $lists = $mod->with(['business', 'product', 'book', 'admin'])->where($where)->page($page, $limit)->order('id desc')->select();
+            foreach ($lists as &$val) {
+                $val['buyer_info'] = $val['buyer_info_name'] ? ($val['buyer_info_name'] . "\n") : '' . $val['buyer_info_phone'];
+                $val['actual_amount'] = number_format($val['actual_amount'] / 100, 2);
+                $val['time'] = '支付时间:' . $val['pay_time_unix'];
+                if ($val['book']) {
+                    $val['time'] = $val['time'] . "\n" . '预约时间:' . $val['book']['create_order_time_unix'];
+                    $val['time'] = $val['time'] . "\n" . '出行日期:' . $val['book']['book_start_date'];
+                }
+            }
             $data = ['msg' => '', 'code' => 1000, 'data' => $lists, 'count' => $count];
             return json($data);
         }
         $shop_mod = new ShopModel();
         $shop_list = $shop_mod->where('is_del', 0)->select();
-        $kefu_list = (new KefuServer())->getKefu();
-        $this->assign([      
+        $sales_list = (new SalesServer())->getSales();
+        $tags_mod = new TagsModel();
+        $order_status = input('order_status', 0);
+        $fllow_status = input('fllow_status', 0);
+        $buyer_info_phone = input('get.buyer_info_phone', '');
+        $this->assign([
+            'tags_list' => $tags_mod->where([['type', 'eq', 2], ['status', 'eq', 1]])->select(),
             'shop_list' => $shop_list,
-            'kefu_list' => !empty($kefu_list['admin_user']) ? $kefu_list['admin_user'] : []
+            'city_list' => (new SysZoneModel())->where([['Rank', 'eq', 1], ['zone_id', 'gt', 1]])->field('zone_id,zone_name')->select()->toArray(),
+            'sales_list' => !empty($sales_list['admin_user']) ? $sales_list['admin_user'] : [],
+            'order_status' => $order_status,
+            'fllow_status' => $fllow_status,
+            'buyer_info_phone' => $buyer_info_phone
         ]);
         return $this->fetch('order/index');
     }
@@ -69,6 +149,7 @@ class Order extends AdminServer {
         $mod = new OrderModel();
         if (request()->isAjax()) {
             $param = input('post.');
+//            $param['tag']=json_encode($param['tag'],JSON_UNESCAPED_UNICODE);
             if (empty($param['id'])) {
                 $flag = $mod->insert($param);
             } else {
@@ -79,11 +160,11 @@ class Order extends AdminServer {
         $id = input('param.id');
         $shop_mod = new ShopModel();
         $shop_list = $shop_mod->where('is_del', 0)->select()->toArray();
-        $kefu_list = (new KefuServer())->getKefu();
+        $sales_list = (new SalesServer())->getKefu();
         $this->assign([
             'order' => $mod->where('id', $id)->find(),
             'shop_list' => $shop_list,
-            'kefu_list' => !empty($kefu_list['admin_user']) ? $kefu_list['admin_user'] : []
+            'sales_list' => !empty($sales_list['admin_user']) ? $sales_list['admin_user'] : []
         ]);
         return $this->fetch('order/edit');
     }
@@ -93,16 +174,31 @@ class Order extends AdminServer {
      */
     public function info() {
         $mod = new OrderModel();
+        $tags_mod = new TagsModel();
         $id = input('param.id');
         $shop_mod = new ShopModel();
         $shop_list = $shop_mod->where('is_del', 0)->select()->toArray();
-        $kefu_list = (new KefuServer())->getKefu();
-        $order_info=$mod->where('id', $id)->find();
-        $order_info['tags_arr']= explode(',', $order_info['tags']);
+        $sales_ser = new SalesServer();
+        $sales_list = $sales_ser->getSales();
+        $order_info = $mod->with(['product', 'book.traveler', 'info', 'record.admin', 'customer'])->where('id', $id)->find();
+        $order_info['all_actual_amount'] = number_format(($order_info['actual_amount'] + $order_info['book']['actual_amount']) / 100, 2);
+        if (!empty($order_info['book'])) {
+            $order_info['book']['actual_amount'] = number_format($order_info['book']['actual_amount'] / 100, 2);
+        }
+        $order_info['actual_amount'] = number_format($order_info['actual_amount'] / 100, 2);
+        $order_info['total_amount'] = number_format($order_info['total_amount'] / 100, 2);
+        $order_info['all_merchant_discount_amount'] = number_format(($order_info['merchant_discount_amount'] + $order_info['book']['merchant_discount_amount']) / 100, 2);
+        $order_info['fee_amount'] = number_format($order_info['all_actual_amount'] * 0.05, 2);
+        $order_info['all_fee_amount'] = $order_info['fee_amount'];
+        $order_info['jiesuan_amount'] = number_format($order_info['all_actual_amount'] - $order_info['fee_amount'], 2);
         $this->assign([
             'order' => $order_info,
-            'shop_list' => $shop_list,
-            'kefu_list' => !empty($kefu_list['admin_user']) ? $kefu_list['admin_user'] : []
+            'business_list' => $shop_list,
+            'sales_list' => !empty($sales_list['admin_user']) ? $sales_list['admin_user'] : [],
+            'tags_list' => $tags_mod->where([['type', 'eq', 2], ['status', 'eq', 1]])->select(),
+            'customer_tags_list' => $tags_mod->where([['type', 'eq', 1], ['status', 'eq', 1]])->select(),
+            'icon_color' => $this->icon_color,
+            'order_static' => $sales_ser->getCustomerStatic($order_info['customer']['id'])
         ]);
         return $this->fetch('order/info');
     }
@@ -115,6 +211,22 @@ class Order extends AdminServer {
         $mod = new OrderModel();
         $flag = $mod->del($id);
         return json(['code' => $flag['code'], 'data' => $flag['data'], 'msg' => $flag['msg']]);
+    }
+
+    /*
+     * 添加记录
+     */
+
+    public function addRecord() {
+        if (request()->isAjax()) {
+            $param = input('param.');
+            $param['admin_id'] = $this->ADMIN_INFO['uid'];
+            $param['type'] = 1;
+            $OrderFllowRecordModel = new OrderFllowRecordModel();
+            $OrderFllowRecordModel->insert($param);
+            return json(['code' => 1000, 'data' => [], 'msg' => '添加成功']);
+        }
+        return $this->fetch('order/add_record');
     }
 
     /*
@@ -147,7 +259,7 @@ class Order extends AdminServer {
             }
             $order_data = [];
             $order_mod = new OrderModel();
-            $kefu_ser = new KefuServer();
+            $sales_ser = new SalesServer();
             foreach ($excel_data as $val) {
                 if (empty($val['A'])) {
                     continue;
@@ -169,7 +281,7 @@ class Order extends AdminServer {
                     'buy_phone' => $val['H'],
                 ];
             }
-            $order_list = $kefu_ser->orderAssign($order_data);
+            $order_list = $sales_ser->orderAssign($order_data);
             $order_mod->saveAll($order_list);
             return json(['code' => 1000, 'msg' => '导入成功', 'data' => $excel_data]);
         }
@@ -215,19 +327,101 @@ class Order extends AdminServer {
         $field = input('param.field');
         $value = input('param.value');
         $mod = new OrderModel();
-        $mod->save(["$field"=>$value], ['id'=>$id]);
+        if (is_array($value)) {
+            $value = json_encode($value, JSON_UNESCAPED_UNICODE);
+        }
+        $order = $mod->where('id', $id)->find();
+        if (strpos($field, '-') !== false) {
+            $key_arr = explode('-', $field);
+            $param = [
+                $key_arr[1] => $value
+            ];
+            switch ($key_arr[0]) {
+                case 'info':
+                    $this->updateOrderInfo($order->order_id, $param);
+                    break;
+                case 'customer':
+                    if ($key_arr[1] == 'id_card' && !check_id_number($value)) {
+                        return (['code' => 1001, 'msg' => '身份证号有误']);
+                    }
+                    $customer_mod = new \app\common\model\order\CustomerModel();
+                    $customer_mod->where('buyer_info_phone', $order['buyer_info_phone'])->update($param);
+                    break;
+            }
+        } else {
+            $order->save(["$field" => $value]);
+            if ($field == 'sales_user_id') {
+                $order->fllow_status == 1&&$order->save(["fllow_status" => 2]);
+                $order_assign_mod = new OrderAssignModel();
+                $assign_param = [
+                    'order_id' => $order['order_id'],
+                    'sales_user_id' => $value,
+                    'admin_id' => $this->ADMIN_INFO['uid'],
+                    'rule_id' => -1
+                ];
+                $order_assign_mod->insert($assign_param);
+            }
+        }
         return json(['code' => 1000, 'data' => [], 'msg' => '修改成功']);
     }
+
+    private function updateOrderInfo($order_id, $param) {
+        $order_info_mod = new \app\common\model\order\OrderInfoModel();
+        $order_info = $order_info_mod->where('order_id', $order_id)->find();
+        if (empty($order_info)) {
+            $param['order_id'] = $order_id;
+            $order_info_mod->save($param);
+        } else {
+            $order_info->save($param);
+        }
+    }
+
     /*
      * 批量修改
      */
+
     public function batchUpdate() {
         $ids = input('param.ids');
         $field = input('param.field');
         $value = input('param.value');
         $mod = new OrderModel();
-        $mod->save(["$field"=>$value],[['id','in',$ids]]);
+        $mod->save(["$field" => $value], [['id', 'in', $ids]]);
+        if ($field == 'sales_user_id') {
+            $mod->save(["fllow_status" => 2], [['id', 'in', $ids], ['fllow_status', 'eq', 1]]);
+            $order_assign_mod = new OrderAssignModel();
+            foreach ($ids as $vv) {
+                $order_id=$mod->where('id',$vv)->value('order_id');
+                $assign_param[] = [
+                    'order_id' => $order_id,
+                    'sales_user_id' => $value,
+                    'admin_id' => $this->ADMIN_INFO['uid'],
+                    'rule_id' => -1
+                ];
+            }
+            $order_assign_mod->saveAll($assign_param);
+        }
         return json(['code' => 1000, 'data' => [], 'msg' => '修改成功']);
+    }
+
+    /*
+     * 确认接单
+     */
+
+    public function orderConfirm() {
+        if (request()->isAjax()) {
+            $confirm_result = input('confirm_result');
+            $reject_code = input('reject_code', 0);
+            $order_id = input('order_id');
+//            $param['admin_id'] = $this->ADMIN_INFO['uid'];
+            $order_ser = new \app\common\server\laike\OrderServer();
+            $confirm_res = $order_ser->orderConfirm($order_id, $confirm_result, $reject_code);
+            return $confirm_res;
+        }
+        $order_id = input('order_id');
+        $order_book_mod = new OrderBookModel();
+        $order_book_info = $order_book_mod->where('order_id', $order_id)->find();
+        $this->assign('order_book_info', $order_book_info);
+        return $this->fetch('order/order_confirm');
     }
 
 }

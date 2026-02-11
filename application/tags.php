@@ -25,4 +25,8 @@ return [
     'log_write'    => [],
     // 应用结束
     'app_end'      => [],
+      // 统计销售的分配订单数
+    'sales_orders' => [
+        'app\\task\\behavior\\SalesOrders'
+    ],
 ];

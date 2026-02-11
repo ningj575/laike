@@ -202,5 +202,15 @@ class Login extends BaseServer
             return $this->apiError('清除缓存失败');
         }
     }
+    /*
+     * 在线状态
+     */
+    public function online(){
+        $session=session('admin_info');
+        $activeKey = "admin:active:".$session['uid']; 
+        $redis_mod=new \think\cache\driver\Redis();
+        $redis_mod->set($activeKey, 1,180);
+        return $this->apiSuccess();
+    }
 
 }

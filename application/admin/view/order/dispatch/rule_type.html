@@ -1,0 +1,211 @@
+
+        <div class="layui-form" lay-filter="">
+            <div class="layui-form-item">
+                <label class="layui-form-label"></label>
+                <span style='color:gray;font-size: 12px;'>{$rule_config.desc}</span>                           
+            </div>
+            <input type="hidden" name="id"  value="{$rules.id??''}">
+            <input type="hidden" name="rule_type"  value="{$rule_type}">
+            <input type="hidden" name="desc"  value="{$rule_config.desc}">
+            <div class="layui-form-item">
+                <label class="layui-form-label">规则名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="rule_name" lay-verify="required" placeholder="请输入规则名称"  value="{$rules.rule_name??$rule_config.main_name}" lay-verType="tips" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">接单上限</label>
+                <div class="layui-input-inline" style="width:250px;">
+                    <input type="text" name="limit_count"   placeholder="请输入此规则下每名销售的接单上限"  value="{$rules.limit_count?:''}" lay-verType="tips" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid">单</div>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="no_limit" value="1" {if condition='$rules.no_limit??0 eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">在线状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="online_limit_{$rule_type}" value="1" title="仅在线可接" {if condition='$rules.online_limit eq 1'}checked{/if}>
+                    <input type="radio" name="online_limit_{$rule_type}" value="2" title="仅离线可接" {if condition='$rules.online_limit eq 2'}checked{/if}>
+                    <input type="radio" name="online_limit_{$rule_type}" value="0" title="无限制" {if condition="empty($rules.online_limit)||$rules.online_limit eq 0"}checked{/if}>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">可用时段</label>
+                <div class="layui-input-inline">
+                    <div class="layui-input-wrap">
+                        <input type="text" name="time_range"  id="ID-laydate-range-time-{$rule_type}" placeholder=" - " class="layui-input" value="{notempty name='rules.time_start'}{$rules.time_start} - {$rules.time_end}{/notempty}">
+                        <div class="layui-input-suffix">
+                            <i class="layui-icon layui-icon-date"></i>
+                        </div>                                  
+                    </div>
+                </div>    
+                <div class="layui-input-inline" style="width: 400px;">
+                    <input type="checkbox" name="week_limit[]" {if condition='!empty($rules.week_limit_arr)&&in_array(0,$rules.week_limit_arr)'}checked {/if} title="日" value='0'>
+                    <input type="checkbox" name="week_limit[]" {if condition='!empty($rules.week_limit_arr)&&in_array(1,$rules.week_limit_arr)'}checked {/if} title="一" value='1'>
+                    <input type="checkbox" name="week_limit[]" {if condition='!empty($rules.week_limit_arr)&&in_array(2,$rules.week_limit_arr)'}checked {/if} title="二" value='2'>
+                    <input type="checkbox" name="week_limit[]" {if condition='!empty($rules.week_limit_arr)&&in_array(3,$rules.week_limit_arr)'}checked {/if} title="三" value='3'>
+                    <input type="checkbox" name="week_limit[]" {if condition='!empty($rules.week_limit_arr)&&in_array(4,$rules.week_limit_arr)'}checked {/if} title="四" value='4'>
+                    <input type="checkbox" name="week_limit[]" {if condition='!empty($rules.week_limit_arr)&&in_array(5,$rules.week_limit_arr)'}checked {/if} title="五" value='5'>
+                    <input type="checkbox" name="week_limit[]" {if condition='!empty($rules.week_limit_arr)&&in_array(6,$rules.week_limit_arr)'}checked {/if} title="六" value='6'>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="no_time" value='1' {if condition='$rules.no_time eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
+                </div>
+            </div>
+             <div class="layui-form-item {if condition='in_array($rule_type,[1,2,3,5])'}layui-hide{/if}">
+                <label class="layui-form-label">下单时段</label>
+                <div class="layui-input-inline">
+                    <div class="layui-input-wrap">
+                        <input type="text" name="order_time_range"  id="ID-laydate-range-time-order-{$rule_type}" placeholder=" - " class="layui-input" value="{notempty name='rules.order_time_start'}{$rules.order_time_start} - {$rules.order_time_end}{/notempty}">
+                        <div class="layui-input-suffix">
+                            <i class="layui-icon layui-icon-date"></i>
+                        </div>                                  
+                    </div>
+                </div>    
+                <div class="layui-input-inline" style="width: 400px;">
+                    <input type="checkbox" name="order_week_limit[]" {if condition='!empty($rules.order_week_limit_arr)&&in_array(0,$rules.order_week_limit_arr)'}checked {/if} title="日" value='0'>
+                    <input type="checkbox" name="order_week_limit[]" {if condition='!empty($rules.order_week_limit_arr)&&in_array(1,$rules.order_week_limit_arr)'}checked {/if} title="一" value='1'>
+                    <input type="checkbox" name="order_week_limit[]" {if condition='!empty($rules.order_week_limit_arr)&&in_array(2,$rules.order_week_limit_arr)'}checked {/if} title="二" value='2'>
+                    <input type="checkbox" name="order_week_limit[]" {if condition='!empty($rules.order_week_limit_arr)&&in_array(3,$rules.order_week_limit_arr)'}checked {/if} title="三" value='3'>
+                    <input type="checkbox" name="order_week_limit[]" {if condition='!empty($rules.order_week_limit_arr)&&in_array(4,$rules.order_week_limit_arr)'}checked {/if} title="四" value='4'>
+                    <input type="checkbox" name="order_week_limit[]" {if condition='!empty($rules.order_week_limit_arr)&&in_array(5,$rules.order_week_limit_arr)'}checked {/if} title="五" value='5'>
+                    <input type="checkbox" name="order_week_limit[]" {if condition='!empty($rules.order_week_limit_arr)&&in_array(6,$rules.order_week_limit_arr)'}checked {/if} title="六" value='6'>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="order_no_time" value='1' {if condition='$rules.order_no_time eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
+                </div>
+            </div>
+            <div class="layui-form-item {if condition='in_array($rule_type,[1,2,3])'}layui-hide{/if}">
+                <label class="layui-form-label">客户区域</label>
+                <div class="layui-input-inline" style="width:350px;">
+                    <select name="customer_citys" lay-search="" xm-select="customer_select-{$rule_type}"   xm-select-show-count="2" xm-select-search-type=''  xm-select-search > 
+                        <option value="">请选择客户所属区域</option>   
+                        {foreach name="city_list" item="vo"}
+                        <option value="{$vo.zone_id}" {if condition='!empty($rules.customer_citys_arr)&&in_array($vo.zone_id,$rules.customer_citys_arr)'}selected {/if}>{$vo.zone_name}</option>   
+                        {/foreach} 
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <!--<input type="checkbox" name="no_sale" value='1' {if condition='$rules.no_sale eq 1'}checked{/if} lay-skin="primary" title="无限制">--> 
+                </div>
+            </div>
+            <div class="layui-form-item {if condition='in_array($rule_type,[1,2,3,5])'}layui-hide{/if}">
+                <label class="layui-form-label">出发城市</label>
+                <div class="layui-input-inline" style="width:350px;">
+                    <select name="departures" lay-search="" xm-select="departure_select-{$rule_type}"   xm-select-show-count="2" xm-select-search-type=''  xm-select-search > 
+                        <option value="">请选择客户出发城市</option> 
+                        {foreach name="city_list" item="vo"}
+                        <option value="{$vo.zone_id}"{if condition='!empty($rules.departures_arr)&&in_array($vo.zone_id,$rules.departures_arr)'}selected {/if}>{$vo.zone_name}</option>   
+                        {/foreach}                       
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <!--<input type="checkbox" name="no_sale" value='1' {if condition='$rules.no_sale eq 1'}checked{/if} lay-skin="primary" title="无限制">--> 
+                </div>
+            </div>
+             <div class="layui-form-item {if condition='!in_array($rule_type,[5,6])'}layui-hide{/if}">
+                <label class="layui-form-label">选择店铺</label>
+                <div class="layui-input-inline" style="width:350px;">
+                    <select name="account_id" lay-search=""> 
+                        <option value="">请选择店铺</option>   
+                        {foreach name="business_list" item="vo"}
+                        <option value="{$vo.account_id}"{if condition='$vo.account_id eq $rules.account_id'}selected{/if}>{$vo.name}</option>
+                        {/foreach} 
+                    </select>
+                </div>                                
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">适用销售</label>
+                <div class="layui-input-inline" style="width:350px;">
+                    <select name="use_sales" lay-search="" xm-select="sales_select-{$rule_type}"   xm-select-show-count="2" xm-select-search-type=''  xm-select-search > 
+                        <option value="">请选择此规则下适用的销售人员</option>   
+                        {foreach name="sales_list" item="vo"}
+                        <option value="{$vo.id}" {if condition='!empty($rules.use_sales_arr)&&in_array(($vo.id??0),$rules.use_sales_arr)'}selected {/if}>{$vo.admin_name}</option>
+                        {/foreach} 
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="no_sale" value='1' {if condition='$rules.no_sale eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">适用商品</label>
+                <div class="layui-input-inline" style="width:400px;">
+                    <select name="use_products"  xm-select="products_select-{$rule_type}"   xm-select-show-count="1" xm-select-search-type='' xm-select-search > 
+                        <option value="">请选择此规则下适用的商品</option>    
+                        {foreach name="products_list" item="vo"}
+                        <option value="{$vo.product_id}"{if condition='!empty($rules.use_products_arr)&&in_array($vo.product_id,$rules.use_products_arr)'}selected {/if}>{$vo.product_name}</option>
+                        {/foreach} 
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="no_product" value='1' {if condition='$rules.no_product eq 1'}checked{/if}  lay-skin="primary" title="无限制"> 
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">优先级</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="sort" placeholder="数字越大优先级越高" value='{$rules.sort}' autocomplete="off" class="layui-input" min="0" step="1" lay-affix="number">
+                </div>                              
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="status" title="ON|OFF" lay-skin="switch" value='1' {if condition='$rules.status eq 1'}checked{/if}> 
+                </div>                              
+            </div>
+            <div class="layui-form-item" style='text-align: center;'>
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="{$rule_config.button}">确认保存</button>
+                </div>
+            </div>
+
+        </div>
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <link rel="stylesheet" href="__LAYUI__/formSelects-v4.css" >
+    <script src="__LAYUI__/formSelects-v4.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form', 'laydate'], function () {
+           var laydate = layui.laydate;
+            // 时间范围
+            var is_click=true;  
+            {foreach name="main_rules" item="vo"}
+            laydate.render({
+                elem: '#ID-laydate-range-time-{$vo.rule_type}',
+                type: 'time',
+                range: true
+            });
+            laydate.render({
+                elem: '#ID-laydate-range-time-order-{$vo.rule_type}',
+                type: 'time',
+                range: true
+            });
+             layui.form.on("submit({$vo.button})", function (t) {
+                if(!is_click){
+//                    layer.msg('请不要重复点击', {icon: 0, time: 1500, shade: 0.1});
+                    return false;
+                }
+                is_click=false;
+                layui.$.post('add', t.field, function (res) {
+                    if (res.code == 1000) {
+                        layer.msg(res.msg, {icon: 1, time: 1500, shade: 0.1}, function () {
+//                            location.reload();
+                                setTimeout(function(){ is_click=true;}, 3000 );
+                        });
+                    } else {
+                        layer.msg(res.msg, {icon: 0, time: 1500, shade: 0.1});
+                    }
+                });
+                return false;
+            });
+             {/foreach}      
+        })
+    </script>
+</body>
+</html>

@@ -22,7 +22,9 @@ class SalesUserModel extends BaseModel
         parent::__construct($data);
     }   
 
-   
+    public function admin(){
+        return $this->belongsTo('app\common\model\admin\SysAdminModel','admin_id','id');
+    }
 
     /**
      * 插入角色信息

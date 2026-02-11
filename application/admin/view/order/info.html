@@ -1,501 +1,701 @@
 {include file="public/header" /}
 <body>    
     <style>
-        .no-border{
+/*        .no-border{
             border: none;
-
         }
         .layui-card-header{
             border-bottom:none;
+        } */
+        .layui-form-item{
+            margin-bottom:0px;
         }
     </style>
     <div class="layui-fluid">
-        <div class="layui-row layui-col-space15">  
-                <div class="layui-col-md7">                
-                    <div class="layui-card">                   
-                        <div class="layui-card-header layui-font-16">商品信息</div>
-                        <div class="layui-card-body  layui-text layadmin-version">                        
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">商品名称</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="item_name" value='{$order.item_name}' lay-verify="required"  readonly   autocomplete="off" class="layui-input no-border">
-                                </div>
-                            </div>                            
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">商品ID</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="item_id" value='{$order.item_id}' readonly autocomplete="off"  lay-affix="clear" class="layui-input no-border">
-                                </div>
+        <div class="layui-form layui-row layui-col-space15">  
+            <div class="layui-col-md7">                
+                <div class="layui-card">                   
+                    <div class="layui-card-header layui-font-16">商品信息</div>
+                    <div class="layui-card-body  layui-text layadmin-version">                        
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">商品名称</label>
+                            <div class="layui-input-block">
+                                 <div class="layui-form-mid">{$order.product.product_name}</div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">商品品类</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="item_cate" value='{$order.item_cate}' readonly autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
+                        </div>                            
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">商品ID</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.product_id}</div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">商品类型</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="item_type" value='{$order.item_type}' readonly autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>                              
                         </div>
-                        <div class="layui-card-header layui-font-16">售卖信息</div>
-                        <div class="layui-card-body layui-text layadmin-version">                        
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">订单标签</label>
-                                <div class="layui-input-block" id="tag_view">
-                                    {volist name='order.tags_arr' id='val'}
-                                    <button type="button" class="layui-btn layui-btn-primary">{$val}</button>
-                                    {/volist}                                                               
-                                </div>
-                                <div class="layui-input-block" style='display:none;' id="tag_edit">
-                                    <select  class="layui-input"  name="items_specs_id"  xm-select=""  xm-select-search='' >
-                                        <option value="">请选择标签</option>
-                                        {volist name='order.tags_arr' id='val'}
-                                        <option value="{$val}" selected >{$val}</option>
-                                        {/volist}         
-                                    </select>
-                                </div>
-                            </div>                            
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">成交渠道</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="deal_channel" value='{$order.deal_channel}' lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">商品品类</label>
+                            <div class="layui-input-inline" style='width:250px;'>
+                                <div class="layui-form-mid">{$order.product.category_full_name}</div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">带货角色</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="commerce_roles" value='{$order.commerce_roles}' lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">带货人</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="commerce_user" value='{$order.commerce_user}'  autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>   
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">内容地址</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="content_url" value='{$order.content_url}' autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>   
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">出行人数</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>   
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">购买人手机号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>   
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">支付时间</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>   
                         </div>
-                        <div class="layui-card-header layui-font-16">核销信息</div>
-                        <div class="layui-card-body layui-text layadmin-version">                        
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">商品券码</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="username" lay-verify="required"  autocomplete="off" class="layui-input">
-                                </div>
-                            </div>                            
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">核销门店</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input">
-                                </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">商品类型</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.product.product_type_text}</div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">核销时间</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input">
+                        </div>                              
+                    </div>
+                    <div class="layui-card-header layui-font-16">售卖信息</div>
+                    <div class="layui-card-body layui-text layadmin-version">                        
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">订单标签</label>
+                            <div class="layui-input-block">
+                                <div class="layui-form-mid">
+                                {empty name='order.tags_arr'}
+                                暂无
+                                {else/}
+                                {volist name='order.tags_arr' id='val'}
+                                <button type="button" class="layui-btn layui-btn-xs layui-btn-{$icon_color[$key]}">{$val}</button>
+                                {/volist}                   
+                                {/empty}
+                                &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='订单标签' data-field='tags' data-type="checkEdit">修改</a>
                                 </div>
+                            </div>                     
+                        </div>   
+                        <div id='tags' style='display:none;padding: 10px 20px;' >                  
+                            {volist name='tags_list' id='val'}
+                            <div class="layui-form-mid">
+                                <input type="checkbox"  value='{$val.id}' lay-skin="tag" title="{$val.name}" {if condition='in_array($val.name,$order.tags_arr)'}checked {/if}>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">核销员</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input">
-                                </div>
-                            </div>                             
-                        </div>
-                        <div class="layui-card-header layui-font-16">预约信息</div>
-                        <div class="layui-card-body layui-text layadmin-version">                        
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">预约数量</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="username" lay-verify="required"  autocomplete="off" class="layui-input no-border">
-                                </div>
-                            </div>                            
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">联系人姓名</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">联系人手机号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">联系人邮箱</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>    
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">买家预约时间</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>    
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">预约确认时间</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>    
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">B2B订单号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>    
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">收款码</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>    
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">取消预约原因</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>    
-                        </div>
-                        <div class="layui-card-header layui-font-16">出行信息</div>
-                        <div class="layui-card-body  layui-text layadmin-version"> 
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">始发地</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">出行日期</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">实际出行人数</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>   
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">出行人信息</label>
-                                <div class="layui-input-block">
-                                    <table class="layui-table layuiadmin-page-table" lay-skin="line">
-                                        <thead>
-                                            <tr>
-                                                <th>中文名</th>
-                                                <th>英文名</th>
-                                                <th>性别</th>
-                                                <th>出生日期</th>
-                                                <th>证件信息</th>
-                                            </tr> 
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>张三</td>
-                                                <td>张三</td>
-                                                <td>张三</td>
-                                                <td>张三</td>
-                                                <td>张三</td>                     
-                                            </tr>
-                                            <tr>
-                                                <td>张三</td>
-                                                <td>张三</td>
-                                                <td>张三</td>
-                                                <td>张三</td>
-                                                <td>张三</td>        
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div> 
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">其他注意事项</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
+                            {/volist}      
+                        </div>          
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">成交渠道</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.channel?:'暂无'} 
+                                   <!--&nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='成交渠道' data-field='channel' data-type="inputEdit">修改</a>-->
                                 </div>
                             </div>
                         </div>
-                        <div class="layui-card-header layui-font-16">收支信息</div>
-                        <div class="layui-card-body layui-text layadmin-version">                        
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">订单实收</label>
-                                <div class="layui-input-inline">
-                                    <table class="layui-table layuiadmin-page-table" lay-skin="line">
-                                        <thead>
-                                            <tr>
-                                                <th>订单实收金额</th>
-                                                <th>￥8999.00</th>                                                
-                                            </tr> 
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>售卖金额</td>
-                                                <td>￥8999.00</td>                                                                
-                                            </tr>
-                                            <tr>
-                                                <td>补差价</td>
-                                                <td>￥8999.00</td>                                                                
-                                            </tr>
-                                            <tr>
-                                                <td>商家补贴</td>
-                                                <td>￥8999.00</td>                                                                
-                                            </tr>                                           
-                                        </tbody>
-                                    </table>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">带货角色</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.host_info_role?:'暂无'} 
+                                   <!--&nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='带货角色' data-field='host_info_role' data-type="inputEdit">修改</a>-->
                                 </div>
-                                <label class="layui-form-label">预估结算</label>
-                                <div class="layui-input-inline">
-                                    <table class="layui-table layuiadmin-page-table" lay-skin="line">
-                                        <thead>
-                                            <tr>
-                                                <th>预估结算金额</th>
-                                                <th>￥8999.00</th>                                                
-                                            </tr> 
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>订单实收</td>
-                                                <td>￥8999.00</td>                                                                
-                                            </tr>
-                                            <tr>
-                                                <td>补差价</td>
-                                                <td>￥8999.00</td>                                                                
-                                            </tr>
-                                            <tr>
-                                                <td>预估佣金</td>
-                                                <td>￥8999.00</td>                                                                
-                                            </tr>                                           
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>   
+                            </div>
                         </div>
-                        <div class="layui-card-header layui-font-16">其他信息</div>
-                        <div class="layui-card-body layui-text layadmin-version">                        
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">商家备注</label>
-                                <div class="layui-input-inline">
-                                    <textarea name="username" class="layui-textarea no-border"></textarea>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">带货人</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.host_info_name?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.host_info_name}' data-title='带货人' data-field='host_info_name' data-type="inputEdit">修改</a>
+                                </div>                           
+                            </div>
+                        </div>   
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">内容地址</label>                            
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.content_url?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.content_url}' data-title='内容地址' data-field='content_url' data-type="textareaEdit">修改</a>
                                 </div>
-                            </div>   
+                            </div>
+                        </div>   
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出行人数</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.total_coupon_count}</div>
+                            </div>
+                        </div>   
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style='width:85px;'>购买人手机号</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.customer.buyer_info_phone}</div>
+                            </div>
+                        </div>   
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">支付时间</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.pay_time_unix}</div>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="layui-card-header layui-font-16">核销信息</div>
+                    <div class="layui-card-body layui-text layadmin-version">                        
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">商品券码</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.info.product_coupon?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.product_coupon}' data-title='商品券码' data-field='info-product_coupon' data-type="inputEdit">修改</a>
+                                </div>
+                            </div>
+                        </div>                            
+                        <div class="layui-form-item">                            
+                            <label class="layui-form-label">核销门店</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.info.verify_store?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_store}' data-title='核销门店' data-field='info-verify_store' data-type="inputEdit">修改</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">核销时间</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.info.verify_time?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_time}' data-title='核销时间' data-field='info-verify_time' data-type="inputEditTime">修改</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id='time_html' style='display:none;'>
+                            <label class="layui-form-label"></label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">
+                                    <input type="text" id="common_time" placeholder="请选择时间" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">核销员</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.info.verify_staff?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_staff}' data-title='核销员' data-field='info-verify_staff' data-type="inputEdit">修改</a>
+                                </div>
+                            </div>
+                        </div>                             
+                    </div>
+                    <div class="layui-card-header layui-font-16">预约信息
+                        {empty name='order.book'}
+                        <span class="layui-btn layui-btn-normal layui-btn-xs">未预约</span>
+                        {else/}
+                        <span class="layui-btn layui-btn-normal layui-btn-xs">{$order.book.book_status_text}</span>
+                        {/empty}
+                    </div>
+                    <div class="layui-card-body layui-text layadmin-version">                        
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">预约数量</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.book.total_booking_count}</div>
+                            </div>
+                        </div>                            
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系人姓名</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.customer.buyer_info_name}</div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style='width:85px;'>联系人手机号</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.customer.buyer_info_phone}</div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系人邮箱</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.customer.buyer_info_email}</div>
+                            </div>
+                        </div>    
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style='width:85px;'>买家预约时间</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.book.create_order_time_unix}</div>
+                            </div>
+                        </div>    
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style='width:85px;'>预约确认时间</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.book.confirm_time_unix}</div>
+                            </div>
+                        </div>    
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">B2B订单号</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.info.b2b_order_id?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.b2b_order_id}' data-title='B2B订单号' data-field='info-b2b_order_id' data-type="inputEdit">修改</a>
+                                </div>
+                            </div>
+                        </div>   
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">客人备注</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.book.remark_from_guest}</div>
+                            </div>
                         </div>                               
-                    </div>  
-                </div>
-                <div class="layui-col-md5">                
-                    <div class="layui-card">
-                        <div class="layui-card-header layui-font-16">客户信息</div>
-                        <div class="layui-card-body  layui-text layadmin-version">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">客户姓名</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style='width:85px;'>取消预约原因</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.book.cancel_reason}</div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">手机号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
+                        </div>    
+                    </div>
+                    <div class="layui-card-header layui-font-16">出行信息</div>
+                    <div class="layui-card-body  layui-text layadmin-version"> 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">始发地</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.departure_text}</div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">身份证号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出行日期</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.book.book_start_date}</div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">身份证号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style='width:85px;'>实际出行人数</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.book.total_booking_count}</div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">护照号</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
+                        </div>   
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出行人信息</label>
+                            <div class="layui-input-block">
+                                <table class="layui-table layuiadmin-page-table" lay-skin="line">
+                                    <thead>
+                                        <tr>
+                                            <th>中文名</th>
+                                            <th>英文名</th>
+                                            <th>性别</th>
+                                            <th>出生日期</th>
+                                            <th>证件信息</th>
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        {foreach name="order.book.traveler" item="vo"}                         
+                                        <tr>
+                                            <td>{$vo.name}</td>
+                                            <td>{$vo.last_name}&nbsp;{$vo.first_name}</td>
+                                            <td>{$vo.gender==1?'男':'女'}</td>
+                                            <td>{$vo.birthday}</td>
+                                            <td>{$vo.license_type_text}&nbsp;{$vo.license_id}</br>
+                                                有效期&nbsp;{$vo.license_validity}
+                                            </td>                     
+                                        </tr>       
+                                        {/foreach}
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">历史订单</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">销售线索</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">客户投诉</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
+                        </div> 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style='width:85px;'>其他注意事项</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.info.precaution?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.precaution}' data-title='其他注意事项' data-field='info-precaution' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-card">
-                        <div class="layui-card-header layui-font-16">跟进情况</div>
-                        <div class="layui-card-body layui-text layadmin-version">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">人群标签</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
+                    <div class="layui-card-header layui-font-16">收支信息</div>
+                    <div class="layui-card-body layui-text layadmin-version">                        
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">订单实收</label>
+                            <div class="layui-input-inline">
+                                <table class="layui-table layuiadmin-page-table" lay-skin="line">
+                                    <thead>
+                                        <tr>
+                                            <th>订单实收金额</th>
+                                            <th>￥{$order.all_actual_amount}</th>                                                
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>售卖金额</td>
+                                            <td>￥{$order.total_amount}</td>                                                                
+                                        </tr>
+                                        <tr>
+                                            <td>补差价</td>
+                                            <td>￥{$order.book.actual_amount??0}</td>                                                                
+                                        </tr>
+                                        <tr>
+                                            <td>商家补贴</td>
+                                            <td>-￥{$order.all_merchant_discount_amount}</td>                                                                
+                                        </tr>                                           
+                                    </tbody>
+                                </table>
+                            </div>
+                            <label class="layui-form-label">预估结算</label>
+                            <div class="layui-input-inline">
+                                <table class="layui-table layuiadmin-page-table" lay-skin="line">
+                                    <thead>
+                                        <tr>
+                                            <th>预估结算金额</th>
+                                            <th>￥{$order.jiesuan_amount}</th>                                                
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>订单实收</td>
+                                            <td>￥{$order.actual_amount}</td>                                                                
+                                        </tr>
+                                        <tr>
+                                            <td>补差价</td>
+                                            <td>￥{$order.book.actual_amount??0.00}</td>                                                                
+                                        </tr>
+                                        <tr>
+                                            <td>预估佣金/服务费</td>
+                                            <td>-￥{$order.all_fee_amount}</td>                                                                
+                                        </tr>                                         
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="layui-card-header layui-font-16">其他信息</div>
+                    <div class="layui-card-body layui-text layadmin-version">                        
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">商家备注</label>
+                            <div class="layui-input-block">
+                                <div class="layui-form-mid">{$order.info.remark_from_store?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.remark_from_store}' data-title='商家备注' data-field='info-remark_from_store' data-type="textareaEdit">修改</a>
                                 </div>
                             </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">出发日期</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">出发城市</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">电话跟进</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">微信跟进</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="vercode" lay-verify="required" autocomplete="off" lay-affix="clear" class="layui-input no-border">
+                        </div>   
+                    </div>                               
+                </div>  
+            </div>
+            <div class="layui-col-md5">                
+                <div class="layui-card">
+                    <div class="layui-card-header layui-font-16">客户信息
+                        <a class='' lay-href="/order/customer/info?phone={$order.buyer_info_phone}" data-type="viewCustomer" style="float:right;color:#01aaed;font-size: 13px;">查看完整档案</a>
+                    </div>
+                    <div class="layui-card-body  layui-text layadmin-version">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">客户姓名</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.customer.buyer_info_name?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.buyer_info_name}' data-title='客户姓名' data-field='customer-buyer_info_name' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="layui-card-header layui-font-16">跟进记录</div>
-                        <div class="layui-card-body layui-text layadmin-version">
-                            <div class="layui-timeline">
-                                <div class="layui-timeline-item">
-                                    <i class="layui-icon layui-timeline-axis"></i>
-                                    <div class="layui-timeline-content layui-text">
-                                        <h3 class="layui-timeline-title">8月18日</h3>
-                                        <p>
-                                            多年前，Layui 2.0 的发布前夜，记录着这样的一段心理活动。
-                                            <br>这是一个怎样的版本？它将受众如何？
-                                            <br>又是谁在指引着我去创作，是基于成就感的驱动，还是试图建立我与客观世界的某种沟通 <i class="layui-icon"></i>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="layui-timeline-item">
-                                    <i class="layui-icon layui-timeline-axis"></i>
-                                    <div class="layui-timeline-content layui-text">
-                                        <h3 class="layui-timeline-title">8月16日</h3>
-                                        <p>Layui 使用率最高的组件有</p>
-                                        <ul>
-                                            <li>layer</li>
-                                            <li>table</li>
-                                            <li>form</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="layui-timeline-item">
-                                    <i class="layui-icon layui-timeline-axis"></i>
-                                    <div class="layui-timeline-content layui-text">
-                                        <h3 class="layui-timeline-title">8月15日</h3>
-                                        <p>
-                                            这片广袤的土地孕育了璀璨的华夏文化，和我们这个饱受沧桑的民族。
-                                            <br>勤劳、淳朴、善良而又充满智慧的国人，一代又一代人的艰苦奋斗，古老的文明重新焕发出光彩。
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="layui-timeline-item">
-                                    <i class="layui-icon layui-timeline-axis"></i>
-                                    <div class="layui-timeline-content layui-text">
-                                        <div class="layui-timeline-title">过去</div>
-                                    </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">手机号</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.customer.buyer_info_phone}</div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">身份证号</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.customer.id_card?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.id_card}' data-title='身份证号' data-field='customer-id_card' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
-
+                        </div>                
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">护照号</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.customer.passpart?:'暂无'} 
+                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.passpart}' data-title='护照号' data-field='customer-passpart' data-type="inputEdit">修改</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">历史订单</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order_static.order_count}笔共￥{$order_static.order_sum_money} <a lay-href='/order/order/index?buyer_info_phone={$order.customer.buyer_info_phone}'>查看</a></div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">销售线索</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order_static.sales_lead_count}条 <a lay-href='/sales/lead/index?buyer_info_phone={$order.customer.buyer_info_phone}'>查看</a></div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">客户投诉</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order_static.order_complain_count}条 <a lay-href='/order/complain/index?buyer_info_phone={$order.customer.buyer_info_phone}'>查看</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            <button class="layui-btn layui-btn-normal layui-btn-xm layui-fixbar" id='editBtn' style='bottom:0;right: 44%'>编辑</button>
-            <button class="layui-btn layui-btn-danger layui-btn-xm layui-fixbar" id="cancelBtn"  style='bottom:0;right: 50%;display: none;'>取消</button>
-            <button class="layui-btn layui-btn-checked layui-btn-xm layui-fixbar" id='saveBtn' style='bottom:0;right: 44%;display: none;'>保存</button>
+                <div class="layui-card">
+                    <div class="layui-card-header layui-font-16">跟进情况
+                        {if condition='$order.fllow_status lt 3'}
+                        <span class="layui-btn layui-btn-disabled layui-btn-xs">{$order.fllow_status_text}</span>
+                        {else/}
+                        <span class="layui-btn layui-btn-normal layui-btn-xs">{$order.fllow_status_text}</span>
+                        {/if}
+                        <a class='zidingyi_btn' href="javascript:void(0);" data-type="addComplain" style="float:right;color:#01aaed;font-size: 13px;" >创建投诉工单</a>
+                        {if condition='$order.fllow_status eq 2'}
+                        <a class='zidingyi_btn' href="javascript:void(0);" data-value='3' data-type="completed" data-field='fllow_status'  style="float:right;color:#01aaed;font-size: 13px;margin-right:20px;" >标记已处理</a>
+                         {/if}                       
+                    </div>
+                    <div class="layui-card-body layui-text layadmin-version">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">人群标签</label>
+                            <div class="layui-input-block" >
+                                <div class="layui-form-mid">
+                                {empty name='order.customer.tags_arr'}
+                                暂无
+                                {else/}
+                                {volist name='order.customer.tags_arr' id='val'}
+                                <button type="button" class="layui-btn layui-btn-xs layui-btn-{$icon_color[$key]}">{$val}</button>
+                                {/volist}                   
+                                {/empty}
+                                &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='人群标签' data-field='customer-tags' data-type="checkEdit">修改</a>
+                                </div>                                                                                        
+                            </div>                                                           
+                        </div>
+                        <div id='customer-tags' style='display:none;padding: 10px 20px;' >                  
+                            {volist name='customer_tags_list' id='val'}
+                            <div class="layui-form-mid">
+                                <input type="checkbox"  value='{$val.id}' lay-skin="tag" title="{$val.name}" {if condition='in_array($val.name,$order.customer.tags_arr)'}checked {/if}>
+                            </div>
+                            {/volist}      
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出发日期</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.book.book_start_date}</div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">出发城市</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.departure_text}</div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">电话跟进</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$order.phone_fllow?:'未联系'}
+                                    {if condition="$order.phone_fllow  neq '已联系'"}
+                                &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='已联系' data-type="completed" data-field='phone_fllow'  style="float:right;color:#01aaed;font-size: 13px;margin-right:20px;" >标记已联系</a>
+                                    {/if}
+                                </div>
+                            </div>                           
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">微信跟进</label>
+                            <div class="layui-input-inline" >
+                                <div class="layui-form-mid">{$order.weixin_fllow?:'未联系'}
+                                    {if condition="$order.weixin_fllow  neq '已联系'"}
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='已联系' data-type="completed" data-field='weixin_fllow'  style="float:right;color:#01aaed;font-size: 13px;margin-right:20px;" >标记已联系</a>
+                                    {/if}
+                                </div>
+                            </div>                            
+                        </div>    
+                    </div>
+                    <div class="layui-card-header layui-font-16">跟进记录<a class='zidingyi_btn' href="javascript:void(0);" data-type="addRecord" style="float:right;color:#01aaed;font-size: 13px;" >新增记录</a></div>
+                    <div class="layui-card-body layui-text layadmin-version">
+                        <div class="layui-timeline">
+                            {volist name='order.record' id='val'}
+                            <div class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <span class="layui-timeline-title">{$val.fllow_time}</span>&nbsp;&nbsp;&nbsp;<span class='layui-btn layui-btn-xs'>{$val.fllow_method}</span>
+                                    <div class="layui-timeline-title layui-font-20">{$val.admin.admin_name??'系统自动分配'}</div>
+                                    <div>
+                                        {$val.fllow_content}                                            
+                                        {notempty name='val.next_fllow_time'}
+                                         <br>   
+                                        <span class='layui-font-12' style='color:gray;'>下次跟进时间：{$val.next_fllow_time}</span>
+                                        {/notempty}
+                                        {notempty name='val.next_fllow_content'}
+                                        <br>
+                                        <span class='layui-font-12' style='color:gray;'>跟进内容：{$val.next_fllow_content}</span>
+                                        {/notempty}
+                                    </div>
+                                </div>
+                            </div>
+                            {/volist}                         
+                        </div>
 
-
+                    </div>
+                </div>
+            </div>
+            {if condition='!empty($order.book)&&$order.book.book_status eq 1'}
+            <button class="layui-btn layui-btn-normal layui-btn-xm layui-fixbar" id='agreeBtn' style='bottom:0;right: 52%'>确认接单</button>
+            <button class="layui-btn layui-btn-danger layui-btn-xm layui-fixbar" id='cancelBtn' style='bottom:0;right: 44%'>取消接单</button>           
+            {else/}
+            <button class="layui-btn layui-btn-danger layui-btn-xm layui-fixbar" id='closeBtn' style='bottom:0;right: 44%'>关闭</button>
+            {/if}
         </div>
-    </div>
-    <link rel="stylesheet" href="__LAYUI__/formSelects-v4.css" >
-    <script src="__LAYUI__/formSelects-v4.js"></script>
+    </div>    
     {include file="public/footer" /}
+    <link rel="stylesheet" href="__LAYUI__/formSelects-v4.css" >
+    <script src="__LAYUI__/formSelects-v4.js?v=3"></script>
     <script>
-        // 编辑按钮点击事件
-        $('#editBtn').on('click', function () {
-            // 移除无边框类，显示边框
-            $('.layui-input').removeClass('no-border');
-            // 移除只读属性
-            $('.layui-input').prop('readonly', false);
-            // 切换按钮显示
-            $('#editBtn').hide();
-            $('#saveBtn,#cancelBtn').show();
-            $('#tag_edit').show();
-            $('#tag_view').hide();
-        });
-        
-         // 取消按钮点击事件
-        $('#cancelBtn').on('click', function () {
-            // 添加无边框类，隐藏边框
-            $('.layui-input').addClass('no-border');
-            // 添加只读属性
-            $('.layui-input').prop('readonly', true);
-            // 切换按钮显示
-            $('#editBtn').show();
-            $('#saveBtn,#cancelBtn').hide();
-            $('#tag_view').show();
-            $('#tag_edit').hide();
-        });
+        layui.use(['form','laydate'], function () {
+            var id = '{$order.id}';
+            var $ = layui.$;
+            var form = layui.form;
+            var laydate=layui.laydate;
+            //时间范围
+            laydate.render({
+                elem: '#common_time'
+                , type: 'datetime'
+            });
+            /* 触发弹层 */
+            var active = {
+                checkEdit:function(){
+                    var field=$(this).data('field');
+                    var title=$(this).data('title');             
+                    layer.open({
+                        type: 1,
+                        title: '修改'+title,
+                        area: ['400px', '250px'], // 宽高
+                        content: $('#'+field),
+                        btn:['确定','取消'],
+                        btn1: function () {
+                            var checkValue = [];
+                            $('#'+field+' input[type=checkbox]:checked').each(function () {
+                                checkValue.push($(this).val());
+                            });   
+                             if (checkValue == "") {
+                                layer.msg("请选择选项!");
+                                return false;
+                            } else {
+                                layui.$.post('updataValue', {id: id,field:field, value: checkValue}, function (data) {
+                                    if (data.code == 1000) {
+                                        layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                            location.reload();
+                                        });
+                                    } else {
+                                        layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
+                                    }
+                                });
+                            }
+                          }
+                     });
+                },
+                inputEdit: function () {
+                    var field=$(this).data('field');
+                    var title=$(this).data('title');
+                    var old_value=$(this).data('value');
+                    layer.prompt({
+                        formType: 3
+                        , title: '修改'+title
+                        , value: old_value
+                    }, function (value, index) {
+                        layui.$.post('updataValue', {id: id,field:field, value: value}, function (data) {
+                            if (data.code == 1000) {
+                                layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                    location.reload();
+                                });
+                            } else {
+                                layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
+                            }
+                        });                        
+                    })
+                },
+                inputEditTime: function () {
+                    var field=$(this).data('field');
+                    var title=$(this).data('title');
+                    var old_value=$(this).data('value');
+                    $('#common_time').val(old_value);
+                    layer.open({
+                        type: 1,
+                        title: '修改'+title,
+                        area: ['350px', '200px'], // 宽高
+                        content: $('#time_html'),
+                        btn:['确定','取消'],
+                        btn1: function () {
+                            var value=$('#common_time').val();
+                             layui.$.post('updataValue', {id: id,field:field, value: value}, function (data) {
+                                    if (data.code == 1000) {
+                                        layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                            location.reload();
+                                        });
+                                    } else {
+                                        layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
+                                    }
+                                });
+                          }
+                     });                 
+                },
+                textareaEdit: function () {
+                    var field=$(this).data('field');
+                    var title=$(this).data('title');
+                    var old_value=$(this).data('value');
+                    layer.prompt({
+                        formType: 2
+                        , title: '修改'+title
+                        , value: old_value
+                    }, function (value, index) {
+                        layui.$.post('updataValue', {id: id,field:field, value: value}, function (data) {
+                            if (data.code == 1000) {
+                                layer.msg('修改成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                    location.reload();
+                                });
+                            } else {
+                                layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
+                            }
+                        });
+                    })
+                },
+                add_record: function () {
+                    layer.open({
+                        type: 2
+                        , title: '添加跟进记录'
+                        , content: 'listform.html'
+                        , maxmin: true
+                        , area: ['550px', '550px']
+                        , btn: ['确定', '取消']
+                        , yes: function (index, layero) {
+                            //点击确认触发 iframe 内容中的按钮提交
+                            var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+                            submit.click();
+                        }
+                    });
+                }
+            }
+            $('.zidingyi_btn').on('click', function () {
+                var type = $(this).data('type');
+                switch (type) {
+                    case 'addRecord':
+                        tpmsg.addEdit('addRecord?order_id={$order.order_id}', ['30%','80%'], "新增跟进记录", ['100px', '60%'],2);
+                        break;  
+                    case 'addComplain':
+                        tpmsg.addEdit('/order/complain//edit?order_id={$order.order_id}', ['45%','60%'], "创建投诉工单", ['100px', '50%'],2);
+                        break;  
+                    case 'viewCustomer':
+                        tpmsg.DataInfo('/order/customer/info?phone={$order.buyer_info_phone}', ['60%','60%'], "客户详情", ['100px', '30%']);
+                        break;
+                    case 'completed':
+                        var submit_value=$(this).data('value');
+                        var field=$(this).data('field');
+                       layer.confirm('确定标记已处理', {icon: 3, title: tips,btn: [determine,cancel]}, function () {
+                        layui.$.post('updataValue', {id: id,field:field, value: submit_value}, function (data) {
+                            if (data.code == 1000) {
+                                layer.msg('处理成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                    location.reload();
+                                });
+                                } else {
+                                    layer.msg('处理失败', {icon: 0, time: 1500, shade: 0.1, });
+                                }
+                            });
+                            layer.close(index);
+                        })
+                        break; 
+                    default:
+                        active[type].call(this);
+                        break;
+                }
+                
+            });      
 
-        // 保存按钮点击事件
-        $('#saveBtn').on('click', function () {
-            var username = $('#username').val();
-            // 添加无边框类，隐藏边框
-            $('.layui-input').addClass('no-border');
-            // 添加只读属性
-            $('.layui-input').prop('readonly', true);
-            // 切换按钮显示
-            $('#editBtn').show();
-            $('#saveBtn,#cancelBtn').hide();
-            $('#tag_view').show();
-            $('#tag_edit').hide();
-            // 这里可以添加保存数据的逻辑
-            layer.msg('保存成功: ' + username);
+            $('#closeBtn').on('click', function () {
+                 var index = parent.layer.getFrameIndex(window.name);
+                 parent.layer.close(index);
+            });
+            $('#agreeBtn').on('click', function () {
+                var order_id='{$order.book.order_id}';
+                 layer.confirm('确认接单', {icon: 3, title: tips,btn: [determine,cancel]}, function () {
+                        layui.$.post('orderConfirm', {order_id: order_id,confirm_result:1}, function (data) {
+                            if (data.code == 1000) {
+                                layer.msg('接单成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                    location.reload();
+                                });
+                                } else {
+                                    layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
+                                }
+                            });
+                            layer.close(index);
+                })
+            });
+             $('#cancelBtn').on('click', function () {
+                tpmsg.addEdit('/order/order/orderConfirm?order_id={$order.book.order_id}',['20%','40%'],'拒单选择','auto',2);
+            });
         });
     </script>
 

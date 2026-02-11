@@ -1,0 +1,80 @@
+{include file="public/header" /}
+<body>
+    <style>
+    .layui-form-label{
+       width:100px;
+    }
+</style>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <form  class="layui-form"style="padding:10px 0;">
+                <div class="layui-form-item" >
+                    <label class="layui-form-label">跟进方式</label>
+                    <div class="layui-input-inline">
+                        <select name="fllow_method" lay-verify="required" lay-search=""> 
+                            <option value="">请选择</option> 
+                            <option value="微信" >微信</option>
+                            <option value="电话" >电话</option>
+                        </select>
+                    </div>   
+                </div>  
+                <div class="layui-form-item">
+                    <label class="layui-form-label">跟进时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="fllow_time" lay-verify="required" id="fllow_time" value="" placeholder="请选择时间" autocomplete="off" class="layui-input">
+                    </div>
+                </div> 
+                <div class="layui-form-item">
+                    <label class="layui-form-label">跟进内容</label>
+                    <div class="layui-input-inline">
+                        <textarea name="fllow_content" lay-verify="required" placeholder="请输入跟进内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>      
+                <div class="layui-form-item">
+                    <label class="layui-form-label">下次跟进时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="next_fllow_time"  id="next_fllow_time" value="" placeholder="请选择时间" autocomplete="off" class="layui-input">
+                    </div>
+                </div> 
+                <div class="layui-form-item layui-form-text layui-input-wrap">
+                    <label class="layui-form-label">下次跟进内容</label>
+                    <div class="layui-input-inline">
+                        <textarea name="next_fllow_content" placeholder="请输入下次跟进内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" name="is_do" value='1' lay-skin="primary" title="标记为已处理">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-hide">
+                    <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+                </div>
+            </form >
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['form', 'laydate'], function () {
+            //执行实例
+            var upload = layui.upload;
+            var laydate = layui.laydate;
+            //时间范围
+            laydate.render({
+                elem: '#fllow_time'
+                , type: 'datetime'
+            });
+            laydate.render({
+                elem: '#next_fllow_time'
+                , type: 'datetime'
+            });
+        })
+    </script>
+</body>
+</html>

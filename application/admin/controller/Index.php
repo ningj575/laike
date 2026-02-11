@@ -7,22 +7,17 @@ use app\common\server\admin\AdminServer;
 use app\common\server\admin\SystemInfoServer;
 use think\App;
 
-class Index extends AdminServer
-{
+class Index extends AdminServer {
 
-    public function __construct(App $app = null)
-    {
+    public function __construct(App $app = null) {
         parent::__construct($app);
     }
-
-
 
     /**
      * 框架首页
      * @return mixed 
      */
-    public function index()
-    {
+    public function index() {
         return $this->fetch('/index');
     }
 
@@ -32,8 +27,7 @@ class Index extends AdminServer
      * @throws \think\db\exception\BindParamException
      * @throws \think\exception\PDOException
      */
-    public function indexPage()
-    {
+    public function indexPage() {
         $mod = new SysAdminModel();
         $mysqlV = $mod->query('select VERSION() as version');
         $info = array(
@@ -50,15 +44,21 @@ class Index extends AdminServer
             $info['is_linux'] = 0;
         }
         $uid = $this->ADMIN_INFO['admin_id'] ?? 0;
-        return $this->fetch('indexpage');
+        $order_ser = new \app\common\server\laike\OrderServer();
+        $static_info = $order_ser->getStatic($uid);
+        $this->assign('static', $static_info);
+        if ($static_info['is_sales'] == 1) {
+            return $this->fetch('indexsales');
+        } else {
+            return $this->fetch('indexpage');
+        }
     }
 
     /**
      * 获取Windows Cpu、内存情况
      * @return array
      */
-    public function getSysStatic()
-    {
+    public function getSysStatic() {
         $cpu = $memory = 0;
         if (PHP_OS == 'WINNT') {
             $serSys = new SystemInfoServer();
@@ -76,8 +76,7 @@ class Index extends AdminServer
      * 获取Linux Cpu、内存使用情况
      * @return array
      */
-    private function getSysLinux()
-    {
+    private function getSysLinux() {
         //获取某一时刻系统cpu和内存使用情况
         $fp = popen('top -b -n 2 | grep -E "^(Cpu|Mem|Tasks)"', "r");
         $rs = "";

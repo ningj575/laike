@@ -1,0 +1,38 @@
+{include file="public/header" /}
+<body>
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin" >
+                <input type="hidden" name='order_id' value='{$order_book_info.order_id}'>
+                <input type="hidden" name='confirm_result' value='2'>
+                <div class="layui-form-item" style="padding-top:20px;">
+                    <label class="layui-form-label">拒单原因</label>
+                    <div class="layui-input-inline">
+                        <select class="layui-select" name="reject_code" lay-verify="required"> 
+                            <option value="">请选择</option> 
+                            <option value="1">库存已约满</option> 
+                            <option value="2">商品需加价</option> 
+                            <option value="3">无法满足顾客需求</option>                                   
+                        </select>
+                    </div>
+                </div>   
+                <div class="layui-form-item layui-hide">
+                    <input type="layui-btn" lay-submit lay-filter="LAY-user-back-submit" id="LAY-user-back-submit" value="{:lang('determine')}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="__LAYUI__/layui/layui.js"></script>
+
+    <script>
+        layui.config({
+            base: '__LAYUI__/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form', 'upload'], function () {
+
+        })
+    </script>
+</body>
+</html>

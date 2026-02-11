@@ -1,0 +1,74 @@
+{include file="public/header" /}
+<style>
+     .layui-form-item{
+            margin-bottom:0px;
+        }
+</style>
+<body>    
+    <div class="layui-fluid">
+        <div class="layui-form layui-row layui-col-space15">              
+            <div class="layui-col-md12">                
+                <div class="layui-card">
+                    <div class="layui-card-header layui-font-30">&nbsp;{$customer.buyer_info_phone}
+                        </br>&nbsp;&nbsp;&nbsp;
+                        {volist name='customer.tags_arr' id='val'}
+                        <span class="layui-btn layui-btn-{$icon_color[$key]} layui-btn-xs">{$val}</span>
+                        {/volist}
+                    </div>
+                    <div class="layui-card-body  layui-text layadmin-version">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">客户姓名</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$customer.buyer_info_name}</div>
+                            </div> <label class="layui-form-label">身份证号</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$customer.id_card}</div>
+                            </div>
+                            <label class="layui-form-label">客户编号</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$customer.id}</div>
+                            </div>                                                        
+                        </div>  
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" style='width:85px;'>首次下单时间</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid"></div>
+                            </div>    
+                            <label class="layui-form-label">所在区域</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$customer.province}-{$customer.city}-{$customer.county}</div>
+                            </div>
+                            <label class="layui-form-label" style='width:85px;'>累计消费金额</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">￥{$customer_static.order_sum_money} <a lay-href='/order/order/index?buyer_info_phone={$customer.buyer_info_phone}'>查看</a></div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">历史订单</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$customer_static.order_count}笔 <a lay-href='/order/order/index?buyer_info_phone={$customer.buyer_info_phone}'>查看</a></div>
+                            </div>
+                            <label class="layui-form-label">销售线索</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$customer_static.sales_lead_count}条 <a lay-href='/sales/lead/index?buyer_info_phone={$customer.buyer_info_phone}'>查看</a></div>
+                            </div>
+                             <label class="layui-form-label">客户投诉</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-form-mid">{$customer_static.order_complain_count}条 <a lay-href='/order/complain/index?buyer_info_phone={$customer.buyer_info_phone}'>查看</a></div>
+                            </div>
+                        </div>                                      
+                    </div>
+                </div>                
+            </div>
+
+        </div>
+    </div>    
+    {include file="public/footer" /}
+    <script>
+        layui.use(['form'], function () {
+            var $ = layui.$;   
+        });
+    </script>
+
+</body>
+</html>

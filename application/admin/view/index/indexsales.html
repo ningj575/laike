@@ -1,0 +1,130 @@
+{include file="public/header" /}
+<body>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+                <div class="layui-row layui-col-space15">   
+                    <div class="layui-col-md6">
+                        <div class="layui-card">
+                            <div class="layui-card-header">订单管理</div>
+                            <div class="layui-card-body">
+                                <div class="layui-carousel layadmin-carousel layadmin-backlog">
+                                    <div carousel-item>
+                                        <ul class="layui-row layui-col-space10">
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="/order/order/index?fllow_status=2" class="layadmin-backlog-body">
+                                                    <h3>待跟进</h3>
+                                                    <p><cite>{$static.order.fllow_count}</cite></p>
+                                                </a>
+                                            </li>                                            
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                    <h3>即将超时</h3>
+                                                    <p><cite>0</cite></p>
+                                                </a>
+                                            </li>    
+                                             <li class="layui-col-xs3">
+                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                    <h3>超时流转</h3>
+                                                    <p><cite>0</cite></p>
+                                                </a>
+                                            </li>                                            
+                                            <li class="layui-col-xs3">
+                                                <a href="/order/order/index?fllow_status=3"  class="layadmin-backlog-body">
+                                                    <h3>已处理</h3>
+                                                    <p><cite style="color: #FF5722;">{$static.order.completed_count}</cite></p>
+                                                </a>
+                                            </li>  
+                                           
+                                        </ul>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">销售管理</div>
+                            <div class="layui-card-body">
+                                <div class="layui-carousel layadmin-carousel layadmin-backlog">
+                                    <div carousel-item>
+                                        <ul class="layui-row layui-col-space10">
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="sales/lead/index?lead_fllow_status=2" class="layadmin-backlog-body">
+                                                    <h3>待跟进</h3>
+                                                    <p><cite>{$static.lead.fllow_count}</cite></p>
+                                                </a>
+                                            </li>
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                    <h3>即将超时</h3>
+                                                    <p><cite>0</cite></p>
+                                                </a>
+                                            </li>   
+                                             <li class="layui-col-xs3">
+                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                    <h3>超时流转</h3>
+                                                    <p><cite>0</cite></p>
+                                                </a>
+                                            </li>                                            
+                                            <li class="layui-col-xs3">
+                                                <a href="sales/lead/index?lead_fllow_status=3" onclick="layer.tips('不跳转', this, {tips: 3});" class="layadmin-backlog-body">
+                                                    <h3>已处理</h3>
+                                                    <p><cite style="color: #FF5722;">{$static.lead.completed_count}</cite></p>
+                                                </a>
+                                            </li>                                          
+                                           
+                                        </ul>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                           <div class="layui-card">
+                            <div class="layui-card-header">投诉管理</div>
+                            <div class="layui-card-body">
+                                <div class="layui-carousel layadmin-carousel layadmin-backlog">
+                                    <div carousel-item>
+                                        <ul class="layui-row layui-col-space10">                                          
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="order/Complain/index?complain_fllow_status=1" class="layadmin-backlog-body">
+                                                    <h3>待跟进</h3>
+                                                    <p><cite>{$static.complain.fllow_count}</cite></p>
+                                                </a>
+                                            </li> 
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                    <h3>即将超时</h3>
+                                                    <p><cite>0</cite></p>
+                                                </a>
+                                            </li> 
+                                            <li class="layui-col-xs3">
+                                                <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                                                    <h3>超时流转</h3>
+                                                    <p><cite>0</cite></p>
+                                                </a>
+                                            </li> 
+                                            <li class="layui-col-xs3">
+                                                <a href="order/Complain/index?complain_fllow_status=3"  class="layadmin-backlog-body">
+                                                    <h3>已处理</h3>
+                                                    <p><cite style="color: #FF5722;">{$static.complain.completed_count}</cite></p>
+                                                </a>
+                                            </li>  
+                                        </ul>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
+        <script src="__LAYUI__/layui/layui.js"></script>
+        <script>
+            layui.config({
+              base: '__LAYUI__/' //静态资源所在路径
+            }).extend({
+              index: 'lib/index' //主入口模块
+            }).use(['index', 'console']);
+        </script>
+     
+    </body>
+</html>
+
