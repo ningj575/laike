@@ -70,9 +70,12 @@ class OrderServer extends BaseServer {
                 'buyer_info_phone' => $data['buyer_info_phone']
             ];
             $mobile_addr = $this->getMobileAddr($data['buyer_info_phone']);
-            if (!empty($mobile_addr['result'])) {
-                $customer_save['province'] = $mobile_addr['result']['province'];
-                $customer_save['city'] = $mobile_addr['result']['city'];
+            if (!empty($mobile_addr['result'])) {               
+                $sys_zone=new \app\common\model\admin\SysZoneModel();
+                $province=$sys_zone->where('zone_name','like','%'.$mobile_addr['result']['province'].'%')->value('zone_name');
+                $city=$sys_zone->where('zone_name','like','%'.$mobile_addr['result']['city'].'%')->value('zone_name');
+                $customer_save['province'] = $province;
+                $customer_save['city'] = $city;
             }
             $customer_mod->allowField(true)->save($customer_save);
         }

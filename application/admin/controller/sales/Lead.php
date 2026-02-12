@@ -84,8 +84,11 @@ class Lead extends AdminServer {
                 $order_ser = new \app\common\server\laike\OrderServer();
                 $mobile_addr = $order_ser->getMobileAddr($param['phone']);
                 if (!empty($mobile_addr['result'])) {
-                    $customer_data['province'] = $mobile_addr['result']['province'];
-                    $customer_data['city'] = $mobile_addr['result']['city'];
+                    $sys_zone = new \app\common\model\admin\SysZoneModel();
+                    $province = $sys_zone->where('zone_name', 'like', '%' . $mobile_addr['result']['province'] . '%')->value('zone_name');
+                    $city = $sys_zone->where('zone_name', 'like', '%' . $mobile_addr['result']['city'] . '%')->value('zone_name');
+                    $customer_data['province'] = $province;
+                    $customer_data['city'] = $city;
                 }
                 $customer_mod->allowField(true)->save($customer_data);
                 $param['customer_id'] = $customer_mod->id;
@@ -168,7 +171,7 @@ class Lead extends AdminServer {
         $lead_info = $mod->where('id', $id)->find();
         $lead_info->save(["$field" => $value]);
         if ($field == 'sales_user_id') {
-            $lead_info->lead_fllow_status == 1&&$lead_info->save(["lead_fllow_status" => 2]);
+            $lead_info->lead_fllow_status == 1 && $lead_info->save(["lead_fllow_status" => 2]);
             $order_assign_mod = new \app\common\model\order\OrderAssignModel();
             $assign_param = [
                 'order_id' => $lead_info['lead_num'],
@@ -196,13 +199,13 @@ class Lead extends AdminServer {
             $mod->save(["lead_fllow_status" => 2], [['id', 'in', $ids], ['lead_fllow_status', 'eq', 1]]);
             $order_assign_mod = new \app\common\model\order\OrderAssignModel();
             foreach ($ids as $vv) {
-                $lead_num=$mod->where('id',$vv)->value('lead_num');
+                $lead_num = $mod->where('id', $vv)->value('lead_num');
                 $assign_param[] = [
                     'order_id' => $lead_num,
                     'sales_user_id' => $value,
                     'admin_id' => $this->ADMIN_INFO['uid'],
                     'rule_id' => -1,
-                    'type'=>3
+                    'type' => 3
                 ];
             }
             $order_assign_mod->saveAll($assign_param);

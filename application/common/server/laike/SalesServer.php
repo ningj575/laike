@@ -122,7 +122,7 @@ class SalesServer extends BaseServer {
         }
         $order_ser = new OrderServer();
         $order_ser->addSysFllowRecord($order['order_id'], $sales_user_id);
-        $order->save(['sales_user_id' => $sales_user_id]);
+        $order->save(['sales_user_id' => $sales_user_id,'fllow_status'=>2]);
         $order_assign_mod = new \app\common\model\order\OrderAssignModel();
         $param_assign = [
             'rule_id' => $rule['id'] ?? 0,
