@@ -58,10 +58,10 @@ class SalesServer extends BaseServer {
         $sales = [];
         $rule = [];
         foreach ($dispatch_list as $val) {
-            if (!$val['no_time']) {
+            if (!$val['no_time']&&$val['week_limit']) {                
                 $week_limit_arr = explode(',', $val['week_limit']);
                 $day_week = date('w', strtotime($order['pay_time_unix']));
-                $day_time = date('H:i:s', strtotime($order['pay_time_unix']));
+                $day_time = date('H:i:s', strtotime($order['pay_time_unix']));               
                 if (!($day_time > $val['time_start'] && $day_time < $val['time_end'] && in_array($day_week, $week_limit_arr))) {
                     continue;
                 }
@@ -82,20 +82,20 @@ class SalesServer extends BaseServer {
                     }
                 }
             }
-            if (!$val['no_product']) {
+            if (!$val['no_product']&&$val['use_products']) {               
                 if (!in_array($order['product_id'], $val['use_products_arr'])) {
                     continue;
                 }
             }
             $sales_where = [];
             $sales_where[] = ['sys_admin.status', 'eq', 1];
-            if (!$val['no_limit']) {
+            if (!$val['no_limit']&&$val['limit_count']>0) {
                 $sales_where[] = ['sales_user.orders', 'lt', $val['limit_count']];
             }
             if ($val['online_limit']) {
                 $sales_where[] = ['sales_user.online', 'eq', ($val['online_limit'] == 1 ? 1 : 0)];
             }
-            if (!$val['no_sale']) {
+            if (!$val['no_sale']&&$val['use_sales']) {
                 $sales_where[] = ['sales_user.admin_id', 'in', $val['use_sales_arr']];
             }
             $sales = $sales_user->join('sys_admin', 'sales_user.admin_id = sys_admin.id')->where($sales_where)->select()->toArray();

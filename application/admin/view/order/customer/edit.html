@@ -68,16 +68,21 @@
             base: '__LAYUI__/' //静态资源所在路径
         }).extend({
             index: 'lib/index' //主入口模块
-        }).use(['index', 'form', 'upload', 'laydate', 'layarea','formSelects'], function () {
+        }).use(['index', 'form', 'upload', 'laydate', 'layarea', 'formSelects'], function () {
             //执行实例
             var layarea = layui.layarea;
-             layarea.render({
+            layarea.render({
                 elem: '#area-picker',
+                data: {
+                    province: '{$customer.province}',
+                    city: '{$customer.city}',
+                    county: '{$customer.county}',
+                },
                 change: function (res) {
                     //选择结果
                     console.log(res);
                 }
-            });           
+            });
         })
     </script>
 </body>

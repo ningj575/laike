@@ -47,7 +47,7 @@ class Customer extends AdminServer {
             $count = $mod->where($where)->count();
             $lists = $mod->where($where)->page($page, $limit)->order('id desc')->select();
             foreach ($lists as &$val) {
-                
+                $val['area']=$val['province'].'-'.$val['city'].'-'.$val['county'];
             }
             $data = ['msg' => '', 'code' => 1000, 'data' => $lists, 'count' => $count];
             return json($data);
