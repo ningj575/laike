@@ -26,8 +26,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">在线状态</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="online_limit_{$rule_type}" value="1" title="仅在线可接" {if condition='$rules.online_limit eq 1'}checked{/if}>
-                    <input type="radio" name="online_limit_{$rule_type}" value="2" title="仅离线可接" {if condition='$rules.online_limit eq 2'}checked{/if}>
+                    <input type="radio" name="online_limit_{$rule_type}" value="1" title="仅在线可接" {if condition='!empty($rules.online_limit)&&$rules.online_limit eq 1'}checked{/if}>
+                    <input type="radio" name="online_limit_{$rule_type}" value="2" title="仅离线可接" {if condition='!empty($rules.online_limit)&&$rules.online_limit eq 2'}checked{/if}>
                     <input type="radio" name="online_limit_{$rule_type}" value="0" title="无限制" {if condition="empty($rules.online_limit)||$rules.online_limit eq 0"}checked{/if}>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                     <select name="account_id" lay-search=""> 
                         <option value="">请选择店铺</option>   
                         {foreach name="business_list" item="vo"}
-                        <option value="{$vo.account_id}"{if condition='$vo.account_id eq $rules.account_id'}selected{/if}>{$vo.name}</option>
+                        <option value="{$vo.account_id}"{if condition='!empty($rules.account_id)&&$vo.account_id eq $rules.account_id'}selected{/if}>{$vo.name}</option>
                         {/foreach} 
                     </select>
                 </div>                                
@@ -127,7 +127,7 @@
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="no_sale" value='1' {if condition='$rules.no_sale eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
+                    <input type="checkbox" name="no_sale" value='1' {if condition='!empty($rules.no_sale)&&$rules.no_sale eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
                 </div>
             </div>
             <div class="layui-form-item">
@@ -141,19 +141,19 @@
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="no_product" value='1' {if condition='$rules.no_product eq 1'}checked{/if}  lay-skin="primary" title="无限制"> 
+                    <input type="checkbox" name="no_product" value='1' {if condition='!empty($rules.no_product)&&$rules.no_product eq 1'}checked{/if}  lay-skin="primary" title="无限制"> 
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">优先级</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="sort" placeholder="数字越大优先级越高" value='{$rules.sort}' autocomplete="off" class="layui-input" min="0" step="1" lay-affix="number">
+                    <input type="number" name="sort" placeholder="数字越大优先级越高" value='{$rules.sort??0}' autocomplete="off" class="layui-input" min="0" step="1" lay-affix="number">
                 </div>                              
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">状态</label>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="status" title="ON|OFF" lay-skin="switch" value='1' {if condition='$rules.status eq 1'}checked{/if}> 
+                    <input type="checkbox" name="status" title="ON|OFF" lay-skin="switch" value='1' {if condition='!empty($rules.status)&&$rules.status eq 1'}checked{/if}> 
                 </div>                              
             </div>
             <div class="layui-form-item" style='text-align: center;'>
