@@ -51,7 +51,7 @@
                     <input type="checkbox" name="week_limit[]" {if condition='!empty($rules.week_limit_arr)&&in_array(6,$rules.week_limit_arr)'}checked {/if} title="六" value='6'>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="no_time" value='1' {if condition='$rules.no_time eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
+                    <input type="checkbox" name="no_time" value='1' {if condition='!empty($rules.no_time)&&$rules.no_time eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
                 </div>
             </div>
              <div class="layui-form-item {if condition='in_array($rule_type,[1,2,3,5])'}layui-hide{/if}">
@@ -74,7 +74,7 @@
                     <input type="checkbox" name="order_week_limit[]" {if condition='!empty($rules.order_week_limit_arr)&&in_array(6,$rules.order_week_limit_arr)'}checked {/if} title="六" value='6'>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="order_no_time" value='1' {if condition='$rules.order_no_time eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
+                    <input type="checkbox" name="order_no_time" value='1' {if condition='!empty($rules.order_no_time)&&$rules.order_no_time eq 1'}checked{/if} lay-skin="primary" title="无限制"> 
                 </div>
             </div>
             <div class="layui-form-item {if condition='in_array($rule_type,[1,2,3])'}layui-hide{/if}">
