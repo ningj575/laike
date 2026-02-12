@@ -33,8 +33,13 @@ class SalesServer extends BaseServer {
         if (empty($order_list->toArray())) {
             return returnPubData('没有需要分配的订单');
         }
-        foreach ($order_list as $val){
-            if(!$val){
+        $sales_user = new SalesUserModel();
+        $sales = $sales_user->join('sys_admin', 'sales_user.admin_id = sys_admin.id')->where([['sys_admin.status', 'eq', 1]])->select()->toArray();
+        if (empty($sales)) {
+            return returnPubData('系统未配置销售人员');
+        }
+        foreach ($order_list as $val) {
+            if (!$val) {
                 continue;
             }
             $this->orderAssign($val);
