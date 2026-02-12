@@ -172,7 +172,7 @@ class OrderServer extends BaseServer {
             $order_mod = new OrderModel();
             $order_info = $order_mod->where('order_id', $data['order_id'])->find();
             if (!empty($order_info)) {
-                $order_info->save(['order_status' => -2, 'cancel_reason' => $data['cancel_reason']]);
+                $order_info->save(['order_status' => -1, 'cancel_reason' => $data['cancel_reason']]);
             }
         } elseif ($data['biz_type'] == 3012) {//预约单取消
             $order_book_mod = new OrderBookModel();
