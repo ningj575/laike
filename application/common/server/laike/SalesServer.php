@@ -30,10 +30,13 @@ class SalesServer extends BaseServer {
     public function getOrderAssign() {
         $order_mod = new \app\common\model\order\OrderModel();
         $order_list = $order_mod->where('sales_user_id', 0)->select();
-        if (empty($order_list)) {
+        if (empty($order_list->toArray())) {
             return returnPubData('没有需要分配的订单');
         }
         foreach ($order_list as $val){
+            if(!$val){
+                continue;
+            }
             $this->orderAssign($val);
         }
         return returnPubData('分配成功');
