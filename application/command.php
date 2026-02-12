@@ -11,4 +11,5 @@
 
 return [
     'products' => '\\app\\common\\command\\CronProducts', //定时获取更新产品
+    'orderassign' => '\\app\\common\\command\\CronOrderAssign', //定时分配销售
 ];

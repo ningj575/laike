@@ -15,9 +15,9 @@ class DispatchOrder extends AdminServer {
         $mod = new DispatchRuleModel();
         $rules = $mod->where('is_del', 0)->order('sort desc')->select();
         $this->assign('rules', $rules);
-//        $cache = new \think\cache\driver\Redis();
-//        $online_arr = $cache->handler()->keys('admin:active:*');
-//        $this->assign('online_count',count($online_arr));
+        $cache = new \think\cache\driver\Redis();
+        $online_arr = $cache->handler()->keys('admin:active:*');
+        $this->assign('online_count',count($online_arr));
         return $this->fetch('order/dispatch/rule');
     }
 

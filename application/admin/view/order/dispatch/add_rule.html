@@ -10,12 +10,12 @@
             <div class="layui-tabs layui-tabs-card layui-panel layui-inline">
                 <ul class="layui-tabs-header layui-bg-tint">
                     {foreach name="main_rules" item="vo"}
-                    <li class="rules-type {if condition='$key eq $rule.rule_type'}layui-this{/if}" data-type='{$key}'>{$vo.main_name}</li>
+                    <li class="rules-type {if condition='!empty($rule.rule_type)&&$key eq $rule.rule_type'}layui-this{/if}" data-type='{$key}'>{$vo.main_name}</li>
                     {/foreach}                    
                 </ul>
                 <div class="layui-tabs-body"> 
                     {foreach name="main_rules" item="vo"}
-                    <div class="layui-tabs-item {if condition='$vo.rule_type eq $rule.rule_type'}layui-show{/if}" id='rule-type-{$vo.rule_type}'>
+                    <div class="layui-tabs-item {if condition='!empty($rule.rule_type)&&$vo.rule_type eq $rule.rule_type'}layui-show{/if}" id='rule-type-{$vo.rule_type}'>
                     </div>
                      {/foreach}   
                 </div>

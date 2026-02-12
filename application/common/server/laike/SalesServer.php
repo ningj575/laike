@@ -24,15 +24,31 @@ class SalesServer extends BaseServer {
     }
 
     /*
+     * 取出需要分配的订单
+     */
+
+    public function getOrderAssign() {
+        $order_mod = new \app\common\model\order\OrderModel();
+        $order_list = $order_mod->where('sales_user_id', 0)->select();
+        if (empty($order_list)) {
+            return returnPubData('没有需要分配的订单');
+        }
+        foreach ($order_list as $val){
+            $this->orderAssign($val);
+        }
+        return returnPubData('分配成功');
+    }
+
+    /*
      * 订单分配销售
      */
 
-    public function orderAssign($order) {    
+    public function orderAssign($order) {
         $sales_user = new SalesUserModel();
         $dispatch_mod = new DispatchRuleModel();
         $dispatch_list = $dispatch_mod->where('is_del', 0)->order('sort desc')->select();
         $sales = [];
-        $rule=[];
+        $rule = [];
         foreach ($dispatch_list as $val) {
             if (!$val['no_time']) {
                 $week_limit_arr = explode(',', $val['week_limit']);
@@ -76,7 +92,7 @@ class SalesServer extends BaseServer {
             }
             $sales = $sales_user->join('sys_admin', 'sales_user.admin_id = sys_admin.id')->where($sales_where)->select()->toArray();
             if (!empty($sales)) {
-                $rule=$val;
+                $rule = $val;
                 break;
             }
         }
@@ -96,16 +112,16 @@ class SalesServer extends BaseServer {
             $randomElement = $sales[$randomKey];
             $sales_user_id = $randomElement['admin_id'];
         }
-        $order_assign_mod=new \app\common\model\order\OrderAssignModel();
-        $param_assign=[
-            'rule_id'=>$rule['id']??0,
-            'order_id'=>$order['order_id'],
-            'sales_user_id'=>$sales_user_id
+        $order_ser = new OrderServer();
+        $order_ser->addSysFllowRecord($order['order_id'], $sales_user_id);
+        $order->save(['sales_user_id' => $sales_user_id]);
+        $order_assign_mod = new \app\common\model\order\OrderAssignModel();
+        $param_assign = [
+            'rule_id' => $rule['id'] ?? 0,
+            'order_id' => $order['order_id'],
+            'sales_user_id' => $sales_user_id
         ];
         $order_assign_mod->insert($param_assign);
-        $order_ser=new OrderServer();
-        $order_ser->addSysFllowRecord($order['order_id'], $sales_user_id);
-        $order->save(['sales_user_id'=>$sales_user_id]);
         return $sales_user_id;
     }
 
