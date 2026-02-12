@@ -67,7 +67,7 @@ class Douyin extends BaseServer {
         $logid = $headers['x-bytedance-logid'];
         $order_ser = new \app\common\server\laike\OrderServer();
         $res = $order_ser->create_presale_order($logid, $body_data);
-        return json($res);
+        return json(['data'=>$res]);
     }
 
     /*
@@ -93,7 +93,7 @@ class Douyin extends BaseServer {
         $logid = $headers['x-bytedance-logid'];
         $order_ser = new \app\common\server\laike\OrderServer();
         $res = $order_ser->create_book_order($logid, $body_data);
-        return json($res);
+        return json(['data'=>$res]);
     }
 
     /*
@@ -118,7 +118,7 @@ class Douyin extends BaseServer {
         $this->addSpiLog(3, $headers, $query, $body_data);
         $order_ser = new \app\common\server\laike\OrderServer();
         $res = $order_ser->orderCancel($body_data);
-        return json($res);
+        return json(['data'=>$res]);
     }
 
     /*
@@ -143,7 +143,7 @@ class Douyin extends BaseServer {
         $this->addSpiLog(4, $headers, $query, $body_data);
         $order_ser = new \app\common\server\laike\OrderServer();
         $res = $order_ser->orderRefund($body_data);
-        return json($res);
+        return json(['data'=>$res]);
     }
 
     /*
