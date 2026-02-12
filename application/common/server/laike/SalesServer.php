@@ -69,7 +69,7 @@ class SalesServer extends BaseServer {
             if ($val['account_id'] && $order['account_id'] != $val['account_id']) {
                 continue;
             }
-            if (!($val['departures'] && in_array($order['departure'], $val['departures_arr']))) {
+            if ($val['departures'] && !in_array($order['departure'], $val['departures_arr'])) {
                 continue;
             }
             if ($val['customer_citys']) {
