@@ -198,9 +198,20 @@ class Order extends AdminServer {
             'tags_list' => $tags_mod->where([['type', 'eq', 2], ['status', 'eq', 1]])->select(),
             'customer_tags_list' => $tags_mod->where([['type', 'eq', 1], ['status', 'eq', 1]])->select(),
             'icon_color' => $this->icon_color,
-            'order_static' => $sales_ser->getCustomerStatic($order_info['customer']['id'])
+            'order_static' => $sales_ser->getCustomerStatic($order_info['customer']['id']),
+            'depart_date_arr' => $this->depart_date_arr()
         ]);
         return $this->fetch('order/info');
+    }
+
+    public function depart_date_arr() {
+        $year = date('Y');
+        return [
+            $year . '年第一季度（1-3月）',
+            $year . '年第二季度（4-6月）',
+            $year . '年第三季度（7-9月）',
+            $year . '年第四季度（10-12月）',
+        ];
     }
 
     /**
@@ -351,7 +362,7 @@ class Order extends AdminServer {
         } else {
             $order->save(["$field" => $value]);
             if ($field == 'sales_user_id') {
-                $order->fllow_status == 1&&$order->save(["fllow_status" => 2]);
+                $order->fllow_status == 1 && $order->save(["fllow_status" => 2]);
                 $order_assign_mod = new OrderAssignModel();
                 $assign_param = [
                     'order_id' => $order['order_id'],
@@ -390,7 +401,7 @@ class Order extends AdminServer {
             $mod->save(["fllow_status" => 2], [['id', 'in', $ids], ['fllow_status', 'eq', 1]]);
             $order_assign_mod = new OrderAssignModel();
             foreach ($ids as $vv) {
-                $order_id=$mod->where('id',$vv)->value('order_id');
+                $order_id = $mod->where('id', $vv)->value('order_id');
                 $assign_param[] = [
                     'order_id' => $order_id,
                     'sales_user_id' => $value,

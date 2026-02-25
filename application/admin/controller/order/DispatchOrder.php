@@ -87,7 +87,7 @@ class DispatchOrder extends AdminServer {
         $this->assign([
             'rules' => $rule,
             'sales_list' => !empty($sales_list['admin_user']) ? $sales_list['admin_user'] : [],
-            'products_list' => $product_mod->where('online_status', 1)->select(),
+            'products_list' => $product_mod->where([['online_status','eq', 1],['product_type','eq',12]])->select(),
             'rule_config' => $rule_config,
             'business_list' => $shop_list,
             'main_rules' => $mod->main_rule,

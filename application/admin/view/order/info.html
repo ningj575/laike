@@ -368,7 +368,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">手机号</label>
                             <div class="layui-input-inline">
-                                <div class="layui-form-mid">{$order.customer.buyer_info_phone}</div>
+                                <div class="layui-form-mid">{$order.customer.buyer_info_phone}({$order.customer.province}{$order.customer.city})</div>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -444,36 +444,71 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">出发日期</label>
-                            <div class="layui-input-inline">
-                                <div class="layui-form-mid">{$order.book.book_start_date}</div>
+                            <div class="layui-input-block">
+                                <div class="layui-form-mid">{$order.info.depart_date?:''}
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.depart_date}' data-title='出发日期' data-field='info-depart_date' data-type="selectEdit">修改</a>
+                                </div>
                             </div>
+                        </div> 
+                        <div id="info-depart_date" class="layui-form-item" style='display:none;padding-top: 20px;'>
+                            <label class="layui-form-label">出发日期</label>
+                           <div class="layui-input-inline">
+                               <select  lay-search="" id="info-depart_date_select"> 
+                                   <option value="">请选择</option>
+                                   {volist name='depart_date_arr' id='val'}
+                                   <option value="{$val}" {if condition="$order.info.depart_date eq $val"}selected{/if}>{$val}</option>
+                                   {/volist}                                                                                 
+                               </select>
+                           </div>                          
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">出发城市</label>
                             <div class="layui-input-inline">
-                                <div class="layui-form-mid">{$order.departure_text}</div>
+                                <div class="layui-form-mid">{$order.info.depart_city?:$order.departure_text}
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.depart_city?:$order.departure_text}' data-title='出发城市' data-field='info-depart_city' data-type="inputEdit">修改</a>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">电话跟进</label>
                             <div class="layui-input-inline">
-                                <div class="layui-form-mid">{$order.phone_fllow?:'未联系'}
-                                    {if condition="$order.phone_fllow  neq '已联系'"}
-                                &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='已联系' data-type="completed" data-field='phone_fllow'  style="float:right;color:#01aaed;font-size: 13px;margin-right:20px;" >标记已联系</a>
-                                    {/if}
+                                <div class="layui-form-mid">{$order.phone_fllow_text?:'未联系'}
+                                &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.phone_fllow}'  data-field='phone_fllow'  data-type="selectEdit" >修改</a>
                                 </div>
                             </div>                           
+                        </div>
+                        <div id="phone_fllow" class="layui-form-item" style='display:none;padding-top: 20px;'>
+                            <label class="layui-form-label">电话跟进</label>
+                           <div class="layui-input-inline">
+                               <select name="phone_fllow"  lay-search="" id="phone_fllow_select"> 
+                                   <option value="0">未联系</option>
+                                   <option value="1" {if condition="$order.phone_fllow eq 1"}selected{/if}>未接通</option>
+                                   <option value="2" {if condition="$order.phone_fllow eq 2"}selected{/if}>已联已接</option>
+                                   <option value="3" {if condition="$order.phone_fllow eq 3"}selected{/if}>未联已接</option>
+                                   <option value="4" {if condition="$order.phone_fllow eq 4"}selected{/if}>空号</option>
+                                   <option value="5" {if condition="$order.phone_fllow eq 5"}selected{/if}>停机</option>
+                                   <option value="6" {if condition="$order.phone_fllow eq 6"}selected{/if}>关机</option>                                                  
+                               </select>
+                           </div>                          
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">微信跟进</label>
                             <div class="layui-input-inline" >
-                                <div class="layui-form-mid">{$order.weixin_fllow?:'未联系'}
-                                    {if condition="$order.weixin_fllow  neq '已联系'"}
-                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='已联系' data-type="completed" data-field='weixin_fllow'  style="float:right;color:#01aaed;font-size: 13px;margin-right:20px;" >标记已联系</a>
-                                    {/if}
+                                <div class="layui-form-mid">{$order.weixin_fllow_text?:'未添加'}
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.weixin_fllow}' data-type="selectEdit" data-field='weixin_fllow'>修改</a>
                                 </div>
                             </div>                            
-                        </div>    
+                        </div> 
+                        <div id="weixin_fllow" class="layui-form-item" style='display:none;padding-top: 20px;'>
+                            <label class="layui-form-label">微信跟进</label>
+                           <div class="layui-input-inline">
+                               <select name="weixin_fllow"  lay-search="" id="weixin_fllow_select"> 
+                                   <option value="0">未添加</option>
+                                   <option value="1" {if condition="$order.weixin_fllow eq 1"}selected{/if}>已添加</option>
+                                   <option value="2" {if condition="$order.weixin_fllow eq 2"}selected{/if}>已申请未通过</option>                                                                           
+                               </select>
+                           </div>                          
+                        </div>
                     </div>
                     <div class="layui-card-header layui-font-16">跟进记录<a class='zidingyi_btn' href="javascript:void(0);" data-type="addRecord" style="float:right;color:#01aaed;font-size: 13px;" >新增记录</a></div>
                     <div class="layui-card-body layui-text layadmin-version">
@@ -527,6 +562,28 @@
             });
             /* 触发弹层 */
             var active = {
+                selectEdit:function(){
+                    var field=$(this).data('field');
+                    layer.open({
+                        type: 1,
+                        title: '修改',
+                        area: ['400px', '250px'], // 宽高
+                        content: $('#'+field),
+                        btn:['确定','取消'],
+                        btn1: function () {     
+                            var checkValue=$('#'+field+'_select').val();                          
+                            layui.$.post('updataValue', {id: id,field:field, value: checkValue}, function (data) {
+                                if (data.code == 1000) {
+                                    layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                        location.reload();
+                                    });
+                                } else {
+                                    layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
+                                }
+                            });
+                          }
+                     });
+                },
                 checkEdit:function(){
                     var field=$(this).data('field');
                     var title=$(this).data('title');             
@@ -643,10 +700,10 @@
                 var type = $(this).data('type');
                 switch (type) {
                     case 'addRecord':
-                        tpmsg.addEdit('addRecord?order_id={$order.order_id}', ['30%','80%'], "新增跟进记录", ['100px', '60%'],2);
+                        tpmsg.addEdit('addRecord?order_id={$order.order_id}', ['40%','80%'], "新增跟进记录", ['100px', '50%'],2);
                         break;  
                     case 'addComplain':
-                        tpmsg.addEdit('/order/complain//edit?order_id={$order.order_id}', ['45%','60%'], "创建投诉工单", ['100px', '50%'],2);
+                        tpmsg.addEdit('/order/complain//edit?order_id={$order.order_id}', ['50%','60%'], "创建投诉工单", ['100px', '45%'],2);
                         break;  
                     case 'viewCustomer':
                         tpmsg.DataInfo('/order/customer/info?phone={$order.buyer_info_phone}', ['60%','60%'], "客户详情", ['100px', '30%']);

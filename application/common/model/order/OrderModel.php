@@ -14,7 +14,7 @@ class OrderModel extends BaseModel
     // 定义时间戳字段名
     protected $createTime = 'c_time';
     protected $updateTime = 'u_time';
-    protected $append = ['order_status_text','fllow_status_text','tags_arr','departure_text'];
+    protected $append = ['order_status_text','fllow_status_text','tags_arr','departure_text','phone_fllow_text'];
     protected $type=[
         'pay_time_unix' => 'timestamp',      
     ];
@@ -46,6 +46,16 @@ class OrderModel extends BaseModel
 
     public function info(){
         return $this->hasOne('OrderInfoModel','order_id','order_id');
+    }
+    
+    public function getPhoneFllowTextAttr($val, $data){
+        $status_text=['0'=>'未联系','1'=>'未接通','2'=>'已联已接','3'=>'未联已接','4'=>'空号','5'=>'停机','6'=>'关机'];
+        return $status_text[$data['phone_fllow']]??'';
+    }
+    
+    public function getWeixinFllowTextAttr($val, $data){
+        $status_text=['0'=>'未添加','1'=>'已添加','2'=>'已申请未通过'];
+        return $status_text[$data['weixin_fllow']]??'';
     }
 
     public function getOrderStatusTextAttr($val, $data){
