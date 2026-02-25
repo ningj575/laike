@@ -274,11 +274,12 @@ class OrderServer extends BaseServer {
     public function getStatic($uid) {
         $sales_user_mod = new \app\common\model\sales\SalesUserModel();
         $is_sales = $sales_user_mod->where('admin_id', $uid)->find();
-        $where = [];
-        $is_sales = 0;
+        $where = [];       
         if ($is_sales) {
             $where[] = ['sales_user_id', 'eq', $uid];
             $is_sales = 1;
+        }else{
+             $is_sales = 0;
         }
         $order = new OrderModel();
         $order_static = $order->where($where)->field('count(id) as all_order_count,sum(if(order_status=1,1,0)) as stay_book_count,sum(if(order_status=2,1,0)) as stay_confirm_count,'
