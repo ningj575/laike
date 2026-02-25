@@ -22,6 +22,26 @@ class SalesServer extends BaseServer {
         $sales = $mod->with(['adminUser'])->where('title', '销售人员')->find();
         return $sales;
     }
+    
+    /*
+     * 取出超时重新分配的订单
+     */
+
+    public function getTimeOutOrderAssign() {
+        $order_mod = new \app\common\model\order\OrderModel();
+        $order_list = $order_mod->where([['out_fllow_time','gt',0],['out_fllow_time','lt',time()]])->select();
+        if (empty($order_list->toArray())) {
+            return returnPubData('没有超时需要分配的订单');
+        }     
+        foreach ($order_list as $val) {
+            if (!$val) {
+                continue;
+            }
+            $val->save(['sales_user_id'=>0,'out_fllow_time'=>0,'fllow_status'=>1]);
+            $this->orderAssign($val);
+        }
+        return returnPubData('分配成功');
+    }
 
     /*
      * 取出需要分配的订单
@@ -57,6 +77,8 @@ class SalesServer extends BaseServer {
         $dispatch_list = $dispatch_mod->where('is_del', 0)->order('sort desc')->select();
         $sales = [];
         $rule = [];
+        $order_assign_mod=new \app\common\model\order\OrderAssignModel();
+        $old_sales_arr=$order_assign_mod->where([['type','eq','1'],['order_id','eq',$order['order_id']]])->column('sales_user_id');
         foreach ($dispatch_list as $val) {
             if (!$val['no_time']&&$val['week_limit']) {                
                 $week_limit_arr = explode(',', $val['week_limit']);
@@ -98,6 +120,9 @@ class SalesServer extends BaseServer {
             if (!$val['no_sale']&&$val['use_sales']) {
                 $sales_where[] = ['sales_user.admin_id', 'in', $val['use_sales_arr']];
             }
+            if(!empty($old_sales_arr)){
+                $sales_where[] = ['sales_user.admin_id', 'not in', $old_sales_arr];
+            }
             $sales = $sales_user->join('sys_admin', 'sales_user.admin_id = sys_admin.id')->where($sales_where)->select()->toArray();
             if (!empty($sales)) {
                 $rule = $val;
@@ -105,16 +130,17 @@ class SalesServer extends BaseServer {
             }
         }
         if (empty($sales)) {
-            $list = $this->getSales();
-            $sales_list = [];
-            foreach ($list['admin_user'] as $vv) {
-                if ($vv['status'] == 1) {
-                    $sales_list[] = $vv;
-                }
-            }
-            $randomKey = array_rand($sales_list);
-            $randomElement = $sales_list[$randomKey];
-            $sales_user_id = $randomElement['id'];
+            return false;
+//            $list = $this->getSales();
+//            $sales_list = [];
+//            foreach ($list['admin_user'] as $vv) {
+//                if ($vv['status'] == 1) {
+//                    $sales_list[] = $vv;
+//                }
+//            }
+//            $randomKey = array_rand($sales_list);
+//            $randomElement = $sales_list[$randomKey];
+//            $sales_user_id = $randomElement['id'];
         } else {
             $randomKey = array_rand($sales);
             $randomElement = $sales[$randomKey];
@@ -122,8 +148,8 @@ class SalesServer extends BaseServer {
         }
         $order_ser = new OrderServer();
         $order_ser->addSysFllowRecord($order['order_id'], $sales_user_id);
-        $order->save(['sales_user_id' => $sales_user_id,'fllow_status'=>2]);
-        $order_assign_mod = new \app\common\model\order\OrderAssignModel();
+        $out_fllow_time= time()+7200;
+        $order->save(['sales_user_id' => $sales_user_id,'fllow_status'=>2,'out_fllow_time'=>$out_fllow_time]);
         $param_assign = [
             'rule_id' => $rule['id'] ?? 0,
             'order_id' => $order['order_id'],

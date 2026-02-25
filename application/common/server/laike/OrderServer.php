@@ -339,6 +339,7 @@ class OrderServer extends BaseServer {
             'fllow_time' => time(),
             'fllow_content' => '系统自动分配给:' . $admin_name,
             'type' => $type,
+            'out_fllow_time'=>time()+7200,
         ];
         $fllow_mod = new \app\common\model\order\OrderFllowRecordModel();
         $fllow_mod->insert($param);

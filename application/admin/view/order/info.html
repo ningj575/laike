@@ -1,12 +1,12 @@
 {include file="public/header" /}
 <body>    
     <style>
-/*        .no-border{
-            border: none;
-        }
-        .layui-card-header{
-            border-bottom:none;
-        } */
+        /*        .no-border{
+                    border: none;
+                }
+                .layui-card-header{
+                    border-bottom:none;
+                } */
         .layui-form-item{
             margin-bottom:0px;
         }
@@ -20,7 +20,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">商品名称</label>
                             <div class="layui-input-block">
-                                 <div class="layui-form-mid">{$order.product.product_name}</div>
+                                <div class="layui-form-mid">{$order.product.product_name}</div>
                             </div>
                         </div>                            
                         <div class="layui-form-item">
@@ -48,14 +48,14 @@
                             <label class="layui-form-label">订单标签</label>
                             <div class="layui-input-block">
                                 <div class="layui-form-mid">
-                                {empty name='order.tags_arr'}
-                                暂无
-                                {else/}
-                                {volist name='order.tags_arr' id='val'}
-                                <button type="button" class="layui-btn layui-btn-xs layui-btn-{$icon_color[$key]}">{$val}</button>
-                                {/volist}                   
-                                {/empty}
-                                &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='订单标签' data-field='tags' data-type="checkEdit">修改</a>
+                                    {empty name='order.tags_arr'}
+                                    暂无
+                                    {else/}
+                                    {volist name='order.tags_arr' id='val'}
+                                    <button type="button" class="layui-btn layui-btn-xs layui-btn-{$icon_color[$key]}">{$val}</button>
+                                    {/volist}                   
+                                    {/empty}
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='订单标签' data-field='tags' data-type="checkEdit">修改</a>
                                 </div>
                             </div>                     
                         </div>   
@@ -70,7 +70,7 @@
                             <label class="layui-form-label">成交渠道</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.channel?:'暂无'} 
-                                   <!--&nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='成交渠道' data-field='channel' data-type="inputEdit">修改</a>-->
+                                    <!--&nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='成交渠道' data-field='channel' data-type="inputEdit">修改</a>-->
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                             <label class="layui-form-label">带货角色</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.host_info_role?:'暂无'} 
-                                   <!--&nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='带货角色' data-field='host_info_role' data-type="inputEdit">修改</a>-->
+                                    <!--&nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='带货角色' data-field='host_info_role' data-type="inputEdit">修改</a>-->
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                             <label class="layui-form-label">带货人</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.host_info_name?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.host_info_name}' data-title='带货人' data-field='host_info_name' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.host_info_name}' data-title='带货人' data-field='host_info_name' data-type="inputEdit">修改</a>
                                 </div>                           
                             </div>
                         </div>   
@@ -94,7 +94,7 @@
                             <label class="layui-form-label">内容地址</label>                            
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.content_url?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.content_url}' data-title='内容地址' data-field='content_url' data-type="textareaEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.content_url}' data-title='内容地址' data-field='content_url' data-type="textareaEdit">修改</a>
                                 </div>
                             </div>
                         </div>   
@@ -123,7 +123,7 @@
                             <label class="layui-form-label">商品券码</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.info.product_coupon?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.product_coupon}' data-title='商品券码' data-field='info-product_coupon' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.product_coupon}' data-title='商品券码' data-field='info-product_coupon' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>                            
@@ -131,7 +131,7 @@
                             <label class="layui-form-label">核销门店</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.info.verify_store?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_store}' data-title='核销门店' data-field='info-verify_store' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_store}' data-title='核销门店' data-field='info-verify_store' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
                             <label class="layui-form-label">核销时间</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.info.verify_time?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_time}' data-title='核销时间' data-field='info-verify_time' data-type="inputEditTime">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_time}' data-title='核销时间' data-field='info-verify_time' data-type="inputEditTime">修改</a>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                             <label class="layui-form-label">核销员</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.info.verify_staff?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_staff}' data-title='核销员' data-field='info-verify_staff' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.verify_staff}' data-title='核销员' data-field='info-verify_staff' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>                             
@@ -208,7 +208,7 @@
                             <label class="layui-form-label">B2B订单号</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.info.b2b_order_id?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.b2b_order_id}' data-title='B2B订单号' data-field='info-b2b_order_id' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.b2b_order_id}' data-title='B2B订单号' data-field='info-b2b_order_id' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>   
@@ -278,7 +278,7 @@
                             <label class="layui-form-label" style='width:85px;'>其他注意事项</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.info.precaution?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.precaution}' data-title='其他注意事项' data-field='info-precaution' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.precaution}' data-title='其他注意事项' data-field='info-precaution' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>
@@ -344,7 +344,7 @@
                             <label class="layui-form-label">商家备注</label>
                             <div class="layui-input-block">
                                 <div class="layui-form-mid">{$order.info.remark_from_store?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.remark_from_store}' data-title='商家备注' data-field='info-remark_from_store' data-type="textareaEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.info.remark_from_store}' data-title='商家备注' data-field='info-remark_from_store' data-type="textareaEdit">修改</a>
                                 </div>
                             </div>
                         </div>   
@@ -361,7 +361,7 @@
                             <label class="layui-form-label">客户姓名</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.customer.buyer_info_name?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.buyer_info_name}' data-title='客户姓名' data-field='customer-buyer_info_name' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.buyer_info_name}' data-title='客户姓名' data-field='customer-buyer_info_name' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>
@@ -375,7 +375,7 @@
                             <label class="layui-form-label">身份证号</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.customer.id_card?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.id_card}' data-title='身份证号' data-field='customer-id_card' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.id_card}' data-title='身份证号' data-field='customer-id_card' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>                
@@ -383,7 +383,7 @@
                             <label class="layui-form-label">护照号</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.customer.passpart?:'暂无'} 
-                                   &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.passpart}' data-title='护照号' data-field='customer-passpart' data-type="inputEdit">修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.customer.passpart}' data-title='护照号' data-field='customer-passpart' data-type="inputEdit">修改</a>
                                 </div>
                             </div>
                         </div>
@@ -417,21 +417,21 @@
                         <a class='zidingyi_btn' href="javascript:void(0);" data-type="addComplain" style="float:right;color:#01aaed;font-size: 13px;" >创建投诉工单</a>
                         {if condition='$order.fllow_status eq 2'}
                         <a class='zidingyi_btn' href="javascript:void(0);" data-value='3' data-type="completed" data-field='fllow_status'  style="float:right;color:#01aaed;font-size: 13px;margin-right:20px;" >标记已处理</a>
-                         {/if}                       
+                        {/if}                       
                     </div>
                     <div class="layui-card-body layui-text layadmin-version">
                         <div class="layui-form-item">
                             <label class="layui-form-label">人群标签</label>
                             <div class="layui-input-block" >
                                 <div class="layui-form-mid">
-                                {empty name='order.customer.tags_arr'}
-                                暂无
-                                {else/}
-                                {volist name='order.customer.tags_arr' id='val'}
-                                <button type="button" class="layui-btn layui-btn-xs layui-btn-{$icon_color[$key]}">{$val}</button>
-                                {/volist}                   
-                                {/empty}
-                                &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='人群标签' data-field='customer-tags' data-type="checkEdit">修改</a>
+                                    {empty name='order.customer.tags_arr'}
+                                    暂无
+                                    {else/}
+                                    {volist name='order.customer.tags_arr' id='val'}
+                                    <button type="button" class="layui-btn layui-btn-xs layui-btn-{$icon_color[$key]}">{$val}</button>
+                                    {/volist}                   
+                                    {/empty}
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-title='人群标签' data-field='customer-tags' data-type="checkEdit">修改</a>
                                 </div>                                                                                        
                             </div>                                                           
                         </div>
@@ -452,14 +452,14 @@
                         </div> 
                         <div id="info-depart_date" class="layui-form-item" style='display:none;padding-top: 20px;'>
                             <label class="layui-form-label">出发日期</label>
-                           <div class="layui-input-inline">
-                               <select  lay-search="" id="info-depart_date_select"> 
-                                   <option value="">请选择</option>
-                                   {volist name='depart_date_arr' id='val'}
-                                   <option value="{$val}" {if condition="$order.info.depart_date eq $val"}selected{/if}>{$val}</option>
-                                   {/volist}                                                                                 
-                               </select>
-                           </div>                          
+                            <div class="layui-input-inline">
+                                <select  lay-search="" id="info-depart_date_select"> 
+                                    <option value="">请选择</option>
+                                    {volist name='depart_date_arr' id='val'}
+                                    <option value="{$val}" {if condition="$order.info.depart_date eq $val"}selected{/if}>{$val}</option>
+                                    {/volist}                                                                                 
+                                </select>
+                            </div>                          
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">出发城市</label>
@@ -473,23 +473,23 @@
                             <label class="layui-form-label">电话跟进</label>
                             <div class="layui-input-inline">
                                 <div class="layui-form-mid">{$order.phone_fllow_text?:'未联系'}
-                                &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.phone_fllow}'  data-field='phone_fllow'  data-type="selectEdit" >修改</a>
+                                    &nbsp;<a class='zidingyi_btn' href="javascript:void(0);" data-value='{$order.phone_fllow}'  data-field='phone_fllow'  data-type="selectEdit" >修改</a>
                                 </div>
                             </div>                           
                         </div>
                         <div id="phone_fllow" class="layui-form-item" style='display:none;padding-top: 20px;'>
                             <label class="layui-form-label">电话跟进</label>
-                           <div class="layui-input-inline">
-                               <select name="phone_fllow"  lay-search="" id="phone_fllow_select"> 
-                                   <option value="0">未联系</option>
-                                   <option value="1" {if condition="$order.phone_fllow eq 1"}selected{/if}>未接通</option>
-                                   <option value="2" {if condition="$order.phone_fllow eq 2"}selected{/if}>已联已接</option>
-                                   <option value="3" {if condition="$order.phone_fllow eq 3"}selected{/if}>未联已接</option>
-                                   <option value="4" {if condition="$order.phone_fllow eq 4"}selected{/if}>空号</option>
-                                   <option value="5" {if condition="$order.phone_fllow eq 5"}selected{/if}>停机</option>
-                                   <option value="6" {if condition="$order.phone_fllow eq 6"}selected{/if}>关机</option>                                                  
-                               </select>
-                           </div>                          
+                            <div class="layui-input-inline">
+                                <select name="phone_fllow"  lay-search="" id="phone_fllow_select"> 
+                                    <option value="0">未联系</option>
+                                    <option value="1" {if condition="$order.phone_fllow eq 1"}selected{/if}>未接通</option>
+                                    <option value="2" {if condition="$order.phone_fllow eq 2"}selected{/if}>已联已接</option>
+                                    <option value="3" {if condition="$order.phone_fllow eq 3"}selected{/if}>未联已接</option>
+                                    <option value="4" {if condition="$order.phone_fllow eq 4"}selected{/if}>空号</option>
+                                    <option value="5" {if condition="$order.phone_fllow eq 5"}selected{/if}>停机</option>
+                                    <option value="6" {if condition="$order.phone_fllow eq 6"}selected{/if}>关机</option>                                                  
+                                </select>
+                            </div>                          
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">微信跟进</label>
@@ -501,13 +501,13 @@
                         </div> 
                         <div id="weixin_fllow" class="layui-form-item" style='display:none;padding-top: 20px;'>
                             <label class="layui-form-label">微信跟进</label>
-                           <div class="layui-input-inline">
-                               <select name="weixin_fllow"  lay-search="" id="weixin_fllow_select"> 
-                                   <option value="0">未添加</option>
-                                   <option value="1" {if condition="$order.weixin_fllow eq 1"}selected{/if}>已添加</option>
-                                   <option value="2" {if condition="$order.weixin_fllow eq 2"}selected{/if}>已申请未通过</option>                                                                           
-                               </select>
-                           </div>                          
+                            <div class="layui-input-inline">
+                                <select name="weixin_fllow"  lay-search="" id="weixin_fllow_select"> 
+                                    <option value="0">未添加</option>
+                                    <option value="1" {if condition="$order.weixin_fllow eq 1"}selected{/if}>已添加</option>
+                                    <option value="2" {if condition="$order.weixin_fllow eq 2"}selected{/if}>已申请未通过</option>                                                                           
+                                </select>
+                            </div>                          
                         </div>
                     </div>
                     <div class="layui-card-header layui-font-16">跟进记录<a class='zidingyi_btn' href="javascript:void(0);" data-type="addRecord" style="float:right;color:#01aaed;font-size: 13px;" >新增记录</a></div>
@@ -517,18 +517,23 @@
                             <div class="layui-timeline-item">
                                 <i class="layui-icon layui-timeline-axis"></i>
                                 <div class="layui-timeline-content layui-text">
-                                    <span class="layui-timeline-title">{$val.fllow_time}</span>&nbsp;&nbsp;&nbsp;<span class='layui-btn layui-btn-xs'>{$val.fllow_method}</span>
+                                    <span class="layui-timeline-title">{$val.fllow_time}</span>&nbsp;&nbsp;&nbsp;
+                                    {if condition='$val.fllow_method'}<span class='layui-btn layui-btn-xs'>{$val.fllow_method?:''}</span>{/if}
                                     <div class="layui-timeline-title layui-font-20">{$val.admin.admin_name??'系统自动分配'}</div>
                                     <div>
                                         {$val.fllow_content}                                            
                                         {notempty name='val.next_fllow_time'}
-                                         <br>   
+                                        <br>   
                                         <span class='layui-font-12' style='color:gray;'>下次跟进时间：{$val.next_fllow_time}</span>
                                         {/notempty}
                                         {notempty name='val.next_fllow_content'}
                                         <br>
                                         <span class='layui-font-12' style='color:gray;'>跟进内容：{$val.next_fllow_content}</span>
                                         {/notempty}
+                                        {if condition='$val.manual_fllow eq 1 && $val.out_fllow_time>0 && $val.out_fllow_time gt time()'}
+                                        <br>
+                                        2小时内未提交首次跟进记录将超时，超时订单将重新自动分配，<span style="color:red;">剩余时间:{$val.time_out??''}</span>
+                                        {/if}
                                     </div>
                                 </div>
                             </div>
@@ -550,11 +555,11 @@
     <link rel="stylesheet" href="__LAYUI__/formSelects-v4.css" >
     <script src="__LAYUI__/formSelects-v4.js?v=3"></script>
     <script>
-        layui.use(['form','laydate'], function () {
+        layui.use(['form', 'laydate'], function () {
             var id = '{$order.id}';
             var $ = layui.$;
             var form = layui.form;
-            var laydate=layui.laydate;
+            var laydate = layui.laydate;
             //时间范围
             laydate.render({
                 elem: '#common_time'
@@ -562,17 +567,17 @@
             });
             /* 触发弹层 */
             var active = {
-                selectEdit:function(){
-                    var field=$(this).data('field');
+                selectEdit: function () {
+                    var field = $(this).data('field');
                     layer.open({
                         type: 1,
                         title: '修改',
                         area: ['400px', '250px'], // 宽高
-                        content: $('#'+field),
-                        btn:['确定','取消'],
-                        btn1: function () {     
-                            var checkValue=$('#'+field+'_select').val();                          
-                            layui.$.post('updataValue', {id: id,field:field, value: checkValue}, function (data) {
+                        content: $('#' + field),
+                        btn: ['确定', '取消'],
+                        btn1: function () {
+                            var checkValue = $('#' + field + '_select').val();
+                            layui.$.post('updataValue', {id: id, field: field, value: checkValue}, function (data) {
                                 if (data.code == 1000) {
                                     layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
                                         location.reload();
@@ -581,28 +586,28 @@
                                     layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
                                 }
                             });
-                          }
-                     });
+                        }
+                    });
                 },
-                checkEdit:function(){
-                    var field=$(this).data('field');
-                    var title=$(this).data('title');             
+                checkEdit: function () {
+                    var field = $(this).data('field');
+                    var title = $(this).data('title');
                     layer.open({
                         type: 1,
-                        title: '修改'+title,
+                        title: '修改' + title,
                         area: ['400px', '250px'], // 宽高
-                        content: $('#'+field),
-                        btn:['确定','取消'],
+                        content: $('#' + field),
+                        btn: ['确定', '取消'],
                         btn1: function () {
                             var checkValue = [];
-                            $('#'+field+' input[type=checkbox]:checked').each(function () {
+                            $('#' + field + ' input[type=checkbox]:checked').each(function () {
                                 checkValue.push($(this).val());
-                            });   
-                             if (checkValue == "") {
+                            });
+                            if (checkValue == "") {
                                 layer.msg("请选择选项!");
                                 return false;
                             } else {
-                                layui.$.post('updataValue', {id: id,field:field, value: checkValue}, function (data) {
+                                layui.$.post('updataValue', {id: id, field: field, value: checkValue}, function (data) {
                                     if (data.code == 1000) {
                                         layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
                                             location.reload();
@@ -612,19 +617,19 @@
                                     }
                                 });
                             }
-                          }
-                     });
+                        }
+                    });
                 },
                 inputEdit: function () {
-                    var field=$(this).data('field');
-                    var title=$(this).data('title');
-                    var old_value=$(this).data('value');
+                    var field = $(this).data('field');
+                    var title = $(this).data('title');
+                    var old_value = $(this).data('value');
                     layer.prompt({
                         formType: 3
-                        , title: '修改'+title
+                        , title: '修改' + title
                         , value: old_value
                     }, function (value, index) {
-                        layui.$.post('updataValue', {id: id,field:field, value: value}, function (data) {
+                        layui.$.post('updataValue', {id: id, field: field, value: value}, function (data) {
                             if (data.code == 1000) {
                                 layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
                                     location.reload();
@@ -632,44 +637,44 @@
                             } else {
                                 layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
                             }
-                        });                        
+                        });
                     })
                 },
                 inputEditTime: function () {
-                    var field=$(this).data('field');
-                    var title=$(this).data('title');
-                    var old_value=$(this).data('value');
+                    var field = $(this).data('field');
+                    var title = $(this).data('title');
+                    var old_value = $(this).data('value');
                     $('#common_time').val(old_value);
                     layer.open({
                         type: 1,
-                        title: '修改'+title,
+                        title: '修改' + title,
                         area: ['350px', '200px'], // 宽高
                         content: $('#time_html'),
-                        btn:['确定','取消'],
+                        btn: ['确定', '取消'],
                         btn1: function () {
-                            var value=$('#common_time').val();
-                             layui.$.post('updataValue', {id: id,field:field, value: value}, function (data) {
-                                    if (data.code == 1000) {
-                                        layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
-                                            location.reload();
-                                        });
-                                    } else {
-                                        layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
-                                    }
-                                });
-                          }
-                     });                 
+                            var value = $('#common_time').val();
+                            layui.$.post('updataValue', {id: id, field: field, value: value}, function (data) {
+                                if (data.code == 1000) {
+                                    layer.msg('更新成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                        location.reload();
+                                    });
+                                } else {
+                                    layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
+                                }
+                            });
+                        }
+                    });
                 },
                 textareaEdit: function () {
-                    var field=$(this).data('field');
-                    var title=$(this).data('title');
-                    var old_value=$(this).data('value');
+                    var field = $(this).data('field');
+                    var title = $(this).data('title');
+                    var old_value = $(this).data('value');
                     layer.prompt({
                         formType: 2
-                        , title: '修改'+title
+                        , title: '修改' + title
                         , value: old_value
                     }, function (value, index) {
-                        layui.$.post('updataValue', {id: id,field:field, value: value}, function (data) {
+                        layui.$.post('updataValue', {id: id, field: field, value: value}, function (data) {
                             if (data.code == 1000) {
                                 layer.msg('修改成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
                                     location.reload();
@@ -700,61 +705,61 @@
                 var type = $(this).data('type');
                 switch (type) {
                     case 'addRecord':
-                        tpmsg.addEdit('addRecord?order_id={$order.order_id}', ['40%','80%'], "新增跟进记录", ['100px', '50%'],2);
-                        break;  
+                        tpmsg.addEdit('addRecord?order_id={$order.order_id}', ['40%', '80%'], "新增跟进记录", ['100px', '50%'], 2);
+                        break;
                     case 'addComplain':
-                        tpmsg.addEdit('/order/complain//edit?order_id={$order.order_id}', ['50%','60%'], "创建投诉工单", ['100px', '45%'],2);
-                        break;  
+                        tpmsg.addEdit('/order/complain//edit?order_id={$order.order_id}', ['50%', '60%'], "创建投诉工单", ['100px', '45%'], 2);
+                        break;
                     case 'viewCustomer':
-                        tpmsg.DataInfo('/order/customer/info?phone={$order.buyer_info_phone}', ['60%','60%'], "客户详情", ['100px', '30%']);
+                        tpmsg.DataInfo('/order/customer/info?phone={$order.buyer_info_phone}', ['60%', '60%'], "客户详情", ['100px', '30%']);
                         break;
                     case 'completed':
-                        var submit_value=$(this).data('value');
-                        var field=$(this).data('field');
-                       layer.confirm('确定标记已处理', {icon: 3, title: tips,btn: [determine,cancel]}, function () {
-                        layui.$.post('updataValue', {id: id,field:field, value: submit_value}, function (data) {
-                            if (data.code == 1000) {
-                                layer.msg('处理成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
-                                    location.reload();
-                                });
+                        var submit_value = $(this).data('value');
+                        var field = $(this).data('field');
+                        layer.confirm('确定标记已处理', {icon: 3, title: tips, btn: [determine, cancel]}, function () {
+                            layui.$.post('updataValue', {id: id, field: field, value: submit_value}, function (data) {
+                                if (data.code == 1000) {
+                                    layer.msg('处理成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                        location.reload();
+                                    });
                                 } else {
                                     layer.msg('处理失败', {icon: 0, time: 1500, shade: 0.1, });
                                 }
                             });
                             layer.close(index);
                         })
-                        break; 
+                        break;
                     default:
                         active[type].call(this);
                         break;
                 }
-                
-            });      
+
+            });
 
             $('#closeBtn').on('click', function () {
-                 var index = parent.layer.getFrameIndex(window.name);
-                 parent.layer.close(index);
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(index);
             });
             $('#agreeBtn').on('click', function () {
-                var order_id='{$order.book.order_id}';
-                 layer.confirm('确认接单', {icon: 3, title: tips,btn: [determine,cancel]}, function () {
-                        layui.$.post('orderConfirm', {order_id: order_id,confirm_result:1}, function (data) {
-                            if (data.code == 1000) {
-                                layer.msg('接单成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
-                                    location.reload();
-                                });
-                                } else {
-                                    layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
-                                }
+                var order_id = '{$order.book.order_id}';
+                layer.confirm('确认接单', {icon: 3, title: tips, btn: [determine, cancel]}, function () {
+                    layui.$.post('orderConfirm', {order_id: order_id, confirm_result: 1}, function (data) {
+                        if (data.code == 1000) {
+                            layer.msg('接单成功', {icon: 6, time: 1500, shade: 0.1, }, function () {
+                                location.reload();
                             });
-                            layer.close(index);
+                        } else {
+                            layer.msg(data.msg, {icon: 0, time: 1500, shade: 0.1, });
+                        }
+                    });
+                    layer.close(index);
                 })
             });
-             $('#cancelBtn').on('click', function () {
-                tpmsg.addEdit('/order/order/orderConfirm?order_id={$order.book.order_id}',['20%','40%'],'拒单选择','auto',2);
+            $('#cancelBtn').on('click', function () {
+                tpmsg.addEdit('/order/order/orderConfirm?order_id={$order.book.order_id}', ['20%', '40%'], '拒单选择', 'auto', 2);
             });
         });
-    </script>
+    </script>   
 
 </body>
 </html>

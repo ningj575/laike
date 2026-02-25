@@ -27,6 +27,12 @@ class Complain extends AdminServer {
             $complain_fllow_status = input('get.complain_fllow_status', '');
             $page = input('get.page/d', 1);
             $limit = input('get.limit/d', 10);
+            $admin_id=$this->ADMIN_INFO['uid'];
+            $sale_user_mod=new \app\common\model\sales\SalesUserModel();
+            $is_sales=$sale_user_mod->where('admin_id',$admin_id)->find();
+            if($is_sales){
+                $mod = $mod->where('sales_user_id', $admin_id);
+            }
             if (!empty($order_id)) {
                 $mod = $mod->where('order_id', $order_id);
             }
@@ -141,6 +147,7 @@ class Complain extends AdminServer {
             $param = input('param.');
             $param['admin_id'] = $this->ADMIN_INFO['uid'];
             $param['type'] = 2;
+            $param['manual_fllow'] = 2;
             $OrderFllowRecordModel = new OrderFllowRecordModel();
             $OrderFllowRecordModel->insert($param);
             return json(['code' => 1000, 'data' => [], 'msg' => '添加成功']);
