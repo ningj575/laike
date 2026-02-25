@@ -19,7 +19,8 @@ class CronOrderAssign extends Command {
 
     protected function execute(Input $input, Output $output) {
         $sales_ser = new \app\common\server\laike\SalesServer();
-        $sales_ser->getTimeOutOrderAssign();
+        $res1=$sales_ser->getTimeOutOrderAssign();
+        $output->writeln($res1['msg']); //输出       
         $res = $sales_ser->getOrderAssign();
         $output->writeln($res['msg']); //输出       
     }
