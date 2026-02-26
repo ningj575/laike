@@ -261,7 +261,7 @@ class Order extends AdminServer {
             if (!$order) {
                 return json(['code' => 1001, 'data' => [], 'msg' => '失败']);
             }
-            if ($this->ADMIN_INFO['uid'] == $order['sales_user_id']) {
+            if ($this->ADMIN_INFO['uid'] == $order['sales_user_id']&&$order['out_fllow_time']>0) {
                 $order_assign_mod = new OrderAssignModel();
                 $order_assign_mod->where([['order_id', 'eq', $param['order_id']], ['type', 'eq', 1], ['sales_user_id', 'eq', $order['sales_user_id']]])->order('id desc')->limit(1)->update(['is_reallocate' => 1]);
                 $order->save(['out_fllow_time' => 0]);

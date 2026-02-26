@@ -75,7 +75,7 @@ class Douyin extends BaseServer {
      * https://partner.open-douyin.com/docs/resource/zh-CN/local-life/develop/OpenAPI/JiuLv/vacation/presale_coupon/travel-order-creation/ta_presale_coupon_create_book_order
      */
 
-    public function create_book_order() {
+    public function create_order() {
         $headers = $this->request->header();
         $rawBody = file_get_contents('php://input');
         $signature = $this->request->header('x-life-sign');
