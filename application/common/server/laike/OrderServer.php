@@ -10,7 +10,7 @@ use app\common\server\BaseServer;
 use app\common\model\order\OrderModel;
 use app\common\model\product\ProductModel;
 use app\common\model\order\OrderBookModel;
-use app\common\model\order\OrderBookCustomerModel;
+use app\common\model\order\OrderBookTravelerModel;
 use app\common\server\laike\DouyinServer;
 use app\common\model\order\CustomerModel;
 use think\cache\driver\Redis;
@@ -129,7 +129,7 @@ class OrderServer extends BaseServer {
         $order_book_mod->allowField(true)->save($data);
         $order_mod = new OrderModel();
         $order_mod->where('order_id', $data['source_order_id'])->setField('order_status', 2); //更新订单状态为待接单
-        $book_customer_mod = new OrderBookCustomerModel();
+        $book_customer_mod = new OrderBookTravelerModel();
         $book_customer = $data['book_info']['occupancies'];
         foreach ($book_customer as $val) {
             $customer_data[] = [

@@ -75,7 +75,7 @@ class Douyin extends BaseServer {
      * https://partner.open-douyin.com/docs/resource/zh-CN/local-life/develop/OpenAPI/JiuLv/vacation/presale_coupon/travel-order-creation/ta_presale_coupon_create_book_order
      */
 
-    public function create_order() {
+    public function create_book_order() {
         $headers = $this->request->header();
         $rawBody = file_get_contents('php://input');
         $signature = $this->request->header('x-life-sign');
@@ -94,7 +94,7 @@ class Douyin extends BaseServer {
         $order_ser = new \app\common\server\laike\OrderServer();
         $res = $order_ser->create_book_order($logid, $body_data);
         return json(['data'=>$res]);
-    }
+    }   
 
     /*
      * 预售券订单取消通知SPI
