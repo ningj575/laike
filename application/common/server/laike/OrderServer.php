@@ -179,6 +179,8 @@ class OrderServer extends BaseServer {
             $order_book_info = $order_book_mod->where('order_id', $data['order_id'])->find();
             if (!empty($order_book_info)) {
                 $order_book_info->save(['book_status' => -1, 'cancel_reason' => $data['cancel_reason']??'']);
+                $order_mod = new OrderModel();
+                $order_mod->where('order_id',$order_book_info['source_order_id'])->update(['order_status'=>1]);
             }
         }
         return $res_data;
