@@ -530,7 +530,7 @@
                                         <br>
                                         <span class='layui-font-12' style='color:gray;'>跟进内容：{$val.next_fllow_content}</span>
                                         {/notempty}
-                                        {if condition='$val.manual_fllow eq 1 && $val.out_fllow_time>0 && $val.out_fllow_time gt time()'}
+                                        {if condition='$order.out_fllow_time>0 && $val.manual_fllow eq 1 && $val.out_fllow_time>0 && $val.out_fllow_time gt time()'}
                                         <br>
                                         2小时内未提交首次跟进记录将超时，超时订单将重新自动分配，<span style="color:red;">剩余时间:{$val.time_out??''}</span>
                                         {/if}
