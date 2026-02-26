@@ -70,10 +70,10 @@ class OrderServer extends BaseServer {
                 'buyer_info_phone' => $data['buyer_info_phone']
             ];
             $mobile_addr = $this->getMobileAddr($data['buyer_info_phone']);
-            if (!empty($mobile_addr['result'])) {               
-                $sys_zone=new \app\common\model\admin\SysZoneModel();
-                $province=$sys_zone->where('zone_name','like','%'.$mobile_addr['result']['province'].'%')->value('zone_name');
-                $city=$sys_zone->where('zone_name','like','%'.$mobile_addr['result']['city'].'%')->value('zone_name');
+            if (!empty($mobile_addr['result'])) {
+                $sys_zone = new \app\common\model\admin\SysZoneModel();
+                $province = $sys_zone->where('zone_name', 'like', '%' . $mobile_addr['result']['province'] . '%')->value('zone_name');
+                $city = $sys_zone->where('zone_name', 'like', '%' . $mobile_addr['result']['city'] . '%')->value('zone_name');
                 $customer_save['province'] = $province;
                 $customer_save['city'] = $city;
             }
@@ -193,8 +193,8 @@ class OrderServer extends BaseServer {
             'error_code' => 0,
             'description' => 'success'
         ];
-        $order_refund_mod=new \app\common\model\order\OrderRefundModel();
-        $data['refund_item_list']= json_encode($data['refund_item_list']);
+        $order_refund_mod = new \app\common\model\order\OrderRefundModel();
+        $data['refund_item_list'] = json_encode($data['refund_item_list']);
         $order_refund_mod->insert($data);
         if ($data['refund_type'] == 1) {//订单退款
             $order_mod = new OrderModel();
@@ -231,7 +231,7 @@ class OrderServer extends BaseServer {
             'reject_code' => $reject_code, //拒单原因。1:库存已约满 2：商品需加价 3：无法满足顾客需求           
             'extra_msg' => ''//其他注意事项
         ];
-        if ($order_info['account_id'] == '7325036766577035315'&&$confirm_result==1) {//测试
+        if ($order_info['account_id'] == '7325036766577035315' && $confirm_result == 1) {//测试
             $confirm_info['free_travel_info'] = [//境内自由行类目预定信息
                 'oneday_tour_list' => [
                         ['hotel_info_list' => [
@@ -254,8 +254,19 @@ class OrderServer extends BaseServer {
             ];
         }
         $douyin_res = $douyin_ser->order_confirm($source_order_id, $order_id, $confirm_info);
+        //1预售券订单 2预约订单 3订单取消 4订单退款 5订单商品快照查询
+        $spi_mod = new \app\common\model\order\SpiLogModel();
+        $spi_param=[
+            'logid'=>$douyin_res['extra']['logid']??'',
+            'type'=>6,
+            'type_name'=>'确认接单接口',
+            'query'=>json_encode($confirm_info),
+            'rawbody'=>json_encode($douyin_res),
+            'order_id'=>$order_id
+        ];      
+        $spi_mod->insert($spi_param);
         if ($douyin_res['data']['error_code'] != 0) {
-            return returnPubData($douyin_res['data']['description']);
+            return returnPubData('错误码：' . $douyin_res['data']['error_code'] . ' ' . $douyin_res['data']['description']);
         }
         $book_data = [
             'reject_code' => $reject_code,
@@ -277,12 +288,12 @@ class OrderServer extends BaseServer {
     public function getStatic($uid) {
         $sales_user_mod = new \app\common\model\sales\SalesUserModel();
         $is_sales = $sales_user_mod->where('admin_id', $uid)->find();
-        $where = [];       
+        $where = [];
         if ($is_sales) {
             $where[] = ['sales_user_id', 'eq', $uid];
             $is_sales = 1;
-        }else{
-             $is_sales = 0;
+        } else {
+            $is_sales = 0;
         }
         $order = new OrderModel();
         $order_static = $order->where($where)->field('count(id) as all_order_count,sum(if(order_status=1,1,0)) as stay_book_count,sum(if(order_status=2,1,0)) as stay_confirm_count,'
@@ -343,7 +354,7 @@ class OrderServer extends BaseServer {
             'fllow_time' => time(),
             'fllow_content' => '系统自动分配给:' . $admin_name,
             'type' => $type,
-            'out_fllow_time'=>time()+7200,
+            'out_fllow_time' => time() + 7200,
         ];
         $fllow_mod = new \app\common\model\order\OrderFllowRecordModel();
         $fllow_mod->insert($param);
