@@ -178,6 +178,9 @@ class Lead extends AdminServer {
         $lead_info = $mod->where('id', $id)->find();
         $lead_info->save(["$field" => $value]);
         if ($field == 'sales_user_id') {
+            if ($lead_info['lead_fllow_status'] == 3) {
+                return json(['code' => 1001, 'msg' => '该订单已处理，不能更改销售员']);
+            }
             $lead_info->lead_fllow_status == 1 && $lead_info->save(["lead_fllow_status" => 2]);
             $order_assign_mod = new \app\common\model\order\OrderAssignModel();
             $assign_param = [
@@ -185,7 +188,7 @@ class Lead extends AdminServer {
                 'sales_user_id' => $value,
                 'admin_id' => $this->ADMIN_INFO['uid'],
                 'rule_id' => -1,
-                'type' => 3
+                'type' => 3,
             ];
             $order_assign_mod->insert($assign_param);
         }

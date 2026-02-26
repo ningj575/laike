@@ -180,6 +180,11 @@
                       layui.table.reload("LAY-user-back-manage");
                       return false;
                   }
+                  if(data.lead_fllow_status==3){
+                      layer.msg('该订单已处理，不能更改销售员', {icon: 0, time: 1500, shade: 0.1, });
+                      layui.table.reload("LAY-user-back-manage");
+                      return false;
+                  }
                    layui.$.post('updataValue', {id: data.id, field: 'sales_user_id', value: value}, function (data) {
                         if (data.code == 1000) {
                             layer.msg('分配成功', {icon: 6, time: 1500, shade: 0.1, });

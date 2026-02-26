@@ -402,7 +402,7 @@ class Order extends AdminServer {
                     return json(['code' => 1001, 'msg' => '该订单已处理，不能更改销售员']);
                 }
                 $out_fllow_time = time() + 7200;
-                $order->save(["fllow_status" => 2, 'out_fllow_time' => $out_fllow_time, 'sales_user_id' => $value]);
+                $order->save(["fllow_status" => 2, 'out_fllow_time' => $out_fllow_time]);
                 $order_assign_mod = new OrderAssignModel();
                 $assign_param = [
                     'order_id' => $order['order_id'],
@@ -451,7 +451,7 @@ class Order extends AdminServer {
         $mod->save(["$field" => $value], [['id', 'in', $ids]]);
         if ($field == 'sales_user_id') {
             $out_fllow_time = time() + 7200;
-            $mod->save(["fllow_status" => 2, 'out_fllow_time' => $out_fllow_time, 'sales_user_id' => $value], [['id', 'in', $ids], ['fllow_status', 'eq', 1]]);
+            $mod->save(["fllow_status" => 2, 'out_fllow_time' => $out_fllow_time], [['id', 'in', $ids], ['fllow_status', 'eq', 1]]);
             $order_assign_mod = new OrderAssignModel();
             $admin_mod = new \app\common\model\admin\SysAdminModel();
             $admin_name = $admin_mod->where('id', $value)->value('admin_name');            

@@ -27,10 +27,10 @@ class Complain extends AdminServer {
             $complain_fllow_status = input('get.complain_fllow_status', '');
             $page = input('get.page/d', 1);
             $limit = input('get.limit/d', 10);
-            $admin_id=$this->ADMIN_INFO['uid'];
-            $sale_user_mod=new \app\common\model\sales\SalesUserModel();
-            $is_sales=$sale_user_mod->where('admin_id',$admin_id)->find();
-            if($is_sales){
+            $admin_id = $this->ADMIN_INFO['uid'];
+            $sale_user_mod = new \app\common\model\sales\SalesUserModel();
+            $is_sales = $sale_user_mod->where('admin_id', $admin_id)->find();
+            if ($is_sales) {
                 $mod = $mod->where('sales_user_id', $admin_id);
             }
             if (!empty($order_id)) {
@@ -167,6 +167,9 @@ class Complain extends AdminServer {
         $complain_info = $mod->where('id', $id)->find();
         $complain_info->save(["$field" => $value]);
         if ($field == 'sales_user_id') {
+            if ($complain_info['complain_fllow_status'] == 3) {
+                return json(['code' => 1001, 'msg' => '该订单已处理，不能更改销售员']);
+            }
             $complain_info->complain_fllow_status == 1 && $complain_info->save(["complain_fllow_status" => 2]);
             $order_assign_mod = new \app\common\model\order\OrderAssignModel();
             $assign_param = [
@@ -174,7 +177,7 @@ class Complain extends AdminServer {
                 'sales_user_id' => $value,
                 'admin_id' => $this->ADMIN_INFO['uid'],
                 'rule_id' => -1,
-                'type' => 2
+                'type' => 2,
             ];
             $order_assign_mod->insert($assign_param);
         }
@@ -195,13 +198,13 @@ class Complain extends AdminServer {
             $mod->save(["complain_fllow_status" => 2], [['id', 'in', $ids], ['complain_fllow_status', 'eq', 1]]);
             $order_assign_mod = new \app\common\model\order\OrderAssignModel();
             foreach ($ids as $vv) {
-                $complain_num=$mod->where('id',$vv)->value('complain_num');
+                $complain_num = $mod->where('id', $vv)->value('complain_num');
                 $assign_param[] = [
                     'order_id' => $complain_num,
                     'sales_user_id' => $value,
                     'admin_id' => $this->ADMIN_INFO['uid'],
                     'rule_id' => -1,
-                    'type'=>2
+                    'type' => 2
                 ];
             }
             $order_assign_mod->saveAll($assign_param);
