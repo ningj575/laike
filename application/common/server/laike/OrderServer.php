@@ -193,6 +193,9 @@ class OrderServer extends BaseServer {
             'error_code' => 0,
             'description' => 'success'
         ];
+        $order_refund_mod=new \app\common\model\order\OrderRefundModel();
+        $data['refund_item_list']= json_encode($data['refund_item_list']);
+        $order_refund_mod->insert($data);
         if ($data['refund_type'] == 1) {//订单退款
             $order_mod = new OrderModel();
             $order_info = $order_mod->where('order_id', $data['order_id'])->find();

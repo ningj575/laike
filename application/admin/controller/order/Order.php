@@ -229,7 +229,7 @@ class Order extends AdminServer {
         return $str;
     }
 
-    public function depart_date_arr() {
+    private function depart_date_arr() {
         $year = date('Y');
         return [
             $year . '年第一季度（1-3月）',
