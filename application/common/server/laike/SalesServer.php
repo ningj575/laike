@@ -153,7 +153,8 @@ class SalesServer extends BaseServer {
         $param_assign = [
             'rule_id' => $rule['id'] ?? 0,
             'order_id' => $order['order_id'],
-            'sales_user_id' => $sales_user_id
+            'sales_user_id' => $sales_user_id,
+            'out_fllow_time' => $out_fllow_time
         ];
         $order_assign_mod->insert($param_assign);
         return $sales_user_id;

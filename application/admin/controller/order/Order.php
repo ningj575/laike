@@ -199,9 +199,9 @@ class Order extends AdminServer {
         $order_info['jiesuan_amount'] = number_format($order_info['all_actual_amount'] - $order_info['fee_amount'], 2);
         if (!empty($order_info['record'])) {
             foreach ($order_info['record'] as &$val) {
-                if($val['manual_fllow']==1&&$val['out_fllow_time']> time()&&$val['out_fllow_time']>0){
-                    $time_diff=$val['out_fllow_time']-time();
-                    $val->time_out= $this->formatSecondsAsTime($time_diff);
+                if ($val['manual_fllow'] == 1 && $val['out_fllow_time'] > time() && $val['out_fllow_time'] > 0) {
+                    $time_diff = $val['out_fllow_time'] - time();
+                    $val->time_out = $this->formatSecondsAsTime($time_diff);
                 }
             }
         }
@@ -261,7 +261,11 @@ class Order extends AdminServer {
             if (!$order) {
                 return json(['code' => 1001, 'data' => [], 'msg' => '失败']);
             }
-            $order->save(['out_fllow_time' => 0]);
+            if ($this->ADMIN_INFO['uid'] == $order['sales_user_id']) {
+                $order_assign_mod = new OrderAssignModel();
+                $order_assign_mod->where([['order_id', 'eq', $param['order_id']], ['type', 'eq', 1], ['sales_user_id', 'eq', $order['sales_user_id']]])->order('id desc')->limit(1)->update(['is_reallocate' => 1]);
+                $order->save(['out_fllow_time' => 0]);
+            }
             $param['admin_id'] = $this->ADMIN_INFO['uid'];
             $param['type'] = 1;
             $param['manual_fllow'] = 2;
@@ -404,7 +408,8 @@ class Order extends AdminServer {
                     'order_id' => $order['order_id'],
                     'sales_user_id' => $value,
                     'admin_id' => $this->ADMIN_INFO['uid'],
-                    'rule_id' => -1
+                    'rule_id' => -1,
+                    'out_fllow_time' => $out_fllow_time
                 ];
                 $order_assign_mod->insert($assign_param);
                 $admin_mod = new \app\common\model\admin\SysAdminModel();
@@ -414,7 +419,7 @@ class Order extends AdminServer {
                     'order_id' => $order['order_id'],
                     'fllow_time' => time(),
                     'fllow_content' => '手动分配给:' . $admin_name,
-                    'out_fllow_time' => time() + 7200,
+                    'out_fllow_time' => $out_fllow_time,
                 ];
                 $fllow_mod = new \app\common\model\order\OrderFllowRecordModel();
                 $fllow_mod->insert($param);
@@ -445,18 +450,31 @@ class Order extends AdminServer {
         $mod = new OrderModel();
         $mod->save(["$field" => $value], [['id', 'in', $ids]]);
         if ($field == 'sales_user_id') {
-            $mod->save(["fllow_status" => 2], [['id', 'in', $ids], ['fllow_status', 'eq', 1]]);
+            $out_fllow_time = time() + 7200;
+            $mod->save(["fllow_status" => 2, 'out_fllow_time' => $out_fllow_time, 'sales_user_id' => $value], [['id', 'in', $ids], ['fllow_status', 'eq', 1]]);
             $order_assign_mod = new OrderAssignModel();
+            $admin_mod = new \app\common\model\admin\SysAdminModel();
+            $admin_name = $admin_mod->where('id', $value)->value('admin_name');            
             foreach ($ids as $vv) {
                 $order_id = $mod->where('id', $vv)->value('order_id');
                 $assign_param[] = [
                     'order_id' => $order_id,
                     'sales_user_id' => $value,
                     'admin_id' => $this->ADMIN_INFO['uid'],
-                    'rule_id' => -1
+                    'rule_id' => -1,
+                    'out_fllow_time' => $out_fllow_time
+                ];
+                $fllow_record[] = [
+                    'admin_id' => $this->ADMIN_INFO['uid'],
+                    'order_id' => $order_id,
+                    'fllow_time' => time(),
+                    'fllow_content' => '手动分配给:' . $admin_name,
+                    'out_fllow_time' => $out_fllow_time,
                 ];
             }
             $order_assign_mod->saveAll($assign_param);
+            $fllow_mod = new \app\common\model\order\OrderFllowRecordModel();
+            $fllow_mod->saveAll($fllow_record);
         }
         return json(['code' => 1000, 'data' => [], 'msg' => '修改成功']);
     }
