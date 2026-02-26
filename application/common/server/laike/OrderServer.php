@@ -231,7 +231,7 @@ class OrderServer extends BaseServer {
             'reject_code' => $reject_code, //拒单原因。1:库存已约满 2：商品需加价 3：无法满足顾客需求           
             'extra_msg' => ''//其他注意事项
         ];
-        if ($order_info['account_id'] == '7325036766577035315') {//测试
+        if ($order_info['account_id'] == '7325036766577035315'&&$confirm_result==1) {//测试
             $confirm_info['free_travel_info'] = [//境内自由行类目预定信息
                 'oneday_tour_list' => [
                         ['hotel_info_list' => [
