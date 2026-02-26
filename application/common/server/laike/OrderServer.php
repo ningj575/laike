@@ -228,9 +228,10 @@ class OrderServer extends BaseServer {
         $douyin_ser = new DouyinServer();
         $confirm_info = [
             'confirm_result' => $confirm_result, //确认订单结果。1：接单 2：拒单
-            'reject_code' => $reject_code, //拒单原因。1:库存已约满 2：商品需加价 3：无法满足顾客需求           
-            'extra_msg' => ''//其他注意事项
         ];
+        if($reject_code){
+            $confirm_info['reject_code']=$reject_code; //拒单原因。1:库存已约满 2：商品需加价 3：无法满足顾客需求          
+        }
         if ($order_info['account_id'] == '7325036766577035315' && $confirm_result == 1) {//测试
             $confirm_info['free_travel_info'] = [//境内自由行类目预定信息
                 'oneday_tour_list' => [
