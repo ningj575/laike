@@ -31,7 +31,7 @@ class OrderBookModel extends BaseModel
     }
      public function getBookStatusTextAttr($val, $data){
         $status_text=['1'=>'预约待确认','2'=>'预约成功','-1'=>'预约失败','-2'=>'取消预约'];
-        return $status_text[$data['order_status']]??'';
+        return $status_text[$data['book_status']]??'';
     }
 
         /**
