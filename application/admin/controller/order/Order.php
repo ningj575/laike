@@ -125,7 +125,7 @@ class Order extends AdminServer {
                     $val['time'] = $val['time'] . "\n" . '预约时间:' . $val['book']['create_order_time_unix'];
                     $val['time'] = $val['time'] . "\n" . '出行日期:' . $val['book']['book_start_date'];
                 }
-                if($val['order_status']==1){
+                if($val['order_status']==2){
                     $time_diff=$val['book']['create_order_time_unix']+$val['book']['order_accept_hour']*3600-time();
                     $time_diff>0&&$val['order_accept_time']= $this->formatSecondsAsTime($time_diff);
                 }

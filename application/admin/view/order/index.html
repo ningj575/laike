@@ -149,8 +149,11 @@
                             </script>
                             <script type="text/html" id="order_status_tpl">
                                 <span>{{d.order_status_text}}</span>         
-                                {{# if(d.order_status==1){ }}
+                                {{# if(d.order_status==2){ }}
                                     <br/><span style='color:red'>{{d.order_accept_time}}后超时自动拒单</span>        
+                                {{# } }}
+                                {{# if(d.order_status==-1&&d.refund_status==-1){ }}
+                                    <br/><span style='color:red'>有退款</span>        
                                 {{# } }}
                             </script>
                             <script type="text/html" id="TPL-select-sales">   
