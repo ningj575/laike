@@ -136,7 +136,7 @@ class OrderServer extends BaseServer {
             $data['pay_time_unix'] = $data['pay_info']['pay_time_unix'] ?? '';
         }
         $order_book_mod->allowField(true)->save($data);        
-        $order->setField('order_status', 2); //更新订单状态为待接单
+        $order->save(['order_status'=>2]); //更新订单状态为待接单
         $book_customer_mod = new OrderBookTravelerModel();
         $book_customer = $data['book_info']['occupancies'];
         foreach ($book_customer as $val) {

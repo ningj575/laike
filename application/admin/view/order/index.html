@@ -146,7 +146,13 @@
                             <!--<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>-->
                             <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="info"><i class="layui-icon layui-icon-about"></i>详情</a>
                             <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>-->                            
-                            </script>    
+                            </script>
+                            <script type="text/html" id="order_status_tpl">
+                                <span>{{d.order_status_text}}</span>         
+                                {{# if(d.order_status==1){ }}
+                                    <br/><span style='color:red'>{{d.order_accept_time}}后超时自动拒单</span>        
+                                {{# } }}
+                            </script>
                             <script type="text/html" id="TPL-select-sales">   
                                 {{#  var salesList = {$sales_list|raw}; }}
                                 <select name="city" lay-filter="select-sales" lay-append-to="body" lay-search>
@@ -215,7 +221,7 @@
                                         return d.business.name;
                                     }},
                                 {field: 'order_id', title: '来客订单号'},
-                                {field: 'order_status_text', title: '来客订单状态'},
+                                {field: 'order_status_text', title: '来客订单状态',templet: '#order_status_tpl'},
                                 {field: 'fllow_status_text', title: '订单跟进状态'},
                                 {field: 'item_name', title: '商品名称', templet: function (d) {
                                         return d.product.product_name;

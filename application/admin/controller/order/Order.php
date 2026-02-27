@@ -125,6 +125,10 @@ class Order extends AdminServer {
                     $val['time'] = $val['time'] . "\n" . '预约时间:' . $val['book']['create_order_time_unix'];
                     $val['time'] = $val['time'] . "\n" . '出行日期:' . $val['book']['book_start_date'];
                 }
+                if($val['order_status']==1){
+                    $time_diff=$val['book']['create_order_time_unix']+$val['book']['order_accept_hour']*3600-time();
+                    $time_diff>0&&$val['order_accept_time']= $this->formatSecondsAsTime($time_diff);
+                }
             }
             $data = ['msg' => '', 'code' => 1000, 'data' => $lists, 'count' => $count];
             return json($data);
@@ -146,7 +150,7 @@ class Order extends AdminServer {
             'buyer_info_phone' => $buyer_info_phone
         ]);
         return $this->fetch('order/index');
-    }
+    }    
 
     /**
      * 编辑
@@ -218,14 +222,14 @@ class Order extends AdminServer {
         return $this->fetch('order/info');
     }
 
-    private function formatSecondsAsTime($seconds) {
+    private function formatSecondsAsTime($seconds,$type=1) {
         $hours = floor($seconds / 3600);
         $minutes = floor(($seconds / 60) % 60);
         $seconds = $seconds % 60;
         $str = '';
         $hours && $str = $str . $hours . '小时';
         $minutes && $str = $str . $minutes . '分';
-        $seconds && $str = $str . $seconds . '秒';
+        $type==1&&$seconds && $str = $str . $seconds . '秒';
         return $str;
     }
 
