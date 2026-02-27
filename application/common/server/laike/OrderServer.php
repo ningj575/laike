@@ -111,7 +111,16 @@ class OrderServer extends BaseServer {
             $res_data['description'] = '订单已经处理过了';
             return $res_data;
         }
+        $order_mod = new OrderModel();
+        $order=$order_mod->where('order_id', $data['source_order_id'])->find();
+        $product_info_mod=new \app\common\model\product\ProductInfoModel();
+        $product_info=$product_info_mod->where('product_id',$order['product_id'])->field('order_accept_duration,order_accept_time_range')->find();
         $order_book_mod->startTrans();
+        if(!empty($product_info['order_accept_duration'])){
+            $order_accept_duration=json_decode($product_info['order_accept_duration'],true);
+            $data['order_accept_hour']=$order_accept_duration['time'];
+        }
+        $data['order_accept_time_range']=$product_info['order_accept_time_range'];
         $data['order_out_id'] = getOrderSn(6);
         $douyin_ser = new DouyinServer();
         if (!empty($data['buyer_info'])) {
@@ -126,9 +135,8 @@ class OrderServer extends BaseServer {
         if (!empty($data['pay_info'])) {
             $data['pay_time_unix'] = $data['pay_info']['pay_time_unix'] ?? '';
         }
-        $order_book_mod->allowField(true)->save($data);
-        $order_mod = new OrderModel();
-        $order_mod->where('order_id', $data['source_order_id'])->setField('order_status', 2); //更新订单状态为待接单
+        $order_book_mod->allowField(true)->save($data);        
+        $order->setField('order_status', 2); //更新订单状态为待接单
         $book_customer_mod = new OrderBookTravelerModel();
         $book_customer = $data['book_info']['occupancies'];
         foreach ($book_customer as $val) {
@@ -290,9 +298,9 @@ class OrderServer extends BaseServer {
 
     public function getStatic($uid) {
         $sales_user_mod = new \app\common\model\sales\SalesUserModel();
-        $is_sales = $sales_user_mod->where('admin_id', $uid)->find();
+        $sales = $sales_user_mod->where('admin_id', $uid)->find();
         $where = [];
-        if ($is_sales) {
+        if ($sales) {
             $where[] = ['sales_user_id', 'eq', $uid];
             $is_sales = 1;
         } else {
@@ -301,7 +309,7 @@ class OrderServer extends BaseServer {
         $order = new OrderModel();
         $order_static = $order->where($where)->field('count(id) as all_order_count,sum(if(order_status=1,1,0)) as stay_book_count,sum(if(order_status=2,1,0)) as stay_confirm_count,'
                         . 'sum(if(order_status=3,1,0)) as book_count,sum(if(fllow_status=3,1,0)) as completed_count,sum(if(fllow_status=2,1,0)) as fllow_count,sum(if(fllow_status=1,1,0)) as dist_count'
-                        . ',sum(if(refund_status=-1,1,0)) as refund_count')->select();
+                        . ',sum(if(refund_status=-1,1,0)) as refund_count,sum(if(out_fllow_time>0 and out_fllow_time<UNIX_TIMESTAMP(),1,0)) as near_fllow_count')->select();
         $lead_mod = new \app\common\model\sales\SalesLeadModel();
         $lead_static = $lead_mod->where($where)->field('sum(if(lead_fllow_status=1,1,0)) as dist_count,sum(if(lead_fllow_status=2,1,0)) as fllow_count,sum(if(lead_fllow_status=3,1,0)) as completed_count')->select();
         $complain_mod = new \app\common\model\order\OrderComplainModel();
@@ -312,6 +320,15 @@ class OrderServer extends BaseServer {
             'lead' => $lead_static[0],
             'complain' => $complain_static[0],
         ];
+        if($is_sales){
+            $order_assign_mod=new \app\common\model\order\OrderAssignModel();
+            $assign_where=[
+                ['sales_user_id','eq',$uid],
+                ['is_reallocate','eq',0],
+                ['out_fllow_time','lt',time()],
+            ];
+            $static['order']['timeout_fllow_count']=$order_assign_mod->where($assign_where)->count();
+        }
         return $static;
     }
 
